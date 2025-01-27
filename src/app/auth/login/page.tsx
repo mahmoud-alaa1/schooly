@@ -131,8 +131,9 @@ export default function LoginPage() {
                         name="rememberMe"
                       />
                     </FormControl>
-                    &nbsp;&nbsp;
-                    <FormLabel htmlFor="rememberMe">إحتفظ بالجلسة؟</FormLabel>
+                    <FormLabel htmlFor="rememberMe">
+                      &nbsp;&nbsp; إحتفظ بالجلسة؟
+                    </FormLabel>
                   </FormItem>
                 )}
               />
