@@ -4,7 +4,7 @@ import "../Styles/globals.css";
 
 const alexandria = Alexandria({
   variable: "--font-alexandria",
-  subsets: ["latin", "arabic"],
+  subsets: ["arabic", "latin"],
 });
 
 export const metadata: Metadata = {
@@ -18,8 +18,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="auto">
-      <body className={`${alexandria.variable} antialiased`}>{children}</body>
+    <html lang="ar" dir="rtl">
+      <body className={`${alexandria.className} antialiased min-h-screen`}>
+        {children}
+      </body>
     </html>
   );
 }
