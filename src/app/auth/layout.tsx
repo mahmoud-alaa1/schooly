@@ -6,8 +6,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <header className=" px-10 py-8 ml-auto flex items-center gap-x-3">
-        <RiGraduationCapLine className="text-primary text-6xl" />
-        <span className="text-4xl">سكولي</span>
+        <RiGraduationCapLine className="text-primary text-4xl" />
+        <span className="text-2xl">سكولي</span>
       </header>
       <main>
         <MaxWidthWrapper>{children}</MaxWidthWrapper>
