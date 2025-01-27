@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Alexandria } from "next/font/google";
+import { Alexandria } from "next/font/google";
 import "../Styles/globals.css";
 
 const alexandria = Alexandria({
