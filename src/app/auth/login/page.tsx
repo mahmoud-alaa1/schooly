@@ -42,8 +42,8 @@ export default function LoginPage() {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "maher@example.com",
+      password: "maher012",
       rememberMe: true,
     },
   });
@@ -145,7 +145,10 @@ export default function LoginPage() {
               </Link>
             </div>
 
-            <Button className="w-full py-6 text-lg rounded-lg" type="submit">
+            <Button
+              className="w-full bg-[#02D496] hover:bg-[#1a7258] py-6 text-lg rounded-lg"
+              type="submit"
+            >
               تسجيل الدخول
             </Button>
           </form>
