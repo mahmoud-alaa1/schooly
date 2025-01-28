@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Alexandria } from "next/font/google";
 import "../Styles/globals.css";
+import { AuthProvider } from "@/context/AuthProvider";
 
 const alexandria = Alexandria({
   variable: "--font-alexandria",
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <body className={`${alexandria.className} antialiased min-h-screen`}>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

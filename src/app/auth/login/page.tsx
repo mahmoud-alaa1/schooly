@@ -23,6 +23,7 @@ import { RiEyeOffLine } from "react-icons/ri";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
+import axios from "axios";
 
 // Form Schema
 const formSchema = z.object({
@@ -48,8 +49,15 @@ export default function LoginPage() {
     },
   });
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = async (values: FormValues) => {
     console.log(values);
+    try {
+      const res = await axios.post("/api/auth/login", values);
+
+      console.log(res);
+    } catch (error) {
+      console.error("Auth error:", error);
+    }
   };
 
   return (

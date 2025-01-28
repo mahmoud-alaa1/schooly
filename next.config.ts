@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-
         destination:
           "https://school-management-a2d5azgtedfeg9b8.canadacentral-01.azurewebsites.net/api/:path*",
       },
