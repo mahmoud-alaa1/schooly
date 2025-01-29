@@ -44,11 +44,12 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (values: TLoginFormValues) => {
-    console.log(values);
     const result = await signIn("credentials", {
       redirect: false,
-      ...values,
+      email: values.email,
+      password: values.password,
     });
+    localStorage.setItem("rememberMe", values.rememberMe.toString());
 
     if (result?.error) {
       toast.error("حدث خطأ أثناء تسجيل الدخول");
