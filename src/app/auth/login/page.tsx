@@ -51,7 +51,7 @@ export default function LoginPage() {
     });
 
     if (result?.error) {
-      console.error("Error during sign in:", result.error);
+      toast.error("حدث خطأ أثناء تسجيل الدخول");
     } else {
       toast.success("تم تسجيل الدخول بنجاح");
       startTransition(() => {
@@ -78,6 +78,7 @@ export default function LoginPage() {
                   <FormLabel htmlFor="email">البريد الالكتروني</FormLabel>
                   <FormControl>
                     <Input
+                      disabled={form.formState.isSubmitting}
                       {...field}
                       id="email"
                       type="email"
@@ -102,6 +103,7 @@ export default function LoginPage() {
                       <Input
                         {...field}
                         id="password"
+                        disabled={form.formState.isSubmitting}
                         type={showPassword ? "text" : "password"}
                         autoComplete="current-password"
                         className="outline-none border-none rounded-[inherit] py-5"
@@ -132,6 +134,7 @@ export default function LoginPage() {
                   <FormItem>
                     <FormControl>
                       <Checkbox
+                        disabled={form.formState.isSubmitting}
                         className=" data-[state=checked]:bg-[#02D496] data-[state=checked]:border-[#02D496]"
                         checked={field.value}
                         onCheckedChange={field.onChange}
@@ -156,8 +159,13 @@ export default function LoginPage() {
             <Button
               className="w-full bg-[#02D496] hover:bg-[#1a7258] py-6 text-lg rounded-lg"
               type="submit"
+              disabled={form.formState.isSubmitting}
             >
-              تسجيل الدخول
+              {form.formState.isSubmitting ? (
+                <span className="loader"></span>
+              ) : (
+                "تسجيل الدخول"
+              )}
             </Button>
           </form>
         </Form>
