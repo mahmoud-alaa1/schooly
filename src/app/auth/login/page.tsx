@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react"; // Import the signIn function from NextAuth
+import { signIn } from "next-auth/react";
 
 // UI Components
 import { Button } from "@/components/ui/button";

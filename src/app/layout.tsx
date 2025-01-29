@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Alexandria } from "next/font/google";
-import "../Styles/globals.css";
-import { AuthProvider } from "@/context/AuthProvider";
+import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
+import "../Styles/globals.css";
 
 const alexandria = Alexandria({
   variable: "--font-alexandria",
@@ -20,22 +20,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl">
-      <body className={`${alexandria.className} antialiased min-h-screen`}>
-        <Toaster
-          position="bottom-left"
-          toastOptions={{
-            success: {
-              style: {
-                background: "#10B981",
-                color: "#fff",
+    <SessionProvider>
+      <html lang="ar" dir="rtl">
+        <body className={`${alexandria.className} antialiased min-h-screen`}>
+          <Toaster
+            position="bottom-left"
+            toastOptions={{
+              success: {
+                style: {
+                  background: "#10B981",
+                  color: "#fff",
+                },
               },
-            },
-          }}
-        />
+            }}
+          />
 
-        <AuthProvider>{children}</AuthProvider>
-      </body>
-    </html>
+          {children}
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
