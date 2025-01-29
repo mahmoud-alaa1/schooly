@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react"; // Import the signIn function from NextAuth
 
 // UI Components
 import { Button } from "@/components/ui/button";
@@ -23,25 +23,18 @@ import { RiEyeOffLine } from "react-icons/ri";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { Checkbox } from "@/components/ui/checkbox";
 import Link from "next/link";
-import axios from "axios";
+import { startTransition } from "react";
+import { useRouter } from "next/navigation";
 
 // Form Schema
-const formSchema = z.object({
-  email: z.string().email("من فضلك ادخل بريد الكتروني صحيح"),
-  password: z
-    .string()
-    .min(6, "كلمة السر يجب ان تكون 6 حروف على الاقل")
-    .max(50, "اقصى كلمة سر 50 حرف"),
-  rememberMe: z.boolean(),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import { loginSchema, TLoginFormValues } from "@/schemas/login";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<TLoginFormValues>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "maher@example.com",
       password: "maher012",
@@ -49,14 +42,19 @@ export default function LoginPage() {
     },
   });
 
-  const onSubmit = async (values: FormValues) => {
-    console.log(values);
-    try {
-      const res = await axios.post("/api/auth/login", values);
+  const onSubmit = async (values: TLoginFormValues) => {
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
 
-      console.log(res);
-    } catch (error) {
-      console.error("Auth error:", error);
+    if (result?.error) {
+      console.error("Error during sign in:", result.error);
+    } else {
+      startTransition(() => {
+        router.replace("/");
+      });
     }
   };
 
