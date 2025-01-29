@@ -28,6 +28,7 @@ import { useRouter } from "next/navigation";
 
 // Form Schema
 import { loginSchema, TLoginFormValues } from "@/schemas/login";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -52,6 +53,7 @@ export default function LoginPage() {
     if (result?.error) {
       console.error("Error during sign in:", result.error);
     } else {
+      toast.success("تم تسجيل الدخول بنجاح");
       startTransition(() => {
         router.replace("/");
       });
