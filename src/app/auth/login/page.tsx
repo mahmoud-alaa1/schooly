@@ -44,10 +44,10 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (values: TLoginFormValues) => {
+    console.log(values);
     const result = await signIn("credentials", {
       redirect: false,
-      email: values.email,
-      password: values.password,
+      ...values,
     });
 
     if (result?.error) {
