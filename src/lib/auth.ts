@@ -25,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Missing credentials");
         }
 
-        const { email, password } = credentials as Partial<CredentialsType>;
+        const { email, password } = credentials as CredentialsType;
 
         if (!email || !password) {
           throw new Error("Email and password are required");

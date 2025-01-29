@@ -44,8 +44,6 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (values: TLoginFormValues) => {
-    localStorage.setItem("rememberMe", values.rememberMe.toString());
-
     const result = await signIn("credentials", {
       redirect: false,
       email: values.email,
@@ -55,6 +53,9 @@ export default function LoginPage() {
     if (result?.error) {
       toast.error("حدث خطأ أثناء تسجيل الدخول");
     } else {
+      if (values.rememberMe)
+        localStorage.setItem("rememberMe", new Date().toISOString());
+
       toast.success("تم تسجيل الدخول بنجاح");
       startTransition(() => {
         router.replace("/");
