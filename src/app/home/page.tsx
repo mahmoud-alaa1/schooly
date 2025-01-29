@@ -1,12 +1,9 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import Link from "next/link";
-
-export default async function Home() {
+import SignoutButton from "@/components/SignoutButton";
+export default async function Page() {
   return (
     <MaxWidthWrapper className="py-12">
-      <Link href="/auth/login" className="text-4xl">
-        Login
-      </Link>
+      <SignoutButton />
     </MaxWidthWrapper>
   );
 }
