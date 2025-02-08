@@ -50,10 +50,11 @@ export default function LoginForm() {
     });
 
     if (result?.error) {
-      toast.error("حدث خطأ أثناء تسجيل الدخول");
+      if (result.status === 200)
+        toast.error("البريد الالكتروني او كلمة السر خطأ");
+      else toast.error("حدث خطأ ما، يرجى المحاولة مرة أخرى");
     } else {
-      if (values.rememberMe)
-        localStorage.setItem("rememberMe", new Date().toISOString());
+      localStorage.setItem("rememberMe", values.rememberMe.toString());
 
       toast.success("تم تسجيل الدخول بنجاح");
       startTransition(() => {
