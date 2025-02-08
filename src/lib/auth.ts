@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 interface CredentialsType {
   email: string;
   password: string;
+  rememberMe: string;
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -19,21 +20,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: {
         email: { label: "Email", type: "email", placeholder: "Email" },
         password: { label: "Password", type: "password" },
+        rememberMe: { label: "Remember me", type: "checkbox" },
       },
       async authorize(credentials) {
-        if (!credentials) {
-          throw new Error("Missing credentials");
-        }
-
-        const { email, password } = credentials as CredentialsType;
+        const { email, password, rememberMe } = credentials as CredentialsType;
 
         if (!email || !password) {
           throw new Error("Email and password are required");
         }
-
+        const remember: boolean = rememberMe === "true";
         try {
-          const user = await signInService(email, password);
-
+          const user = await signInService({
+            email,
+            password,
+            rememberMe: remember,
+          });
           if (!user || !user.data) {
             throw new Error("Invalid credentials");
           }
@@ -44,8 +45,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             name: user.data.name,
             token: user.token,
           };
-        } catch (error) {
-          console.error("Sign-in error:", error);
+        } catch {
           throw new Error("Authentication failed");
         }
       },

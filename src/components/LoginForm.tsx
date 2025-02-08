@@ -54,8 +54,6 @@ export default function LoginForm() {
         toast.error("البريد الالكتروني او كلمة السر خطأ");
       else toast.error("حدث خطأ ما، يرجى المحاولة مرة أخرى");
     } else {
-      localStorage.setItem("rememberMe", values.rememberMe.toString());
-
       toast.success("تم تسجيل الدخول بنجاح");
       startTransition(() => {
         router.replace("/");

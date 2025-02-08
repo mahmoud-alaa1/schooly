@@ -10,21 +10,24 @@ type TSignInResponse = {
   };
 };
 
-export async function signIn(
-  email: string,
-  password: string
-): Promise<TSignInResponse> {
+export async function signIn({
+  email = "",
+  password = "",
+  rememberMe = true,
+}: {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+}): Promise<TSignInResponse> {
   if (!email || !password) {
     throw new Error("Please provide email and password");
   }
-
-  console.log(email, password);
   try {
     const res = await axios.post<TSignInResponse>("/auth/login", {
       email,
       password,
+      rememberMe,
     });
-    console.log("axios response: ", res);
     return res.data;
   } catch (error) {
     if (isAxiosError(error)) {
