@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Alexandria } from "next/font/google";
+import { Alexandria } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
+import { Toaster } from "react-hot-toast";
 import "../Styles/globals.css";
 
 const alexandria = Alexandria({
   variable: "--font-alexandria",
-  subsets: ["latin", "arabic"],
+  subsets: ["arabic", "latin"],
 });
 
 export const metadata: Metadata = {
@@ -18,8 +20,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="auto">
-      <body className={`${alexandria.variable} antialiased`}>{children}</body>
-    </html>
+    <SessionProvider>
+      <html lang="ar" dir="rtl">
+        <body className={`${alexandria.className} antialiased min-h-screen`}>
+          <Toaster
+            position="bottom-left"
+            toastOptions={{
+              success: {
+                style: {
+                  background: "#10B981",
+                  color: "#fff",
+                },
+              },
+            }}
+          />
+
+          {children}
+        </body>
+      </html>
+    </SessionProvider>
   );
 }
