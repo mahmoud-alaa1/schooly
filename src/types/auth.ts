@@ -1,4 +1,4 @@
-type TSignInResponse = {
+export type TSignInResponse = {
   token: string;
   data: {
     id: string;

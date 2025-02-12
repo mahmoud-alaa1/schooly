@@ -1,31 +1,6 @@
 import axios from "@/services/axios";
+import { TGetUpcomingLessonsResponse } from "@/types/lessons";
 import { isAxiosError } from "axios";
-
-enum LessonType {
-  
-}
-
-type TGetUpcomingLessonsResponse = {
-  data: [
-    {
-      id: string;
-      teacherId: string;
-      subject: string;
-      grade: string;
-      title: string;
-      lessonType: number;
-      date: string;
-      from: string;
-      to: string;
-    }
-  ];
-  meta: {
-    totalItems: number;
-    pageSize: number;
-    currentPage: number;
-    totalPages: number;
-  };
-};
 
 export async function getUpcomingLessons() {
   try {

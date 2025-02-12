@@ -1,4 +1,4 @@
-enum LessonType {
+export enum LessonType {
   Explain,
   HomeworkSolution,
   Practice,
@@ -6,20 +6,20 @@ enum LessonType {
   Other,
 }
 
-type TGetUpcomingLessonsResponse = {
-  data: [
-    {
-      id: string;
-      teacherId: string;
-      subject: string;
-      grade: string;
-      title: string;
-      lessonType: LessonType;
-      date: string;
-      from: string;
-      to: string;
-    }
-  ];
+export type TLesson = {
+  id: string;
+  teacherId: string;
+  subject: string;
+  grade: string;
+  title: string;
+  lessonType: LessonType;
+  date: string;
+  from: string;
+  to: string;
+};
+
+export type TGetUpcomingLessonsResponse = {
+  data: TLesson[];
   meta: {
     totalItems: number;
     pageSize: number;
