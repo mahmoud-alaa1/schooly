@@ -1,14 +1,7 @@
 import axios from "@/services/axios";
 import { isAxiosError } from "axios";
 
-type TSignInResponse = {
-  token: string;
-  data: {
-    id: string;
-    email: string;
-    name: string;
-  };
-};
+
 
 export async function signIn({
   email = "",
