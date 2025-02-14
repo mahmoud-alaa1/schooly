@@ -1,6 +1,7 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import SignoutButton from "@/components/SignoutButton";
-import UpcomingLessons from "@/components/UpcomingLessons";
+import UpcomingLessons from "@/components/UpcomingLessons/UpcomingLessons";
+
 export default async function Page() {
   return (
     <MaxWidthWrapper className="py-12">
