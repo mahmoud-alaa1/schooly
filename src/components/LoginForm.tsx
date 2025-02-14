@@ -56,7 +56,7 @@ export default function LoginForm() {
     } else {
       toast.success("تم تسجيل الدخول بنجاح");
       startTransition(() => {
-        router.replace("/");
+        router.replace("/home");
       });
     }
   };
