@@ -1,12 +1,12 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import SignoutButton from "@/components/SignoutButton";
+import SideNavbar from "@/components/SideNavbar";
 import UpcomingLessons from "@/components/UpcomingLessons/UpcomingLessons";
 
 export default async function Page() {
   return (
-    <MaxWidthWrapper className="py-12">
-      <SignoutButton />
+    <div className="grid grid-cols-[minmax(200px,220px)_auto_minmax(350px,400px)] gap-4">
+      <SideNavbar />
+      <div className="h-[1000px] bg-white rounded-xl border border-[#D9D9D9]"></div>
       <UpcomingLessons />
-    </MaxWidthWrapper>
+    </div>
   );
 }

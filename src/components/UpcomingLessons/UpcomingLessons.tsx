@@ -5,7 +5,7 @@ import LessonSkeleton from "./LessonSkeleton";
 
 export default async function UpcomingLessons() {
   return (
-    <div className="max-w-lg mx-auto bg-white rounded-2xl border-2 border-neutral-200">
+    <div className="max-w-lg h-fit bg-white rounded-2xl border-2 border-neutral-200">
       <h2 className="border-b border-neutral-200 flex items-center gap-x-1 py-4 px-6 font-medium">
         <AiOutlineClockCircle className="text-xl" />
         حصصك القادمة
