@@ -2,16 +2,12 @@
 
 import { signOut } from "next-auth/react";
 import { Button } from "./ui/button";
+import { IoMdLogOut } from "react-icons/io";
 
 export default function SignoutButton() {
   return (
-    <Button
-    className="fixed bottom-1 right-1"
-      onClick={() => {
-        signOut();
-      }}
-    >
-      Logout
+    <Button onClick={() => signOut()} variant="ghost" size="icon">
+      <IoMdLogOut className="text-2xl relative" />
     </Button>
   );
 }

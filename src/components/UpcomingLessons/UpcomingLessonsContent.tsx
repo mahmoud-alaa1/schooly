@@ -47,7 +47,7 @@ const fakeGetLessons = () => {
           to: "11:00",
         },
       ]);
-    }, 3000);
+    }, 0);
   });
 };
 
@@ -61,7 +61,7 @@ export default async function UpcomingLessonsContent() {
             <Lesson key={lesson.id} details={lesson} />
           ))}
         </ul>
-        <Pagination className="mb-2">
+        <Pagination className="mb-2 px-2">
           <PaginationContent>
             <PaginationItem>
               <PaginationPrevious href="#" />

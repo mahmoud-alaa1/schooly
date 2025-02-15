@@ -112,7 +112,7 @@ export default function LoginForm() {
                       <Button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="bg-transparent hover:text-stone-700 hover:bg-transparent text-stone-400 text-5xl p-3"
+                        className="bg-transparent hover:text-stone-700 hover:bg-transparent text-stone-400 text-xl p-3"
                       >
                         {showPassword ? (
                           <RiEyeOffLine />
