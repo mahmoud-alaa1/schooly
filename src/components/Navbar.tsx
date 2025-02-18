@@ -26,7 +26,7 @@ export default function Navbar({ className }: { className?: string }) {
             <div className="border-2 min-w-72 flex rounded-xl items-center ">
               <Input
                 dir="rtl"
-                className="rounded-[inherit] text-md border-none ring-0 outline-none "
+                className="rounded-[inherit] text-md border-none ring-0 outline-none  "
                 type="email"
                 placeholder="ابحث عن ..."
               />
