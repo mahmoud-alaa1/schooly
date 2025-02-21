@@ -8,7 +8,7 @@ export default function Lesson({ details }: { details: TLesson }) {
   const { text, variant } = getUpcomingLessonsBadgeText(date, from, to);
   return (
     <li className="mb-3 min-h-20 grid grid-cols-[auto_3fr_auto] gap-x-3 border-b pt-2 pb-4 last-of-type:border-none last-of-type:mb-0">
-      <Image height={52} width={52} src={`/physics.png`} alt={subject} />
+      <Image height={52} width={52} src={`/physics.webp`} alt={subject} />
       <article>
         <header>
           <h3 className="text-[#00000073]">
