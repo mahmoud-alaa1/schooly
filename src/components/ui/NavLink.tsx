@@ -16,12 +16,12 @@ const NavLink = ({
   className: string;
   rest?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
 }) => {
-  const pathname = usePathname(); // p
+  const pathname = usePathname();
   const isActive =
     pathname.endsWith(href) || (href.includes(pathname) && pathname !== "/");
   const newClassName = `${
     isActive ? activeClassName : nonActiveClassName
-  } ${className}`;
+  } ${className} `;
   return (
     <Link href={href} className={newClassName} {...rest}>
       {children}

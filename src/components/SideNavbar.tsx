@@ -49,9 +49,9 @@ export default function SideNavbar() {
             <li key={link.title}>
               <NavLink
                 href={link.href}
-                activeClassName="text-[#02C189] bg-[#F5F5F5] rounded-2xl"
+                activeClassName="text-[#02C189] bg-[#F5F5F5]"
                 nonActiveClassName="text-gray-500"
-                className="flex items-center gap-2 p-2"
+                className="flex items-center gap-2 p-2 active:scale-95 transition hover:bg-[#F5F5F5] rounded-2xl"
               >
                 {link.icon}
                 {link.title}
