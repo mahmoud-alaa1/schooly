@@ -20,7 +20,7 @@ export default function Navbar({ className }: { className?: string }) {
         </div>
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
-            <Button className="bg-[#02D496] text-md rounded-xl px-4 hover:bg-[#30b58d]">
+            <Button className="bg-[#02D496] text-md rounded-xl px-4 hover:bg-[#30b58d] transition active:scale-95">
               حصة جديدة <FaPlus className="text-[##FFFFFF]" />
             </Button>
             <div className="border-2 min-w-72 flex rounded-xl items-center ">
@@ -32,7 +32,7 @@ export default function Navbar({ className }: { className?: string }) {
               />
               <Button
                 type="submit"
-                className="rounded-[inherit] border-r rounded-tr-none rounded-br-none text-[#00000073] bg-transparent hover:bg-slate-50"
+                className="rounded-[inherit] border-r rounded-tr-none rounded-br-none text-[#00000073] bg-transparent hover:bg-slate-50 transition active:scale-95"
               >
                 <GoSearch />
               </Button>
@@ -57,7 +57,7 @@ export default function Navbar({ className }: { className?: string }) {
               <Button variant="ghost" size="icon">
                 <div className="relative inline-block">
                   <AiOutlineMessage className="text-xl relative" />
-                  <span className="absolute -top-0 -right-3 bg-red-500 text-white text-xs font-bold rounded-full size-5  flex items-center justify-center">
+                  <span className="absolute -top-0 -right-3 bg-red-500 text-white text-xs font-bold rounded-full size-5  flex items-center justify-center ">
                     2
                   </span>
                 </div>
