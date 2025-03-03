@@ -1,14 +1,14 @@
 import React from "react";
 import { RiGraduationCapLine } from "react-icons/ri";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { FaPlus } from "react-icons/fa";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { GoSearch } from "react-icons/go";
 import { FaRegBell } from "react-icons/fa";
 import { AiOutlineMessage } from "react-icons/ai";
 
-import UserAvatar from "./ui/userAvatar";
-import SignoutButton from "./SignoutButton";
+import UserAvatar from "../ui/userAvatar";
+import SignoutButton from "../SignoutButton";
 import { cn } from "@/lib/utils";
 
 export default function Navbar({ className }: { className?: string }) {
@@ -44,17 +44,17 @@ export default function Navbar({ className }: { className?: string }) {
               <span>أيمن أحمد</span>
             </li>
             <li className="p-1">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="pr-2.5">
                 <div className="relative inline-block">
                   <FaRegBell className="text-xl relative" />
-                  <span className="absolute -top-0 -right-3 bg-red-500 text-white text-xs font-bold rounded-full size-5  flex items-center justify-center">
+                  <span className="absolute -top-0 -right-3 bg-red-500 text-white text-xs font-bold rounded-full size-5 flex items-center justify-center">
                     9
                   </span>
                 </div>
               </Button>
             </li>
             <li className="p-1">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="pr-2.5">
                 <div className="relative inline-block">
                   <AiOutlineMessage className="text-xl relative" />
                   <span className="absolute -top-0 -right-3 bg-red-500 text-white text-xs font-bold rounded-full size-5  flex items-center justify-center ">
