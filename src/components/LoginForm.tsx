@@ -37,18 +37,19 @@ export default function LoginForm() {
   const form = useForm<TLoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: "maher@example.com",
-      password: "maher012",
+      email: "mahmoud@example.com",
+      password: "mahmoud010",
       rememberMe: true,
     },
   });
 
   const onSubmit = async (values: TLoginFormValues) => {
+    console.log(values);
     const result = await signIn("credentials", {
       redirect: false,
       ...values,
     });
-
+    console.log(result);
     if (result?.error) {
       if (result.status === 200)
         toast.error("البريد الالكتروني او كلمة السر خطأ");

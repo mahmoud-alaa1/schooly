@@ -24,7 +24,7 @@ export default function RootLayout({
       <html lang="ar" dir="rtl">
         <body className={`${alexandria.className} antialiased min-h-screen`}>
           <Toaster
-            position="bottom-left"
+            position="top-center"
             toastOptions={{
               success: {
                 style: {

@@ -9,6 +9,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { getUpcomingLessons } from "@/services/lessons";
 const fakeGetLessons = () => {
   return new Promise<TLesson[]>((resolve) => {
     setTimeout(() => {
@@ -53,7 +54,7 @@ const fakeGetLessons = () => {
 
 export default async function UpcomingLessonsContent() {
   try {
-    const lessons: TLesson[] = await fakeGetLessons();
+    const lessons: TLesson[] = await getUpcomingLessons();
     return (
       <>
         <ul className="p-6 pb-0">

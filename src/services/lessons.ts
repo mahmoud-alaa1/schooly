@@ -8,7 +8,7 @@ export async function getUpcomingLessons() {
       "/lesson/upcoming"
     );
 
-    return res.data;
+    return res.data.data;
   } catch (error) {
     if (isAxiosError(error)) {
       const message =

@@ -1,8 +1,10 @@
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   timeout: 20000,
+  withCredentials: true,
 });
 
 instance.interceptors.response.use(
@@ -15,7 +17,7 @@ instance.interceptors.response.use(
       console.log("unauthorized");
 
       // redirect to login page
-      window.location.href = "/login";
+      redirect("/login");
     }
     return Promise.reject(error);
   }
