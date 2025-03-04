@@ -10,7 +10,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 const fakeGetLessons = () => {
   return [
     {
@@ -51,7 +51,8 @@ const fakeGetLessons = () => {
 
 export default function UpcomingLessonsContent() {
   const lessons: TLesson[] = fakeGetLessons();
-
+  const res = useSession();
+  console.log(res);
   return (
     <>
       <ul className="p-6 pb-0">

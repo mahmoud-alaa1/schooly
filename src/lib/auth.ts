@@ -1,5 +1,5 @@
 import { signIn as signInService } from "@/services/auth";
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 interface CredentialsType {
@@ -26,42 +26,41 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const { email, password, rememberMe } = credentials as CredentialsType;
 
         if (!email || !password) {
-          throw new Error("Email and password are required");
+          throw new CredentialsSignin("please provide both email and password");
         }
-        const remember: boolean = rememberMe === "true";
-        try {
-          const user = await signInService({
-            email,
-            password,
-            rememberMe: remember,
-          });
-          if (!user || !user.data) {
-            throw new Error("Invalid credentials");
-          }
 
-          return {
-            id: user.data.id,
-            email: user.data.email,
-            name: user.data.name,
-            token: user.token,
-          };
-        } catch {
-          throw new Error("Authentication failed");
+        const user = await signInService({
+          email,
+          password,
+          rememberMe: rememberMe === "true",
+        });
+
+        if (!user || !user.data) {
+          throw new CredentialsSignin("Invalid email or password");
         }
+
+        return {
+          id: user.data.id,
+          email: user.data.email,
+          name: user.data.name,
+          token: user.token,
+        };
       },
     }),
   ],
   callbacks: {
-    authorized({ auth }) {
-      return !!auth?.user;
-    },
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
       }
-      return token;
+      return { ...token, accessToken: account?.access_token };
+    },
+    async session({ session, token, user }) {
+      session.user.id = token.id;
+      session.user.token = token.accessToken;
+      return session;
     },
   },
 });

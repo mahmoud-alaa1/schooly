@@ -2,8 +2,12 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { Suspense } from "react";
 import UpcomingLessonsContent from "./UpcomingLessonsContent";
 import LessonSkeleton from "./LessonSkeleton";
+import { auth } from "@/lib/auth";
 
 export default async function UpcomingLessons() {
+  const session = await auth();
+  console.log(session);
+
   return (
     <div className="max-w-lg h-fit bg-white rounded-2xl border-2 border-neutral-200">
       <h2 className="border-b border-neutral-200 flex items-center gap-x-1 py-4 px-6 font-medium">
