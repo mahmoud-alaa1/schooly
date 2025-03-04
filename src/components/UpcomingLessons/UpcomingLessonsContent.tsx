@@ -1,3 +1,4 @@
+"use client";
 import Lesson from "./Lesson";
 import { TLesson } from "@/types/lessons";
 import {
@@ -9,6 +10,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { useQuery } from "@tanstack/react-query";
 const fakeGetLessons = () => {
   return [
     {
@@ -49,6 +51,7 @@ const fakeGetLessons = () => {
 
 export default function UpcomingLessonsContent() {
   const lessons: TLesson[] = fakeGetLessons();
+
   return (
     <>
       <ul className="p-6 pb-0">
