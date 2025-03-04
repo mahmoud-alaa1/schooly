@@ -3,7 +3,7 @@ import { Alexandria } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
 import "../Styles/globals.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
 const alexandria = Alexandria({
   variable: "--font-alexandria",
   subsets: ["arabic", "latin"],
@@ -19,29 +19,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const queryClient = new QueryClient();
-
   return (
     <SessionProvider>
-      <QueryClientProvider client={queryClient}>
-        <html lang="ar" dir="rtl">
-          <body className={`${alexandria.className} antialiased min-h-screen`}>
-            <Toaster
-              position="top-center"
-              toastOptions={{
-                success: {
-                  style: {
-                    background: "#10B981",
-                    color: "#fff",
-                  },
+      <html lang="ar" dir="rtl">
+        <body className={`${alexandria.className} antialiased min-h-screen`}>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              success: {
+                style: {
+                  background: "#10B981",
+                  color: "#fff",
                 },
-              }}
-            />
-
-            {children}
-          </body>
-        </html>
-      </QueryClientProvider>
+              },
+            }}
+          />
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+        </body>
+      </html>
     </SessionProvider>
   );
 }

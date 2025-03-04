@@ -2,32 +2,35 @@ import axios from "@/services/axios";
 import { TSignInResponse } from "@/types/auth";
 import { isAxiosError } from "axios";
 
-export async function signIn({
-  email = "",
-  password = "",
-  rememberMe = true,
-}: {
+interface SignInParams {
   email: string;
   password: string;
-  rememberMe: boolean;
-}): Promise<TSignInResponse> {
+  rememberMe?: boolean;
+}
+
+export async function signIn({
+  email,
+  password,
+  rememberMe = true,
+}: SignInParams): Promise<TSignInResponse> {
   if (!email || !password) {
-    throw new Error("Please provide email and password");
+    throw new Error("Please provide both email and password.");
   }
+
   try {
-    const res = await axios.post<TSignInResponse>("/auth/login", {
+    const { data } = await axios.post<TSignInResponse>("/auth/login", {
       email,
       password,
       rememberMe,
     });
-    return res.data;
+
+    return data;
   } catch (error) {
     if (isAxiosError(error)) {
-      const message =
-        error.response?.data?.message || "An error occurred during login";
-      throw new Error(message);
-    } else {
-      throw new Error("An unexpected error occurred");
+      throw new Error(
+        error.response?.data?.message || "Login failed. Please try again."
+      );
     }
+    throw new Error("An unexpected error occurred during login.");
   }
 }

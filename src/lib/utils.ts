@@ -19,7 +19,6 @@ type TBadgeVariant = "blue" | "orange" | "red";
 type TBadgeTimeUpcomingLessons = { text: string; variant: TBadgeVariant };
 
 function createDateTime(dateStr: string, timeStr: string): Date {
-  console.log(dateStr, timeStr);
   const date = new Date(dateStr);
   const [hours, minutes, seconds] = timeStr.split(":").map(Number);
 
