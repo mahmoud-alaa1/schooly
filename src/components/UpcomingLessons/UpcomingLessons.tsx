@@ -1,12 +1,17 @@
+"use client";
+
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Suspense } from "react";
 import UpcomingLessonsContent from "./UpcomingLessonsContent";
 import LessonSkeleton from "./LessonSkeleton";
-import { auth } from "@/lib/auth";
+import { useQuery } from "@tanstack/react-query";
+import { getUpcomingLessons } from "@/services/lessons";
+import { useSession } from "next-auth/react";
 
-export default async function UpcomingLessons() {
-  const session = await auth();
-  console.log(session);
+export default function UpcomingLessons() {
+  getUpcomingLessons();
+
+  console.log(useSession());
 
   return (
     <div className="max-w-lg h-fit bg-white rounded-2xl border-2 border-neutral-200">
@@ -22,9 +27,7 @@ export default async function UpcomingLessons() {
             <LessonSkeleton />
           </div>
         }
-      >
-        <UpcomingLessonsContent />
-      </Suspense>
+      ></Suspense>
     </div>
   );
 }

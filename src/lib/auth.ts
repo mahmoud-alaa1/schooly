@@ -1,4 +1,5 @@
 import { signIn as signInService } from "@/services/auth";
+import { IUser } from "@/types/auth";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -49,17 +50,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
+    async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
+        token = { ...token, ...user };
       }
-      return { ...token, accessToken: account?.access_token };
+      return token;
     },
-    async session({ session, token, user }) {
-      session.user.id = token.id;
-      session.user.token = token.accessToken;
+    async session({ session, token }) {
+      let user = token as unknown as IUser;
+
+      if (token.user) {
+        user = token.user as IUser;
+      }
+
+      if (token) {
+        session.user = {
+          ...session.user,
+          ...user,
+        };
+      }
+
       return session;
     },
   },

@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionProvider>
+    <SessionProvider > 
       <html lang="ar" dir="rtl">
         <body className={`${alexandria.className} antialiased min-h-screen`}>
           <Toaster

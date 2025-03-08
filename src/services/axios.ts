@@ -1,5 +1,6 @@
 import axios from "axios";
 import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -22,4 +23,16 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+instance.interceptors.request.use(async (config) => {
+  const session = await auth();
+  console.log("i'm session", session);
+  const token = session?.user?.token;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export default instance;
