@@ -25,9 +25,9 @@ export default function UpcomingLessons() {
   if (!isLoading && !error && response.meta.totalPages && totalPages === null) {
     setTotalPages(response.meta.totalPages);
   }
-  console.log(totalPages);
+
   return (
-    <div className="max-w-lg h-fit bg-white rounded-2xl border-2 border-neutral-200">
+    <div className="max-w-lg h-fit min-h-[396px] bg-white rounded-2xl border-2 border-neutral-200 flex flex-col">
       <h2 className="border-b border-neutral-200 flex items-center gap-x-1 py-4 px-6 font-medium">
         <AiOutlineClockCircle className="text-xl" />
         حصصك القادمة
@@ -49,15 +49,15 @@ export default function UpcomingLessons() {
           </ul>
         </>
       )}
-      <Pagination className="mb-2 px-2">
-        <PaginationContent>
+      <Pagination className="mb-2 px-2 self-end">
+        <PaginationContent className="flex justify-between w-full just">
           <PaginationItem>
             <Button
-              aria-label="Go to previous page"
+              aria-label="Go to next page"
               size="default"
-              className={cn("gap-1 pr-2.5")}
               variant="ghost"
-              disabled={currentPage === data?.meta.totalPages}
+              className="px-2"
+              disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((prev) => prev + 1)}
             >
               <ChevronRight />
@@ -92,8 +92,8 @@ export default function UpcomingLessons() {
             <Button
               aria-label="Go to previous page"
               size="default"
-              className={cn("gap-1 pr-2.5")}
               variant="ghost"
+              className="px-2"
               onClick={() => setCurrentPage((prev) => prev - 1)}
               disabled={currentPage === 1}
             >
