@@ -33,7 +33,7 @@ export default function UpcomingLessons() {
         حصصك القادمة
       </h2>
       {isLoading ? (
-        <div className="px-6">
+        <div className="p-6 pb-0">
           <LessonSkeleton />
           <LessonSkeleton />
           <LessonSkeleton />
