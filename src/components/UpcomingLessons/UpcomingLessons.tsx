@@ -1,17 +1,22 @@
 "use client";
-
+import { TLesson } from "@/types/lessons";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { AiOutlineClockCircle } from "react-icons/ai";
-import { Suspense } from "react";
-import UpcomingLessonsContent from "./UpcomingLessonsContent";
 import LessonSkeleton from "./LessonSkeleton";
-import { useQuery } from "@tanstack/react-query";
-import { getUpcomingLessons } from "@/services/lessons";
-import { useSession } from "next-auth/react";
+import useUpcomingLessons from "@/services/useUpcomingLessons";
+import Lesson from "./Lesson";
 
 export default function UpcomingLessons() {
-  getUpcomingLessons();
-
-  console.log(useSession());
+  const res = useUpcomingLessons();
+  const lessons: TLesson[] = res.data?.data || [];
 
   return (
     <div className="max-w-lg h-fit bg-white rounded-2xl border-2 border-neutral-200">
@@ -19,15 +24,46 @@ export default function UpcomingLessons() {
         <AiOutlineClockCircle className="text-xl" />
         حصصك القادمة
       </h2>
-      <Suspense
-        fallback={
-          <div className="p-6">
-            <LessonSkeleton />
-            <LessonSkeleton />
-            <LessonSkeleton />
-          </div>
-        }
-      ></Suspense>
+      {res.isLoading ? (
+        <div className="p-6">
+          <LessonSkeleton />
+          <LessonSkeleton />
+          <LessonSkeleton />
+        </div>
+      ) : (
+        <>
+          <ul className="p-6 pb-0">
+            {lessons.map((lesson) => (
+              <Lesson key={lesson.id} details={lesson} />
+            ))}
+          </ul>
+          <Pagination className="mb-2 px-2">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">3</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">2</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#" isActive>
+                  1
+                </PaginationLink>
+              </PaginationItem>
+
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </>
+      )}
     </div>
   );
 }
