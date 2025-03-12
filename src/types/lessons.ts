@@ -18,7 +18,7 @@ export type TLesson = {
   to: string;
 };
 
-export type TGetUpcomingLessonsResponse = {
+export type TUpcomingLessons = {
   data: TLesson[];
   meta: {
     totalItems: number;

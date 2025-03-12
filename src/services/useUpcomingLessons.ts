@@ -1,13 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
-export default function useUpcomingLessons() {
+export default function useUpcomingLessons(currentPage: number) {
   const session = useSession();
-
   function getUpcomingLessons() {
     try {
       const res = fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/lesson/upcoming?PageSize=3`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/lesson/upcoming?PageSize=3&Page=${currentPage}`,
         {
           headers: {
             // @ts-expect-error the token exists
