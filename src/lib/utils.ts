@@ -6,6 +6,7 @@ import {
   differenceInHours,
   isTomorrow,
   isWithinInterval,
+  isToday,
 } from "date-fns";
 import { arEG } from "date-fns/locale";
 import { clsx, type ClassValue } from "clsx";
@@ -59,5 +60,10 @@ export function getUpcomingLessonsBadgeText(
   }
   return isTomorrow(startDateTime)
     ? { text: "غداً", variant: "blue" }
-    : generateTimeDifferenceText(startDateTime, new Date());
+    : isToday(dateStr)
+    ? generateTimeDifferenceText(startDateTime, new Date())
+    : {
+        text: format(dateStr, "d MMMM", { locale: arEG }),
+        variant: "red",
+      };
 }

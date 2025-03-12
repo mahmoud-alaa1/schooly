@@ -1,8 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
 export default function useUpcomingLessons(currentPage: number) {
   const session = useSession();
+  const queryClient = useQueryClient();
+
   function getUpcomingLessons() {
     try {
       const res = fetch(
@@ -24,9 +26,28 @@ export default function useUpcomingLessons(currentPage: number) {
     }
   }
   const res = useQuery({
-    queryKey: ["upcomingLessons"],
+    queryKey: ["upcomingLessons", currentPage],
+    staleTime: 1000 * 60 * 5,
     queryFn: () => getUpcomingLessons(),
   });
+  if (res.data) {
+    if (currentPage < res.data?.meta?.totalPages) {
+      queryClient.prefetchQuery({
+        staleTime: 1000 * 60 * 5,
+
+        queryKey: ["upcomingLessons", currentPage + 1],
+        queryFn: () => getUpcomingLessons(),
+      });
+    }
+    if (currentPage > 1) {
+      queryClient.prefetchQuery({
+        staleTime: 1000 * 60 * 5,
+
+        queryKey: ["upcomingLessons", currentPage - 1],
+        queryFn: () => getUpcomingLessons(),
+      });
+    }
+  }
 
   return res;
 }

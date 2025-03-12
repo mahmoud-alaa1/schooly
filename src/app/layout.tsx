@@ -3,6 +3,8 @@ import { Alexandria } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import { Toaster } from "react-hot-toast";
 import "../Styles/globals.css";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 const alexandria = Alexandria({
   variable: "--font-alexandria",
@@ -20,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionProvider > 
+    <SessionProvider>
       <html lang="ar" dir="rtl">
         <body className={`${alexandria.className} antialiased min-h-screen`}>
           <Toaster
@@ -34,7 +36,11 @@ export default function RootLayout({
               },
             }}
           />
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+
+          <ReactQueryProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+            {children}
+          </ReactQueryProvider>
         </body>
       </html>
     </SessionProvider>
