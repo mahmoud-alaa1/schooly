@@ -25,7 +25,6 @@ export default function UpcomingLessons() {
   if (!isLoading && !error && response.meta.totalPages && totalPages === null) {
     setTotalPages(response.meta.totalPages);
   }
-
   return (
     <div className="max-w-lg h-fit min-h-[396px] bg-white rounded-2xl border-2 border-neutral-200 flex flex-col">
       <h2 className="border-b border-neutral-200 flex items-center gap-x-1 py-4 px-6 font-medium">
@@ -57,7 +56,7 @@ export default function UpcomingLessons() {
               size="default"
               variant="ghost"
               className="px-2"
-              disabled={currentPage === totalPages}
+              disabled={currentPage >= totalPages!}
               onClick={() => setCurrentPage((prev) => prev + 1)}
             >
               <ChevronRight />
@@ -93,7 +92,7 @@ export default function UpcomingLessons() {
               aria-label="Go to previous page"
               size="default"
               variant="ghost"
-              className="px-2"
+              className="px-2 bg-secondary"
               onClick={() => setCurrentPage((prev) => prev - 1)}
               disabled={currentPage === 1}
             >

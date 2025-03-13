@@ -28,12 +28,18 @@ body {
   }
   :root {
     --background: #e6fbf5;
-    --foreground: 222.2 84% 4.9%;
+    --tag: hsla(359, 100%, 65%, 1);
+    --foundation-yellow: hsla(42, 99%, 60%, 1);
+    --foundation-purple: hsla(284, 42%, 70%, 1);
+    --foundation-fayrouz: hsla(184, 65%, 60%, 1);
+    --foundation-red: hsla(339, 100%, 71%, 1);
+    --foreground: hsla(0, 0%, 100%, 1);
+
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
+    --primary: hsla(162, 98%, 42%, 1);
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -43,7 +49,7 @@ body {
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
+    --border: hsla(162, 98%, 38%, 1);
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --chart-1: 12 76% 61%;
