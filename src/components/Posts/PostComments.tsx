@@ -4,8 +4,9 @@ import { Button } from "../ui/button";
 import { IoIosMore } from "react-icons/io";
 import { AiOutlineSend } from "react-icons/ai";
 import { Textarea } from "../ui/textarea";
+import { IComments } from "@/types/posts";
 
-export default function PostComments() {
+export default function PostComments({ comments }: { comments: IComments[] }) {
   return (
     <div className="flex flex-col gap-3 py-3 px-6 ">
       <div className="flex items-center justify-between ">

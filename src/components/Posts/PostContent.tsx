@@ -3,7 +3,7 @@ import UserAvatar from "../ui/userAvatar";
 import { Button } from "../ui/button";
 import { IoIosMore } from "react-icons/io";
 
-export default function PostContent() {
+export default function PostContent({ content }: { content: string }) {
   return (
     <div className="flex gap-4 p-6 border-b-neutral-100 border-b-2 flex-col">
       <div className="flex justify-between w-full items-center">

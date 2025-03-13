@@ -22,7 +22,7 @@ export default function UpcomingLessons() {
   const response = data ?? ({} as TUpcomingLessons);
 
   const lessons: TLesson[] = response.data || [];
-  console.log(response);
+  // console.log(response);
   return (
     <SideCard
       items={lessons}
