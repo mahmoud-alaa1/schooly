@@ -5,7 +5,16 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
+.hide {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
 @layer base {
   .loader {
     width: 30px;
@@ -33,7 +42,7 @@ body {
     --foundation-purple: 284 42% 70%;
     --foundation-fayrouz: 184 65% 60%;
     --foundation-red: 339 100% 71%;
-    --foreground: 222.2 84% 4.9% ;
+    --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
