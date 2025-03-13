@@ -8,7 +8,7 @@ export default function useUpcomingLessons(currentPage: number) {
   function getUpcomingLessons() {
     try {
       const res = fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/lesson/upcoming?PageSize=3&Page=${currentPage}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/lesson/upcoming?PageSize=12&Page=${currentPage}&classRoomId=e082bf29-033a-4b1f-bdc4-08dd584749a7`,
         {
           headers: {
             // @ts-expect-error the token exists

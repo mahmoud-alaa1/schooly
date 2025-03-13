@@ -1,45 +1,52 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import LessonSkeleton from "./UpcomingLessons/LessonSkeleton";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
-interface ISideCardProps {
+interface ISideCardProps<T> {
   CardIcon: React.ReactNode;
   cardTitle: string;
-  children?: React.ReactNode;
+  items?: T[];
+  renderItem: (item: T) => React.ReactNode;
 }
 
-export default function SideCard({
+export default function SideCard<T>({
   CardIcon,
   cardTitle,
-  children,
-}: ISideCardProps) {
+  items,
+  renderItem,
+}: ISideCardProps<T>) {
+  const firstItems = items?.slice(0, 3);
+
   return (
-    <div className="max-w-lg h-fit  bg-white rounded-2xl border-2 border-neutral-200 flex flex-col">
+    <div className="max-w-lg h-fit bg-white rounded-2xl border-2 border-neutral-200 flex flex-col">
       <div>
         <div className="border-b border-neutral-200 justify-between flex items-center gap-x-1 py-4 px-6 font-medium">
           <h3 className="flex items-center gap-1 ">
             {CardIcon}
             {cardTitle}
           </h3>
+
           <Dialog>
             <DialogTrigger className="text-primary">الكل</DialogTrigger>
-            <DialogContent dir="rtl">
+            <DialogContent className=" ">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-1 mb-4">
                   {CardIcon}
                   {cardTitle}
                 </DialogTitle>
-                <DialogDescription>{children}</DialogDescription>
               </DialogHeader>
+              <ul className="h-[70vh] overflow-auto p-6">
+                {items?.map(renderItem)}
+              </ul>
             </DialogContent>
           </Dialog>
         </div>
+        <ul className="p-6 ">{firstItems?.map(renderItem)}</ul>
       </div>
     </div>
   );
