@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function usePosts(currentPage: number) {
   const session = useSession();
+  // @ts-expect-error the token exists
   const token = session.data?.user?.token;
 
   const [hasMore, setHasMore] = useState<boolean>(true);
