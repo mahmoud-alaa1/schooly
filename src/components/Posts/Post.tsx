@@ -2,19 +2,13 @@ import React from "react";
 
 import PostContent from "./PostContent";
 import PostComments from "./PostComments";
-import { IComments } from "@/types/posts";
+import { IComments, IPost } from "@/types/posts";
 
-export default function Post({
-  content,
-  comments,
-}: {
-  content: string;
-  comments: IComments[];
-}) {
+export default function Post({ post }: { post: IPost }) {
   return (
     <div className="bg-primary-foreground rounded-2xl border border-neutral-100 text-xs">
-      <PostContent content={content} />
-      <PostComments comments={comments} />
+      <PostContent post={post} />
+      <PostComments comments={post.comments} />
     </div>
   );
 }

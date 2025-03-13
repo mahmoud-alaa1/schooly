@@ -1,50 +1,60 @@
-import { IPostsResponse } from "@/types/posts";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { IPost, IPostsResponse } from "@/types/posts";
 import { useSession } from "next-auth/react";
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 
-export default function usePosts(currentPage: number = 1) {
-  const queryClient = useQueryClient();
+export default function usePosts(currentPage: number) {
   const session = useSession();
+  const token = session.data?.user?.token;
 
-  const fetchPosts = async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/post/all?Page=${currentPage}&PageSize=4`,
-      {
-        headers: {
-          // @ts-expect-error the token exists
-          Authorization: `Bearer ${session.data?.user?.token}`,
-          "Content-Type": "application/json",
-        },
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [posts, setPosts] = useState<IPost[]>([]);
+
+  useEffect(() => {
+    if (!token) return; // Prevent fetching if token is undefined
+
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/post/all?Page=${currentPage}&PageSize=1`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Ensure response is not empty before parsing JSON
+        const text = await response.text();
+        if (!text) {
+          throw new Error("Empty response received from server");
+        }
+
+        const data: IPostsResponse = JSON.parse(text);
+
+        setPosts((prevPosts) => [...prevPosts, ...data.data]);
+        if (data.meta.totalPages === currentPage) {
+          setHasMore(false);
+        }
+      } catch (error) {
+        if (error instanceof Error) setError(error.message);
+        console.error("Fetch error:", error);
+      } finally {
+        setLoading(false);
       }
-    );
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json() as Promise<IPostsResponse>;
-  };
+    };
 
-  const res = useQuery({
-    queryKey: ["posts", currentPage],
-    staleTime: 1000 * 60 * 5,
-    queryFn: () => fetchPosts(),
-  });
-  if (res.data) {
-    if (currentPage < res.data.meta.totalPages) {
-      queryClient.prefetchQuery({
-        staleTime: 1000 * 60 * 5,
+    fetchPosts();
+  }, [currentPage, token]);
 
-        queryKey: ["posts", currentPage + 1],
-        queryFn: () => fetchPosts(),
-      });
-    }
-    if (currentPage > 1) {
-      queryClient.prefetchQuery({
-        staleTime: 1000 * 60 * 5,
-        queryKey: ["posts", currentPage - 1],
-        queryFn: () => fetchPosts(),
-      });
-    }
-  }
-  return res;
+  return { posts, loading, error, hasMore };
 }

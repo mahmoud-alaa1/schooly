@@ -35,12 +35,6 @@ const generateTimeDifferenceText = (
   const secondsDifference = differenceInSeconds(laterDate, earlierDate);
   const miniutesDiffernce = differenceInMinutes(laterDate, earlierDate);
   const hoursDifference = differenceInHours(laterDate, earlierDate);
-  console.log(
-    "i'm here",
-    secondsDifference,
-    miniutesDiffernce,
-    hoursDifference
-  );
 
   return Math.abs(secondsDifference) < 60
     ? { text: `ثانية ${secondsDifference}`, variant: "blue" }

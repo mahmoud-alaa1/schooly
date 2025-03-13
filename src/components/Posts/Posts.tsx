@@ -3,16 +3,16 @@
 import { useCallback, useRef, useState } from "react";
 import Post from "./Post";
 import usePosts from "@/hooks/usePosts";
+import PostSkeleton from "./PostSkeleton";
 
 export default function Posts() {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(true);
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const { data: posts, error, isLoading } = usePosts(currentPage);
+  const { posts, loading, error, hasMore } = usePosts(currentPage);
   const lastPostElementRef = useCallback(
     (node: HTMLDivElement) => {
-      if (isLoading) return;
+      if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
         (entries) => {
@@ -24,34 +24,22 @@ export default function Posts() {
       );
       if (node) observer.current.observe(node);
     },
-    [isLoading, hasMore]
+    [loading, hasMore]
   );
-  console.log(posts?.data);
+
   return (
     <div className="flex flex-col gap-4">
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      {posts?.data.map((post, index) => {
-        if (posts?.data.length === index + 1) {
-          return (
-            <div
-              ref={lastPostElementRef}
-              key={post.id}
-              className="border-b py-4"
-            >
-              1
-            </div>
-          );
-        } else {
-          return <Post key={post.id} />;
-        }
-      })}
-      {isLoading && <p className="text-center py-4">Loading...</p>}
-      {error && (
-        <p className="text-center text-red-500 py-4">{error.message}</p>
+      {posts?.map((post, index) =>
+        posts?.length === index + 1 ? (
+          <div key={post.id} ref={lastPostElementRef}>
+            <Post post={post} />
+          </div>
+        ) : (
+          <Post key={post.id} post={post} />
+        )
       )}
+      {loading && <PostSkeleton />}
+      {error && <p className="text-center text-red-500 py-4">{error}</p>}
     </div>
   );
 }
