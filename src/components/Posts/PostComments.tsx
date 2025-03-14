@@ -6,7 +6,6 @@ import { AiOutlineSend } from "react-icons/ai";
 import { Textarea } from "../ui/textarea";
 import { IPost } from "@/types/posts";
 import useComments from "@/hooks/useComments";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function PostComments({ post }: { post: IPost }) {
   const [comment, setComment] = React.useState<string>("");

@@ -24,21 +24,10 @@ export default function usePosts() {
               "Content-Type": "application/json",
             },
           }
-        );
+        ).then((res) => res.json() as Promise<IPostsResponse>);
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const text = await response.text();
-        if (!text) {
-          throw new Error("Empty response received from server");
-        }
-
-        const data: IPostsResponse = JSON.parse(text);
-
-        setPosts((prevPosts) => [...prevPosts, ...data.data]);
-        if (data.meta.totalPages === currentPage) {
+        setPosts((prevPosts) => [...prevPosts, ...response.data]);
+        if (response.meta.totalPages === currentPage) {
           setHasMore(false);
         }
       } catch (error) {
@@ -47,8 +36,7 @@ export default function usePosts() {
         setLoading(false);
       }
     };
-
-    fetchPosts();
+    if (token) fetchPosts();
   }, [currentPage, token]);
   const lastPostElementRef = useCallback(
     (node: HTMLDivElement) => {
