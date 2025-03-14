@@ -26,7 +26,6 @@ export default function PostComments({ post }: { post: IPost }) {
     addComment({ newComment: comment.trim() });
     if (!error) setComment("");
   };
-  console.log(comments);
 
   return (
     <div className="flex flex-col gap-3 py-3 px-6 ">

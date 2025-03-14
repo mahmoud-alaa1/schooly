@@ -1,5 +1,3 @@
-import React from "react";
-
 import PostContent from "./PostContent";
 import PostComments from "./PostComments";
 import { IPost } from "@/types/posts";
