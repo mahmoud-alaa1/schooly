@@ -40,7 +40,7 @@ export default function Navbar({ className }: { className?: string }) {
           </div>
           <ul className="flex items-center">
             <li className="flex items-center gap-1 px-3">
-              <UserAvatar size={30}></UserAvatar>
+              <UserAvatar avatar={5} size={30}></UserAvatar>
               <span>أيمن أحمد</span>
             </li>
             <li className="p-1">
