@@ -12,15 +12,10 @@ export default function PostComments({ post }: { post: IPost }) {
   const [comment, setComment] = React.useState<string>("");
 
   const {
-    error,
-    isPending,
-    mutate: addComment,
+    mutatedFunc: { error, isPending, mutate: addComment },
+    commentsState,
   } = useComments(post.comments, post.id);
-  const queryClient = useQueryClient();
-  const comments: string[] | undefined = queryClient.getQueryData([
-    "comments",
-    post.id,
-  ]);
+
   const handleAddition = () => {
     if (comment.trim() === "") return;
     addComment({ newComment: comment.trim() });
@@ -29,7 +24,7 @@ export default function PostComments({ post }: { post: IPost }) {
 
   return (
     <div className="flex flex-col gap-3 py-3 px-6 ">
-      {comments?.map((comment, index) => (
+      {commentsState?.map((comment, index) => (
         <div
           key={`${post.id} + ${index} + ${comment}`}
           className=" flex items-center justify-between "

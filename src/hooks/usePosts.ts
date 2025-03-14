@@ -1,47 +1,58 @@
-import { IPost, IPostsResponse } from "@/types/posts";
-import { useSession } from "next-auth/react";
+import { IPostsResponse } from "@/types/posts";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useToken from "./useToken";
-import { useQuery } from "@tanstack/react-query";
 export default function usePosts() {
   const token = useToken();
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const observer = useRef<IntersectionObserver | null>(null);
-  const fetchPosts = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/post/all?Page=${currentPage}&PageSize=3`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>("");
+  const [posts, setPosts] = useState<IPostsResponse["data"]>([]);
+  console.log(currentPage);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/post/all?Page=${currentPage}&PageSize=3`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-      ).then((res) => res.json() as Promise<IPostsResponse>);
 
-      if (response.meta.totalPages === currentPage) {
-        setHasMore(false);
+        const text = await response.text();
+        if (!text) {
+          throw new Error("Empty response received from server");
+        }
+
+        const data: IPostsResponse = JSON.parse(text);
+
+        setPosts((prevPosts) => [...prevPosts, ...data.data]);
+        if (data.meta.totalPages === currentPage) {
+          setHasMore(false);
+        }
+      } catch (error) {
+        if (error instanceof Error) setError(error.message);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
-  };
+    };
 
-  const res = useQuery({
-    queryKey: ["posts", currentPage],
-    queryFn: () => {
-      if (token) {
-        return fetchPosts();
-      } else
-        return new Promise((resolve, reject) => {
-          resolve({ data: [], meta: { totalPages: 0 } });
-        });
-    },
-  });
+    fetchPosts();
+  }, [currentPage, token]);
   const lastPostElementRef = useCallback(
     (node: HTMLDivElement) => {
-      if (res.isLoading) return;
+      if (loading) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
         (entries) => {
@@ -53,8 +64,8 @@ export default function usePosts() {
       );
       if (node) observer.current.observe(node);
     },
-    [res.isLoading, hasMore]
+    [hasMore, loading]
   );
 
-  return { res, lastPostElementRef };
+  return { posts, lastPostElementRef, error, loading };
 }
