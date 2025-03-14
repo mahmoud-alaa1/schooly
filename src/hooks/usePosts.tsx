@@ -21,7 +21,7 @@ export default function usePosts(currentPage: number) {
         setError(null);
 
         const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/post/all?Page=${currentPage}&PageSize=1`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/post/all?Page=${currentPage}&PageSize=3`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
