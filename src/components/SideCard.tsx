@@ -5,7 +5,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 interface ISideCardProps<T> {
   CardIcon: React.ReactNode;
@@ -46,7 +45,11 @@ export default function SideCard<T>({
             </DialogContent>
           </Dialog>
         </div>
-        <ul className="p-6 ">{firstItems?.map(renderItem)}</ul>
+        {firstItems && firstItems.length > 0 ? (
+          <ul className="p-6 ">{firstItems?.map(renderItem)}</ul>
+        ) : (
+          <p className="text-neutral-400 text-center p-5">There is no data</p>
+        )}
       </div>
     </div>
   );
