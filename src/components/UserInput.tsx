@@ -24,7 +24,7 @@ export default function UserInput({
 }: IUserInputProps) {
   return (
     <div>
-      <div className="bg-primary/10 border border-primary/25  rounded-xl p-3 grid grid-cols-[auto_1fr] gap-3 ">
+      <div className="bg-primary/10 border border-primary/25  rounded-xl p-3 grid grid-cols-[auto_1fr] gap-3 pb-1 ">
         <UserAvatar avatar={5} size={24} className="flex-grow-0" />
         <form className="flex gap-2" onSubmit={(e) => onSubmit?.(e)}>
           <div className="flex h-fit w-full">
@@ -37,7 +37,7 @@ export default function UserInput({
               minHeight={1}
               value={value}
               placeholder={label}
-              className="bg-primary/0 flex-grow  border-none"
+              className="bg-primary/0 flex-grow  border-none leading-[25px]"
               onChange={(e) => {
                 setValue?.(e.target.value);
               }}
