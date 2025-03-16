@@ -1,4 +1,3 @@
-import { TLesson } from "@/types/lessons";
 import Image from "next/image";
 import { Badge } from "../ui/badge";
 import { getUpcomingLessonsBadgeText } from "@/lib/utils";

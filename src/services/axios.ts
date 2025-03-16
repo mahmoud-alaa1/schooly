@@ -8,11 +8,6 @@ const instance = axios.create({
 export const attachToken = (token: string) => {
   instance.interceptors.request.use(
     (config) => {
-      const clientSide = typeof window !== "undefined";
-      if (clientSide) {
-        console.log("client");
-        console.log(token);
-      }
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

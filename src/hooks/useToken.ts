@@ -1,16 +1,12 @@
-import { getSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { attachToken } from "@/services/axios";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export default function useToken() {
-  const [token, setToken] = useState<string | null>(null);
+  // @ts-expect-error the token exists
+  const token = useSession().data?.user?.token;
   useEffect(() => {
-    async function getToken() {
-      const session = await getSession();
-      // @ts-expect-error the token exists
-      return session?.user?.token;
-    }
-
-    getToken().then((token) => setToken(token));
-  }, []);
-  return token;
+    if (token) attachToken(token);
+  }, [token]);
+  return null;
 }
