@@ -13,11 +13,11 @@ export default function Posts() {
         posts.data.map((post, secondIndex) =>
           firstIndex === data.pages.length - 1 &&
           secondIndex === posts.data.length - 1 ? (
-            <div key={post.id} ref={lastPostElementRef}>
+            <div key={`post-id-${post.id}`} ref={lastPostElementRef}>
               <Post post={post} />
             </div>
           ) : (
-            <Post key={post.id} post={post} />
+            <Post key={`post-id-${post.id}`} post={post} />
           )
         )
       )}

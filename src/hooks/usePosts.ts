@@ -15,9 +15,9 @@ export default function usePosts() {
     queryKey: ["posts"],
     queryFn: ({ pageParam = 1 }) => getPosts(pageParam),
     initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
       const nextPage =
-        lastPage.data.length > 0 ? allPages.length + 1 : undefined;
+        lastPageParam === lastPage.meta.totalPages ? null : lastPageParam + 1;
       return nextPage;
     },
   });

@@ -37,7 +37,7 @@ export default function AddComment({ mutatedFunc, id }: IAddComment) {
           onSubmit={(e) => handleAddition(e)}
         >
           <div className="flex h-fit w-full">
-            <label htmlFor="comment-id-1">
+            <label htmlFor={`comment-id-${id}`}>
               <strong className="text-xs hide">أضف تعليق</strong>
             </label>
             <AutosizeTextarea
