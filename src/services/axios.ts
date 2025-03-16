@@ -5,7 +5,7 @@ const instance = axios.create({
   timeout: 20000,
 });
 
-export const attachToken = (token?: string) => {
+export const attachToken = (token: string) => {
   instance.interceptors.request.use(
     (config) => {
       const clientSide = typeof window !== "undefined";
