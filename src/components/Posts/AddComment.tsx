@@ -26,7 +26,7 @@ export default function AddComment({ mutatedFunc, id }: IAddComment) {
     sendComment({ newComment: comment.trim(), postId: id });
     if (!error) setComment("");
   };
-  
+
   return (
     <>
       <div className="bg-primary/10 border border-primary/25  rounded-xl p-3 grid grid-cols-[auto_1fr]   gap-3 ">
@@ -62,7 +62,7 @@ export default function AddComment({ mutatedFunc, id }: IAddComment) {
           </Button>
         </form>
       </div>
-      {error && <p className="text-red-500 py-4">{error.message}</p>}
+      {error && <p className="text-red-500 ">{error.message}</p>}
     </>
   );
 }
