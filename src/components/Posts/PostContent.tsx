@@ -2,7 +2,6 @@ import React from "react";
 import UserAvatar from "../ui/userAvatar";
 import { Button } from "../ui/button";
 import { IoIosMore } from "react-icons/io";
-import { IPost } from "@/types/posts";
 
 export default function PostContent({ post }: { post: IPost }) {
   return (

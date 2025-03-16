@@ -1,37 +1,22 @@
-import { IComments } from "@/types/posts";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import useToken from "./useToken";
+import { sendComment } from "@/services/comments";
 
-export default function useComments(comments: IComments[], postId: number) {
+export default function useComments(comments: IComments[]) {
   const commentsContent = comments?.map((comment) => comment.content);
   const [commentsState, setComments] = useState<string[]>(commentsContent);
-  const token = useToken();
 
   const mutatedFunc = useMutation({
-    mutationFn: async ({ newComment }: { newComment: string }) => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/comment`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            content: newComment,
-            postId,
-          }),
-        }
-      );
-      if (!response.ok) throw new Error("فشل إرسال التعليق");
-      return response.json();
-    },
+    mutationFn: (comment: { newComment: string; postId: number }) =>
+      sendComment(comment),
     onMutate: async (data) => {
       setComments((prev) => [...prev, data.newComment]);
     },
     onError: () => {
       setComments((prev) => prev.slice(0, prev.length - 1));
+    },
+    onSuccess: (data) => {
+      console.log("Comment added successfully", data);
     },
   });
 

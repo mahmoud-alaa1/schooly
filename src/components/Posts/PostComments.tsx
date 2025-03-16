@@ -1,12 +1,11 @@
 import UserAvatar from "../ui/userAvatar";
 import { Button } from "../ui/button";
 import { IoIosMore } from "react-icons/io";
-import { IPost } from "@/types/posts";
 import useComments from "@/hooks/useComments";
 import AddComment from "./AddComment";
 
 export default function PostComments({ post }: { post: IPost }) {
-  const { mutatedFunc, commentsState } = useComments(post.comments, post.id);
+  const { mutatedFunc, commentsState } = useComments(post.comments);
 
   return (
     <ul className="flex flex-col gap-3 py-3 px-6 ">
