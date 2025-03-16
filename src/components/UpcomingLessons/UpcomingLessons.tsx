@@ -1,5 +1,4 @@
 "use client";
-import { TLesson, TUpcomingLessons } from "@/types/lessons";
 import {
   Pagination,
   PaginationContent,

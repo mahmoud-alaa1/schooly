@@ -1,6 +1,5 @@
 import PostContent from "./PostContent";
 import PostComments from "./PostComments";
-import { IPost } from "@/types/posts";
 
 export default function Post({ post }: { post: IPost }) {
   return (

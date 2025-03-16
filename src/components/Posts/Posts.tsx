@@ -5,21 +5,26 @@ import usePosts from "@/hooks/usePosts";
 import PostSkeleton from "./PostSkeleton";
 
 export default function Posts() {
-  const { error, loading, posts, lastPostElementRef } = usePosts();
-  console.log(posts);
+  const { data, lastPostElementRef, error, isPending, isFetchingNextPage } =
+    usePosts();
   return (
     <div className="flex flex-col gap-4">
-      {posts?.map((post, index) =>
-        posts?.length === index + 1 ? (
-          <div key={post.id + `${index}`} ref={lastPostElementRef}>
-            <Post post={post} />
-          </div>
-        ) : (
-          <Post key={post.id} post={post} />
+      {data?.pages.map((posts, firstIndex) =>
+        posts.data.map((post, secondIndex) =>
+          firstIndex === data.pages.length - 1 &&
+          secondIndex === posts.data.length - 1 ? (
+            <div key={`post-id-${post.id}`} ref={lastPostElementRef}>
+              <Post post={post} />
+            </div>
+          ) : (
+            <Post key={`post-id-${post.id}`} post={post} />
+          )
         )
       )}
-      {loading && <PostSkeleton />}
-      {error && <p className="text-center text-red-500 py-4">{error}</p>}
+      {(isPending || isFetchingNextPage) && <PostSkeleton />}
+      {error && (
+        <p className="text-center text-red-500 py-4">{error.message}</p>
+      )}
     </div>
   );
 }

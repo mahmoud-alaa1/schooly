@@ -1,59 +1,43 @@
-import { IPostsResponse } from "@/types/posts";
-import { useCallback, useEffect, useRef, useState } from "react";
-import useToken from "./useToken";
+import { useCallback, useRef } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getPosts } from "@/services/posts";
 export default function usePosts() {
-  const token = useToken();
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const observer = useRef<IntersectionObserver | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>("");
-  const [posts, setPosts] = useState<IPostsResponse["data"]>([]);
-  console.log(currentPage);
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        setLoading(true);
-        setError(null);
 
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/post/all?Page=${currentPage}&PageSize=3`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        ).then((res) => res.json() as Promise<IPostsResponse>);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ["posts"],
+    queryFn: ({ pageParam = 1 }) => getPosts(pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      const nextPage =
+        lastPageParam === lastPage.meta.totalPages ? null : lastPageParam + 1;
+      return nextPage;
+    },
+  });
 
-        setPosts((prevPosts) => [...prevPosts, ...response.data]);
-        if (response.meta.totalPages === currentPage) {
-          setHasMore(false);
-        }
-      } catch (error) {
-        if (error instanceof Error) setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (token) fetchPosts();
-  }, [currentPage, token]);
   const lastPostElementRef = useCallback(
     (node: HTMLDivElement) => {
-      if (loading) return;
+      if (isPending) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(
         (entries) => {
-          if (entries[0].isIntersecting && hasMore) {
-            setCurrentPage((prevPage) => prevPage + 1);
+          if (entries[0].isIntersecting && hasNextPage) {
+            fetchNextPage();
           }
         },
         { threshold: 0.8 }
       );
       if (node) observer.current.observe(node);
     },
-    [hasMore, loading]
+    [fetchNextPage, hasNextPage, isPending]
   );
 
-  return { posts, lastPostElementRef, error, loading };
+  return { data, lastPostElementRef, error, isPending, isFetchingNextPage };
 }

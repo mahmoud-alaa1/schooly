@@ -1,4 +1,4 @@
-export enum LessonType {
+enum LessonType {
   Explain,
   HomeworkSolution,
   Practice,
@@ -6,7 +6,7 @@ export enum LessonType {
   Other,
 }
 
-export type TLesson = {
+type TLesson = {
   id: string;
   teacherId: string;
   subject: string;
@@ -18,7 +18,7 @@ export type TLesson = {
   to: string;
 };
 
-export type TUpcomingLessons = {
+type TUpcomingLessons = {
   data: TLesson[];
   meta: {
     totalItems: number;

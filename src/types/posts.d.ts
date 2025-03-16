@@ -1,17 +1,17 @@
-export interface IComments {
+interface IComments {
   id: number;
   content: string;
   createdAt: string;
 }
 
-export interface IPost {
+interface IPost {
   id: number;
   content: string;
   comments: IComments[];
   createdAt: string;
 }
 
-export interface IPostsResponse {
+interface IPostsResponse {
   data: IPost[];
   meta: {
     totalItems: number;
