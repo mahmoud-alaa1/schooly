@@ -1,16 +1,31 @@
 import { getLessons } from "@/services/upcomingLessons";
-import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-
+import { useInfiniteQuery } from "@tanstack/react-query";
 export default function useUpcomingLessons() {
-  const [page, setPage] = useState(1);
-  const { mutate, isPending, error, data } = useMutation({
-    mutationFn: (page: number) => getLessons({ page }),
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ["upcominglessons"],
+    queryFn: ({ pageParam = 1 }) => getLessons({ page: pageParam }),
+
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      const nextPage =
+        lastPageParam === lastPage.meta.totalPages ? null : lastPageParam + 1;
+      return nextPage;
+    },
   });
 
-  useEffect(() => {
-    mutate(page);
-  }, [mutate, page]);
-
-  return { isPending, error, setPage, data };
+  return {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isPending,
+    error,
+  };
 }

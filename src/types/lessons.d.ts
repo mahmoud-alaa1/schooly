@@ -16,6 +16,7 @@ type TLesson = {
   date: string;
   from: string;
   to: string;
+  classRoomId: string;
 };
 
 interface IUpcomingLessonsResponse {
