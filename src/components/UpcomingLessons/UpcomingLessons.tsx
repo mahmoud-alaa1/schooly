@@ -21,7 +21,7 @@ export default function UpcomingLessons() {
 
   return (
     <SideCard
-      className="h-[460.8px]"
+      className="min-h-[460.8px]"
       items={lessons}
       renderItem={(lesson: TLesson, idx) =>
         isPending ? (
