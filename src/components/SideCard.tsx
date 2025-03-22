@@ -5,12 +5,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 interface ISideCardProps<T> {
   CardIcon: React.ReactNode;
   cardTitle: string;
   items?: T[];
-  renderItem: (item: T) => React.ReactNode;
+  renderItem: (item: T, index: number) => React.ReactNode;
+  className?: string;
 }
 
 export default function SideCard<T>({
@@ -18,11 +20,15 @@ export default function SideCard<T>({
   cardTitle,
   items,
   renderItem,
+  className,
 }: ISideCardProps<T>) {
-  const firstItems = items?.slice(0, 3);
-
   return (
-    <div className="max-w-lg h-fit bg-white rounded-2xl border-2 border-neutral-200 flex flex-col">
+    <div
+      className={cn(
+        "max-w-lg bg-white rounded-2xl border-2 border-neutral-200 flex flex-col",
+        className
+      )}
+    >
       <div>
         <div className="border-b border-neutral-200 justify-between flex items-center gap-x-1 py-4 px-6 font-medium">
           <h3 className="flex items-center gap-1 ">
@@ -45,11 +51,7 @@ export default function SideCard<T>({
             </DialogContent>
           </Dialog>
         </div>
-        {firstItems && firstItems.length > 0 ? (
-          <ul className="p-6 ">{firstItems?.map(renderItem)}</ul>
-        ) : (
-          <p className="text-neutral-400 text-center p-5">There is no data</p>
-        )}
+        {<ul className="p-6 ">{items?.map(renderItem)}</ul>}
       </div>
     </div>
   );
