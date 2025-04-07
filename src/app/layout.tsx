@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { attachToken } from "@/services/axios";
 import { auth } from "@/lib/auth";
+import Loader from "@/components/loader";
 const alexandria = Alexandria({
   variable: "--font-alexandria",
   subsets: ["arabic", "latin"],
@@ -44,7 +45,7 @@ export default async function RootLayout({
 
           <ReactQueryProvider>
             <ReactQueryDevtools initialIsOpen={false} />
-            {children}
+            <Loader>{children}</Loader>
           </ReactQueryProvider>
         </body>
       </html>
