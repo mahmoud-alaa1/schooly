@@ -3,14 +3,25 @@ import { useState } from "react";
 import { sendComment } from "@/services/comments";
 
 export default function useComments(comments: IComments[]) {
-  const commentsContent = comments?.map((comment) => comment.content);
-  const [commentsState, setComments] = useState<string[]>(commentsContent);
+  const [commentsState, setComments] = useState<IComments[]>(comments);
 
   const mutatedFunc = useMutation({
     mutationFn: (comment: { newComment: string; postId: number }) =>
-      sendComment(comment),
+      sendComment({
+        newComment: comment.newComment,
+        postId: comment.postId,
+      }),
     onMutate: async (data) => {
-      setComments((prev) => [...prev, data.newComment]);
+      setComments((prev) => [
+        ...prev,
+        {
+          authorId: "1",
+          authorName: "User",
+          content: data.newComment,
+          createdAt: new Date().toISOString(),
+          id: Math.floor(Math.random() * 10000),
+        },
+      ]);
     },
     onError: () => {
       setComments((prev) => prev.slice(0, prev.length - 1));

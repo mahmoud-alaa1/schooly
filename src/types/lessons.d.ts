@@ -16,9 +16,10 @@ type TLesson = {
   date: string;
   from: string;
   to: string;
+  classRoomId: string;
 };
 
-type TUpcomingLessons = {
+interface IUpcomingLessonsResponse {
   data: TLesson[];
   meta: {
     totalItems: number;
@@ -26,4 +27,4 @@ type TUpcomingLessons = {
     currentPage: number;
     totalPages: number;
   };
-};
+}

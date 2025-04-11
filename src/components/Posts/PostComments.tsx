@@ -16,12 +16,12 @@ export default function PostComments({ post }: { post: IPost }) {
         >
           <UserAvatar avatar={4} size={48} />
           <div className="flex flex-col flex-grow text-wrap flex-wrap">
-            <strong className="text-xs">نور محمد</strong>
+            <strong className="text-xs">{comment.authorName}</strong>
             <div
               dir="auto"
               className="text-black/85 text-xs font-light break-all whitespace-pre-wrap"
             >
-              {comment}
+              {comment.content}
             </div>
           </div>
           <Button variant="ghost" size="sm">
