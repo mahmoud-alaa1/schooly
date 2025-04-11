@@ -1,67 +1,49 @@
 "use client";
-import { Download } from "lucide-react";
+import { Download, Loader } from "lucide-react";
 import { Button } from "../ui/button";
-import { useEffect, useState } from "react";
-import { getFileContent } from "@/services/upload";
+import { useState } from "react";
 import { saveAs } from "file-saver";
+import { getFileContent } from "@/services/upload";
 
 interface DownloadFileProps {
   storedFileName: string;
-  token: string | null;
   fileName: string;
 }
 
 const DownloadFile: React.FC<DownloadFileProps> = ({
   storedFileName,
-  token,
   fileName,
 }) => {
-  const [fileContent, setFileContent] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  const downloadFileHandler = () => {
-    if (!fileContent) return;
+  const downloadFileHandler = async () => {
     try {
-      const blob = new Blob([fileContent], { type: "application/pdf" });
-
-      saveAs(blob, fileName);
+      setLoading(true);
+      const res = await getFileContent(storedFileName);
+      saveAs(res, fileName);
+      setLoading(false);
     } catch (error) {
-      console.error("Error downloading file:", error);
-      setError("Failed to download file.");
+      setError("حدث خطأ أثناء تحميل الملف");
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (token) {
-        setLoading(true);
-        setError(null);
-
-        try {
-          const res = await getFileContent(token, storedFileName);
-          setFileContent(res);
-        } catch (err) {
-          setError("Failed to fetch file content.");
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-    fetchData();
-  }, [storedFileName, token]);
-
   return (
     <div>
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500 text-sm">{error}</p>}
       <Button
         variant="ghost"
         size="sm"
         className="rounded-full border-[2px] border-neutral-300"
-        disabled={loading || !fileContent}
+        disabled={loading}
         onClick={downloadFileHandler}
       >
-        <Download className="size-5" />
+        {loading ? (
+          <Loader className="size-5" />
+        ) : (
+          <Download className="size-5" />
+        )}
       </Button>
     </div>
   );
