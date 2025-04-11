@@ -1,5 +1,4 @@
 import axios from "@/services/axios";
-import { TSignInResponse } from "@/types/auth";
 import { isAxiosError } from "axios";
 
 interface SignInParams {
@@ -23,7 +22,7 @@ export async function signIn({
       password,
       rememberMe,
     });
-    
+
     return data;
   } catch (error) {
     if (isAxiosError(error)) {

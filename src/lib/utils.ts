@@ -35,13 +35,12 @@ const generateTimeDifferenceText = (
   const secondsDifference = differenceInSeconds(laterDate, earlierDate);
   const miniutesDiffernce = differenceInMinutes(laterDate, earlierDate);
   const hoursDifference = differenceInHours(laterDate, earlierDate);
+
   return Math.abs(secondsDifference) < 60
     ? { text: `ثانية ${secondsDifference}`, variant: "blue" }
     : Math.abs(miniutesDiffernce) < 60
     ? { text: `دقيقة ${miniutesDiffernce}`, variant: "orange" }
-    : Math.abs(hoursDifference) < 23
-    ? { text: `دقيقة ${miniutesDiffernce}`, variant: "red" }
-    : { text: format(earlierDate, "d MMMM", { locale: arEG }), variant: "red" };
+    : { text: `ساعة ${hoursDifference}`, variant: "red" };
 };
 
 export function getUpcomingLessonsBadgeText(

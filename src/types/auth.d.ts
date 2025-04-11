@@ -1,4 +1,4 @@
-export type TSignInResponse = {
+type TSignInResponse = {
   token: string;
   data: {
     id: string;
@@ -7,7 +7,7 @@ export type TSignInResponse = {
   };
 };
 
-export interface IUser {
+interface IUser {
   id: string;
   email: string;
   name: string;

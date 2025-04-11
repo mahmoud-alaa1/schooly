@@ -1,6 +1,7 @@
+import React from "react";
 import { Skeleton } from "../ui/skeleton";
 
-export default function LessonSkeleton() {
+function HomeworkSkeleton() {
   return (
     <div className="mb-3 min-h-20 grid grid-cols-[auto_3fr_auto] gap-x-3 border-b border-b-neutral-200 pt-2 pb-4 last-of-type:border-none last-of-type:mb-0">
       <Skeleton className="h-[52px] w-[52px] " />
@@ -14,7 +15,9 @@ export default function LessonSkeleton() {
           <Skeleton className="h-[15px] w-[100px] " />
         </div>
       </article>
-      <Skeleton className="h-[20px] w-[50px] " />
+      <Skeleton className="h-[40px] w-[50px] rounded-full" />
     </div>
   );
 }
+
+export default HomeworkSkeleton;

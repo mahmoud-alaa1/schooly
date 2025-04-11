@@ -1,12 +1,19 @@
+import Homework from "@/components/Homework/Homework";
+import Posts from "@/components/Posts/Posts";
 import SideNavbar from "@/components/SideNavbar";
 import UpcomingLessons from "@/components/UpcomingLessons/UpcomingLessons";
 
 export default async function Page() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
   return (
-    <div className="grid grid-cols-[minmax(200px,220px)_auto_minmax(330px,400px)] gap-4">
+    <div className="grid grid-cols-[minmax(200px,220px)_minmax(400px,auto)_minmax(350px,400px)] gap-4">
       <SideNavbar />
-      <div className="h-[1000px] bg-white rounded-xl border border-[#D9D9D9]"></div>
-      <UpcomingLessons />
+      <Posts />
+      <div className="flex flex-col gap-4">
+        <UpcomingLessons />
+        <Homework />
+      </div>
     </div>
   );
 }

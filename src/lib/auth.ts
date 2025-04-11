@@ -1,5 +1,4 @@
 import { signIn as signInService } from "@/services/auth";
-import { IUser } from "@/types/auth";
 import NextAuth, { CredentialsSignin } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 

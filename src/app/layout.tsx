@@ -6,6 +6,8 @@ import "../Styles/globals.css";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import { attachToken } from "@/services/axios";
+import { auth } from "@/lib/auth";
 const alexandria = Alexandria({
   variable: "--font-alexandria",
   subsets: ["arabic", "latin"],
@@ -16,11 +18,14 @@ export const metadata: Metadata = {
   description: "Schooly is a platform for students to learn and grow.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+  // @ts-expect-error the token exists
+  attachToken(session?.user?.token);
   return (
     <SessionProvider>
       <html lang="ar" dir="rtl">

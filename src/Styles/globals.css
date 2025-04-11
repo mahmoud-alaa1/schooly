@@ -5,7 +5,16 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
+.hide {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
 @layer base {
   .loader {
     width: 30px;
@@ -28,19 +37,19 @@ body {
   }
   :root {
     --background: #e6fbf5;
-    --tag: hsla(359, 100%, 65%, 1);
-    --foundation-yellow: hsla(42, 99%, 60%, 1);
-    --foundation-purple: hsla(284, 42%, 70%, 1);
-    --foundation-fayrouz: hsla(184, 65%, 60%, 1);
-    --foundation-red: hsla(339, 100%, 71%, 1);
-    --foreground: hsla(0, 0%, 100%, 1);
+    --tag: 359 100% 65%;
+    --foundation-yellow: 42 99% 60%;
+    --foundation-purple: 284 42% 70%;
+    --foundation-fayrouz: 184 65% 60%;
+    --foundation-red: 339 100% 71%;
+    --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: hsla(162, 98%, 42%, 1);
-    --primary-foreground: 210 40% 98%;
+    --primary: 162 98% 42%;
+    --primary-foreground: 0 0% 100%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
@@ -49,7 +58,7 @@ body {
     --accent-foreground: 222.2 47.4% 11.2%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: hsla(162, 98%, 38%, 1);
+    --border: 162 98% 38%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
     --chart-1: 12 76% 61%;
