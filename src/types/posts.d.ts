@@ -2,6 +2,8 @@ interface IComments {
   id: number;
   content: string;
   createdAt: string;
+  authorId: string;
+  authorName: string;
 }
 
 interface IPost {
@@ -9,6 +11,9 @@ interface IPost {
   content: string;
   comments: IComments[];
   createdAt: string;
+  authorId: string;
+  authorName: string;
+  classRoomId: string;
 }
 
 interface IPostsResponse {
