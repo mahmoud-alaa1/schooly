@@ -1,4 +1,4 @@
-import axios from "@/lib/axios";
+import api from "@/lib/axios";
 import { isAxiosError } from "axios";
 
 export async function login(data: {
@@ -7,10 +7,7 @@ export async function login(data: {
   rememberMe: boolean;
 }) {
   try {
-    const response = await axios.post<loginResponse>(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-      data
-    );
+    const response = await api.post<loginResponse>(`/auth/login`, data);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
