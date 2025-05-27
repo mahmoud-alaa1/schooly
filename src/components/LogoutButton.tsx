@@ -14,8 +14,8 @@ export default function LogoutButton() {
         method: "POST",
       });
       if (!res.ok) throw new Error("فشل تسجيل الخروج");
+
       router.push("/auth/login");
-      logout();
     } catch (error) {
       console.error(error);
     }
