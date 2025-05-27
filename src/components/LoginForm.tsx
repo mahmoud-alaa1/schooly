@@ -5,9 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import FormInput from "@/components/forms/FormInput";
 import FormPassword from "@/components/forms/FormPassword";
-import { User, KeyRound, Eye, EyeOff } from "lucide-react";
 import { loginSchema } from "@/schemas/loginSchema";
-import { useState } from "react";
 import Link from "next/link";
 import FormCheckbox from "./forms/FormCheckbox";
 import useLogin from "@/hooks/authentication/useLogin";
@@ -28,7 +26,6 @@ export default function LoginForm() {
   function onSubmit(values: loginSchema) {
     mutate(values);
   }
-  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="p-4">
