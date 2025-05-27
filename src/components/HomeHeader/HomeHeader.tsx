@@ -4,10 +4,16 @@ import { Plus } from "lucide-react";
 import LogoutButton from "../LogoutButton";
 import UserHeader from "./UserHeader";
 import MobileMenu from "./MobileMenu";
+import { cn } from "@/lib/utils";
 
-export default function HomeHeader() {
+export default function HomeHeader({ className }: { className?: string }) {
   return (
-    <header className="flex items-center justify-between gap-2 rounded-lg bg-white">
+    <header
+      className={cn(
+        "z-10 flex items-center justify-between gap-2 rounded-lg bg-white",
+        className,
+      )}
+    >
       <HomeLogo />
       <div className="p-6 text-lg">
         <MobileMenu />
