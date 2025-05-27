@@ -4,7 +4,7 @@ import { LogOut } from "lucide-react";
 
 export default function LogoutButton() {
   return (
-    <Button variant="outline" size="icon">
+    <Button className="active:scale-90" variant="outline" size="icon">
       <LogOut className="size-6 font-bold " />
     </Button>
   );
