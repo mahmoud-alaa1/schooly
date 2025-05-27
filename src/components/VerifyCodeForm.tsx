@@ -1,0 +1,81 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import Spinner from "./Spinner";
+import { Form } from "./ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "./ui/button";
+import { verifyCodeSchema, VerifyCodeSchema } from "@/schemas/verifyCode";
+import useVerifyCode from "@/hooks/authentication/useVerifyCode";
+import { useSearchParams } from "next/navigation";
+
+import useForgetPassword from "@/hooks/authentication/useForgetPassword";
+import FormOTPInput from "./forms/FormOTPInput";
+
+function VerifyCodeForm() {
+  const { mutate, isPending } = useVerifyCode();
+  const { mutate: forgetPasswordMutation } = useForgetPassword();
+  const searchParams = useSearchParams();
+  const email = searchParams.get("email") || "";
+
+  const form = useForm<VerifyCodeSchema>({
+    resolver: zodResolver(verifyCodeSchema),
+  });
+
+  function onSubmit(values: VerifyCodeSchema) {
+    console.log("Submitted values:", values);
+    mutate({ ...values, email });
+    // Here you would typically call an API to handle the password reset
+  }
+
+  return (
+    <div className="px-4 py-6">
+      <div className="mb-6 text-center">
+        <h2 className="text-2xl font-bold mb-2">تحقق من رمز التأكيد</h2>
+        <p className="text-muted-foreground">
+          تم إرسال رمز التحقق إلى بريدك الإلكتروني
+        </p>
+      </div>
+
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          dir="ltr"
+          className="space-y-6"
+        >
+          <FormOTPInput<VerifyCodeSchema>
+            control={form.control}
+            name="code"
+            label="أدخل رمز التحقق المكون من 6 أرقام"
+            slotCount={6}
+          />
+
+          <Button
+            type="submit"
+            className="w-full cursor-pointer"
+            disabled={isPending}
+          >
+            {isPending ? <Spinner /> : "تحقق من الرمز"}
+          </Button>
+
+          <div className="text-center space-y-2">
+            <p className="text-sm text-muted-foreground">لم تستلم الرمز؟</p>
+            <Button
+              type="button"
+              variant="link"
+              className="text-sm"
+              onClick={() => {
+                forgetPasswordMutation({ email });
+                form.reset();
+              }}
+            >
+              إعادة إرسال الرمز
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </div>
+  );
+}
+
+export default VerifyCodeForm;
