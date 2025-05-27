@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (!token && !isAuthRoute(pathname)) {
-    const loginUrl = new URL("/auth/login", request.url);
+    const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
   }

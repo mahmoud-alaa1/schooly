@@ -53,7 +53,7 @@ export default function LoginForm() {
               label="إحتفظ بالجلسة"
             />
             <Link
-              href="/auth/forget-password"
+              href="/forgot-password"
               className="text-neutral-500 font-medium "
             >
               هل نسيت كلمة السر؟

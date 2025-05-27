@@ -5,6 +5,7 @@ export default function Page() {
   return (
     <>
       <HomeHeader />
+      <main className="p-5 xl:p-10"></main>
     </>
   );
 }

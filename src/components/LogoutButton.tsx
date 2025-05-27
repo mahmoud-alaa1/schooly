@@ -13,7 +13,7 @@ export default function LogoutButton() {
       });
       if (!res.ok) throw new Error("فشل تسجيل الخروج");
 
-      router.push("/auth/login");
+      router.push("/login");
     } catch (error) {
       console.error(error);
     }
