@@ -1,9 +1,9 @@
-import Logo from "@/components/Logo";
+import Logo from "@/components/Logos/AuthLogo";
 import React from "react";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col h-screen p-5">
+    <div className="flex flex-col  ">
       <header className="flex items-center justify-start">
         <Logo />
       </header>

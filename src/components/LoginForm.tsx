@@ -9,10 +9,11 @@ import { loginSchema } from "@/schemas/loginSchema";
 import Link from "next/link";
 import FormCheckbox from "./forms/FormCheckbox";
 import useLogin from "@/hooks/authentication/useLogin";
+import Spinner from "./Spinner";
 
 const defaultValues: loginSchema = {
-  email: "",
-  password: "",
+  email: "mahmoud@example.com",
+  password: "mahmoud010",
   rememberMe: true,
 };
 
@@ -63,7 +64,7 @@ export default function LoginForm() {
             className="w-full cursor-pointer"
             disabled={isPending}
           >
-            تسجيل الدخول
+            {isPending ? <Spinner /> : "تسجيل الدخول"}
           </Button>
         </form>
       </Form>

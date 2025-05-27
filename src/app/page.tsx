@@ -1,10 +1,10 @@
-import Logo from "@/components/Logo";
+import HomeHeader from "@/components/HomeHeader";
 import React from "react";
 
 export default function Page() {
   return (
-    <div>
-      <Logo />
-    </div>
+    <>
+      <HomeHeader />
+    </>
   );
 }

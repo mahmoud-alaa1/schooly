@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={`${alexandria.variable} antialiased`}>
+      <body className={`${alexandria.variable} antialiased p-5 xl:p-10`}>
         <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
