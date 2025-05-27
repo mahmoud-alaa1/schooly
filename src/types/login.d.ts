@@ -1,9 +1,11 @@
-interface loginResponse {
+interface IUser {
+  id: string;
+  email: string;
+  name: string;
+  role: EROLES;
   token: string;
-  data: {
-    email: string;
-    name: string;
-    id: string;
-    rolde: string | number;
-  };
+}
+
+interface ILoginResponse {
+  data: IUser;
 }

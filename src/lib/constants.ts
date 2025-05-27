@@ -1,1 +1,5 @@
-export const PUBLIC_ROUTES = ["/login", "/signup", "/forget-password"];
+export const AUTH_ROUTES = [
+  "/auth/login",
+  "/auth/signup",
+  "/auth/forget-password",
+];

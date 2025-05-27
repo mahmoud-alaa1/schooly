@@ -1,4 +1,4 @@
-import HomeHeader from "@/components/HomeHeader";
+import HomeHeader from "@/components/HomeHeader/HomeHeader";
 import React from "react";
 
 export default function Page() {

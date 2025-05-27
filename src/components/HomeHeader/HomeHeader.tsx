@@ -1,9 +1,8 @@
-import React from "react";
-import HomeLogo from "./Logos/HomeLogo";
-import { Button } from "./ui/button";
+import HomeLogo from "../Logos/HomeLogo";
+import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
-import Avatar from "./Avatar";
-import LogoutButton from "./LogoutButton";
+import LogoutButton from "../LogoutButton";
+import UserHeader from "./UserHeader";
 
 export default function HomeHeader() {
   return (
@@ -14,10 +13,7 @@ export default function HomeHeader() {
           <span>حصة جديدة</span>
           <Plus />
         </Button>
-        <div className="flex gap-2 items-center">
-          <Avatar />
-          <span>أيمن أحمد</span>
-        </div>
+        <UserHeader />
         <LogoutButton />
       </div>
     </header>
