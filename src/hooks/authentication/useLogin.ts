@@ -15,8 +15,8 @@ export default function useLogin() {
       return res.json() as Promise<ILoginResponse>;
     },
     onSuccess: (data) => {
-      console.log(data);
       router.push("/");
+      localStorage.setItem("token", data.data.token);
       login(data.data);
     },
     onError: (error) => {

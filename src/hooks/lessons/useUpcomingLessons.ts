@@ -1,0 +1,14 @@
+import useInfinite from "../useInfinite";
+import { getUpcomingLessons } from "@/services/lessonServices";
+
+export default function useUpcomingLessons() {
+  const res = useInfinite({
+    queryKey: ["posts"],
+    fetchFn: async (pageNumber: number) => {
+      return await getUpcomingLessons({
+        Page: pageNumber,
+      });
+    },
+  });
+  return res;
+}

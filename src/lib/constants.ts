@@ -5,3 +5,7 @@ export const AUTH_ROUTES = [
   "/verify-code",
   "/reset-password",
 ];
+
+export const POSTS_PER_PAGE = 5;
+export const UPCOMING_LESSONS_PER_PAGE = 5;
+export const HOMEWORKS_PER_PAGE = 5;
