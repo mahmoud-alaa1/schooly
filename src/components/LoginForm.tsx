@@ -29,7 +29,7 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="p-4">
+    <div className="px-4 py-6">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormInput<loginSchema>
