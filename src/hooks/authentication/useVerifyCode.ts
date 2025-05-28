@@ -7,13 +7,11 @@ function useVerifyCode() {
   const mutation = useMutation({
     mutationFn: verifyCodeService,
     onSuccess: (data, variables) => {
-      console.log(data.message); // Handle success, e.g., show a success message
-      // or redirect the user to a different page
-
+      console.log(data.message);
       router.push(`/auth/reset-password?email=${variables.email}`);
     },
     onError: (error) => {
-      console.log("Error during verify code:", error);
+      console.error("Error during verify code:", error);
     },
   });
   return mutation;

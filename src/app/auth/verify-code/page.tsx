@@ -11,7 +11,7 @@ const VerifyCode = () => {
           <span className="font-bold ">رمز التحقق</span>
         </div>
         <Link href="/auth/login" className="text-[#02C189] font-medium">
-          العودة{" "}
+          العودة
         </Link>
       </div>
       <VerifyCodeForm />

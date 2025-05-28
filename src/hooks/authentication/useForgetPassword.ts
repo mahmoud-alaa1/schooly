@@ -10,13 +10,12 @@ function useForgetPassword() {
       return await forgetPasswordService(data);
     },
     onSuccess: (data, variables) => {
-      console.log(data.message); // Handle success, e.g., show a success message
-      // or redirect the user to a different page
+      console.log(data.message);
 
       router.push(`/auth/verify-code?email=${variables.email}`);
     },
     onError: (error) => {
-      console.log("Error during password reset:", error);
+      console.error("Error during password reset:", error);
     },
   });
   return mutation;

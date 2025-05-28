@@ -21,7 +21,6 @@ function ForgetPasswordForm() {
   function onSubmit(values: forgetPasswordSchema) {
     console.log("Submitted values:", values);
     mutate(values);
-    // Here you would typically call an API to handle the password reset
   }
 
   return (
