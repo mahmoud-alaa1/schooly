@@ -25,13 +25,12 @@ function VerifyCodeForm() {
   function onSubmit(values: VerifyCodeSchema) {
     console.log("Submitted values:", values);
     mutate({ ...values, email });
-    // Here you would typically call an API to handle the password reset
   }
 
   return (
     <div className="px-4 py-6">
       <div className="mb-6 text-center">
-        <h2 className="text-2xl font-bold mb-2">تحقق من رمز التأكيد</h2>
+        <h2 className="mb-2 text-2xl font-bold">تحقق من رمز التأكيد</h2>
         <p className="text-muted-foreground">
           تم إرسال رمز التحقق إلى بريدك الإلكتروني
         </p>
@@ -58,12 +57,15 @@ function VerifyCodeForm() {
             {isPending ? <Spinner /> : "تحقق من الرمز"}
           </Button>
 
-          <div className="text-center space-y-2">
-            <p className="text-sm text-muted-foreground">لم تستلم الرمز؟</p>
+          <div
+            dir="rtl"
+            className="flex items-center justify-between space-y-2 text-center"
+          >
+            <p className="text-muted-foreground text-sm">لم تستلم الرمز؟</p>
             <Button
               type="button"
               variant="link"
-              className="text-sm"
+              className="text-sm p-0"
               onClick={() => {
                 forgetPasswordMutation({ email });
                 form.reset();

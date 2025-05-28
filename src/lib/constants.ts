@@ -1,1 +1,7 @@
-export const AUTH_ROUTES = ["/login", "/signup", "/forget-password"];
+export const AUTH_ROUTES = [
+  "/login",
+  "/signup",
+  "/forgot-password",
+  "/verify-code",
+  "/reset-password",
+];

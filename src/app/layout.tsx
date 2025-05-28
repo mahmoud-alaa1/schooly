@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Schooly is a platform for students to manage their school life.",
   icons: {
-    icon: "/Logo.svg",
+    icon: "/favicon.ico",
   },
 };
 

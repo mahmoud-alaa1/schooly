@@ -12,7 +12,7 @@ import {
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "../ui/input-otp"; // adjust import path based on your structure
+} from "../ui/input-otp";
 
 import { Control, FieldValues, Path } from "react-hook-form";
 
@@ -54,7 +54,7 @@ export default function FormOTPInput<TFormValues extends FieldValues>({
                   <InputOTPSlot
                     key={index}
                     index={index}
-                    className={slotClassName || "w-12 h-12 text-lg"}
+                    className={slotClassName || "h-12 w-12 text-lg"}
                   />
                 ))}
               </InputOTPGroup>

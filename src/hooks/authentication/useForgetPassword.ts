@@ -12,7 +12,7 @@ function useForgetPassword() {
     onSuccess: (data, variables) => {
       console.log(data.message);
 
-      router.push(`/auth/verify-code?email=${variables.email}`);
+      router.push(`/verify-code?email=${variables.email}`);
     },
     onError: (error) => {
       console.error("Error during password reset:", error);
