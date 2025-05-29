@@ -48,7 +48,7 @@ export default function SideNavRoutes() {
         <li key={link.title}>
           <NavLink
             href={link.href}
-            className="flex w-full text-sm items-center gap-2 rounded-lg p-2 text-[#00000073]"
+            className="flex w-full text-sm items-center gap-2 rounded-lg p-1 text-[#00000073]"
             nonActiveClassName="bg-transparent hover:bg-white"
             activeClassName="bg-[#B5F3E0] text-[#017553] font-semibold"
           >
