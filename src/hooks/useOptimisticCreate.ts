@@ -4,10 +4,7 @@ import { toast } from "sonner";
 interface OptimisticCreateConfig<TData, TInput> {
   createFn: (data: TInput) => Promise<TData>;
   queryKey: unknown[];
-  // Function to generate an optimistic item before the server response
-  optimisticItem: (input: TInput) => Partial<TData>;
-  // Function to add the new item to the existing data
-  updater: (oldData: any, newItem: Partial<TData>) => any;
+  optimisticData: (input: TInput) => TData;
   messages?: {
     success?: string;
     error?: string;
@@ -17,11 +14,10 @@ interface OptimisticCreateConfig<TData, TInput> {
 export default function useOptimisticCreate<TData, TInput>({
   createFn,
   queryKey,
-  optimisticItem,
-  updater,
+  optimisticData,
   messages = {
-    success: "تم الإنشاء بنجاح",
-    error: "حدث خطأ في الإنشاء",
+    success: "تمت العملية بنجاح",
+    error: "حدث خطأ ما في العملية",
   },
 }: OptimisticCreateConfig<TData, TInput>) {
   const queryClient = useQueryClient();
@@ -31,44 +27,41 @@ export default function useOptimisticCreate<TData, TInput>({
 
     onMutate: async (input) => {
       await queryClient.cancelQueries({ queryKey });
+      const previousData = queryClient.getQueryData(queryKey);
 
-      const previousData = queryClient.getQueriesData({ queryKey });
-      const newItem = optimisticItem(input);
-
-      queryClient.setQueriesData({ queryKey }, (old: any) => {
-        if (!old) return old;
-        return updater(old, newItem);
-      });
+      queryClient.setQueryData<{ pages: { data: TData[] }[] }>(
+        queryKey,
+        (old) => {
+          if (!old?.pages?.[0]) return old;
+          return {
+            ...old,
+            pages: [
+              {
+                ...old.pages[0],
+                data: [...old.pages[0].data, optimisticData(input)],
+              },
+              ...old.pages.slice(1),
+            ],
+          };
+        },
+      );
 
       return { previousData };
     },
 
-    onSuccess: (data, _, context) => {
-      queryClient.setQueriesData({ queryKey }, (old: any) => {
-        if (!old?.pages) return old;
-        return {
-          ...old,
-          pages: old.pages.map((page: any, index: number) => {
-            if (index === 0) {
-              return {
-                ...page,
-                data: [data, ...page.data.slice(1)],
-              };
-            }
-            return page;
-          }),
-        };
-      });
+    onError: (error, __, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData(queryKey, context.previousData);
+      }
+      toast.error(error instanceof Error ? error.message : messages.error);
+    },
+
+    onSuccess: () => {
       toast.success(messages.success);
     },
 
-    onError: (error, _, context) => {
-      if (context?.previousData) {
-        context.previousData.forEach(([queryKey, value]) => {
-          queryClient.setQueryData(queryKey, value);
-        });
-      }
-      toast.error(error instanceof Error ? error.message : messages.error);
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey });
     },
   });
 }

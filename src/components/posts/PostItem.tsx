@@ -18,7 +18,7 @@ export default function PostItem({ post }: { post: IPost }) {
             <div className="relative size-12 rounded-full bg-orange-500">
               <Image
                 src="/person1.png"
-                alt={post.authorId}
+                alt={`صورة ${post.authorName}`}
                 fill
                 className="rounded-full object-cover"
               />

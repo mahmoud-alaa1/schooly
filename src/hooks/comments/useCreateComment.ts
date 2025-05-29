@@ -1,21 +1,24 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createComment } from "@/services/commentsServices";
-import { toast } from "sonner";
+import useOptimisticCreate from "../useOptimisticCreate";
+import { useAuth } from "@/store/auth";
 
 export default function useCreateComment(postId: string | number) {
-  const queryClient = useQueryClient();
-  const res = useMutation({
-    mutationFn: (data: ICommentPostData) => {
-      return createComment(data);
-    },
+  const user = useAuth((state) => state.user);
 
-    onError: (e) => {
-      console.error(e);
-      toast.error("حدث خطأ ما في انشاء التعليق");
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["comments", postId] });
+  return useOptimisticCreate<IComment, ICommentPostData>({
+    createFn: createComment,
+    queryKey: ["comments", postId],
+    optimisticData: (input) => ({
+      id: Date.now(),
+      content: input.content,
+      createdAt: new Date().toISOString(),
+      authorId: user?.id || "",
+      authorName: user?.name || "",
+      authorEmail: user?.email || "",
+    }),
+    messages: {
+      success: "تم انشاء التعليق بنجاح",
+      error: "حدث خطأ ما في انشاء التعليق",
     },
   });
-  return res;
 }

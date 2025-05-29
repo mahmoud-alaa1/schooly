@@ -15,6 +15,7 @@ export default function HomeHeader({ className }: { className?: string }) {
       )}
     >
       <HomeLogo />
+
       <div className="flex items-center justify-between gap-2 p-6 text-lg">
         <div className="hidden items-center gap-6 sm:flex">
           <Button className="rounded-xl px-6! py-4">

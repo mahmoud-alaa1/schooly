@@ -8,10 +8,13 @@ import FormTextArea from "@/components/forms/FormTextArea";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { SendHorizonal } from "lucide-react";
-import { commentSchema } from "@/schemas/commenSchema";
+import { commentSchema } from "@/schemas/commentsSchema";
 import useCreateComment from "@/hooks/comments/useCreateComment";
+import Spinner from "@/components/Spinner";
+import { useAuth } from "@/store/auth";
 
 export default function CreateCommet({ postId }: { postId: string | number }) {
+  const user = useAuth((state) => state.user);
   const form = useForm<commentSchema>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
@@ -19,7 +22,7 @@ export default function CreateCommet({ postId }: { postId: string | number }) {
     },
   });
 
-  const { mutate: createComment } = useCreateComment(postId);
+  const { mutate: createComment, isPending } = useCreateComment(postId);
 
   function onSubmit(values: commentSchema) {
     createComment({
@@ -47,7 +50,7 @@ export default function CreateCommet({ postId }: { postId: string | number }) {
             <div className="relative size-8 rounded-full bg-orange-500">
               <Image
                 src="/person1.png"
-                alt={"your avatar"}
+                alt={`صورة ${user?.name || "المستخدم"}`}
                 fill
                 className="rounded-full object-cover"
               />
@@ -61,7 +64,7 @@ export default function CreateCommet({ postId }: { postId: string | number }) {
               type="submit"
               disabled={isEmptyComment}
             >
-              <SendHorizonal size={14} />
+              {isPending ? <Spinner /> : <SendHorizonal size={14} />}
             </Button>
           }
           className="px-12 pt-3"

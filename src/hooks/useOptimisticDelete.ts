@@ -31,10 +31,10 @@ export default function useOptimisticDelete<
     onMutate: async (id) => {
       await queryClient.cancelQueries({ queryKey });
 
-      const previousData = queryClient.getQueriesData({ queryKey });
+      const previousData = queryClient.getQueryData(queryKey);
 
-      queryClient.setQueriesData<{ pages: { data: TData[] }[] }>(
-        { queryKey },
+      queryClient.setQueryData<{ pages: { data: TData[] }[] }>(
+        queryKey,
         (old) => {
           if (!old?.pages) return old;
           return {
@@ -50,21 +50,17 @@ export default function useOptimisticDelete<
       return { previousData };
     },
 
-    onSuccess: () => {
+    onSuccess: (_, id) => {
       toast.success(messages.success);
+      queryClient.invalidateQueries({ queryKey });
     },
 
     onError: (error, _, context) => {
       if (context?.previousData) {
-        context.previousData.forEach(([queryKey, value]) => {
-          queryClient.setQueryData(queryKey, value);
-        });
+        queryClient.setQueryData(queryKey, context.previousData);
       }
-      toast.error(error instanceof Error ? error.message : messages.error);
-    },
 
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey });
+      toast.error(error instanceof Error ? error.message : messages.error);
     },
   });
 }

@@ -25,7 +25,7 @@ export default function CommentDisplay({
         <div className="relative size-12 rounded-full bg-orange-500">
           <Image
             src="/person1.png"
-            alt={comment.authorName}
+            alt={`صورة ${comment.authorName}`}
             fill
             className="rounded-full object-cover"
           />

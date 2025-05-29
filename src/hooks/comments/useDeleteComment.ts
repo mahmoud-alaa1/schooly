@@ -8,6 +8,7 @@ export default function useDeleteComment(postId: string | number) {
     matcher: (comment, id) => comment.id === id,
     messages: {
       error: "حدث خطأ في حذف التعليق",
+      success: "تم حذف التعليق بنجاح",
     },
   });
 }
