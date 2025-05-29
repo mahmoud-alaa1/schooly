@@ -48,9 +48,9 @@ export default function SideNavRoutes() {
         <li key={link.title}>
           <NavLink
             href={link.href}
-            className="flex w-full items-center gap-2 rounded-lg p-3"
-            nonActiveClassName="bg-white hover:bg-gray-100"
-            activeClassName="bg-[#B5F3E0] text-[#017553]"
+            className="flex w-full text-sm items-center gap-2 rounded-lg p-1 text-[#00000073]"
+            nonActiveClassName="bg-transparent hover:bg-white"
+            activeClassName="bg-[#B5F3E0] text-[#017553] font-semibold"
           >
             <Badge
               style={{ backgroundColor: link.color }}
