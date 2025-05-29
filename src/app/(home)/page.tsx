@@ -1,5 +1,5 @@
 import HomeworksList from "@/components/Homeworks/HomeworksList";
-import Posts from "@/components/posts/Posts";
+import Posts from "@/components/posts/PostsList";
 import SideNav from "@/components/SideNav/SideNav";
 import UpcomingLessons from "@/components/UpcomingLessons/UpcomingLessonsList";
 

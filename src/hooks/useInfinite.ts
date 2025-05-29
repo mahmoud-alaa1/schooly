@@ -2,27 +2,23 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
-type PaginatedResponse<T> = {
-  data: T[];
-  totalPages: number;
-  currentPage: number;
-};
-
 function useInfinite<T>({
   queryKey,
   fetchFn,
 }: {
   queryKey: string[];
-  fetchFn: (pageNumber: number) => Promise<PaginatedResponse<T>>;
+  fetchFn: (pageNumber: number) => Promise<IPaginatedResponse<T>>;
 }) {
   const result = useInfiniteQuery({
     queryKey,
     queryFn: ({ pageParam = 1 }) => fetchFn(pageParam),
     getNextPageParam: (lastPage, _, lastPageParam) => {
       const nextPage =
-        lastPage && lastPageParam < lastPage.totalPages
+        lastPage && lastPageParam < lastPage.meta.totalPages
           ? lastPageParam + 1
           : undefined;
+
+      console.log(nextPage);
       return nextPage;
     },
     initialPageParam: 1,
