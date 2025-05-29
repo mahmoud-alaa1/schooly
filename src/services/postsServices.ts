@@ -12,7 +12,7 @@ export async function getAllPosts({
   ClassRoomId?: string;
 }) {
   try {
-    const response = await api.get(`/post/all`, {
+    const response = await api.get<IPaginatedResponse<IPost>>(`/post/all`, {
       params: {
         Page,
         PageSize,

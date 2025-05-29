@@ -1,0 +1,18 @@
+"use client";
+
+import useGetAllPosts from "@/hooks/posts/useGetAllPosts";
+import PostItem from "./PostItem";
+
+export default function PostsList() {
+  const { data, isLoading, error, ref } = useGetAllPosts();
+  const posts = data?.pages.flatMap((page) => page.data);
+  return (
+    <div className="flex flex-col gap-4">
+      {posts?.map((post, index) => (
+        <div key={post.id} ref={index === posts.length - 1 ? ref : undefined}>
+          <PostItem post={post} />
+        </div>
+      ))}
+    </div>
+  );
+}
