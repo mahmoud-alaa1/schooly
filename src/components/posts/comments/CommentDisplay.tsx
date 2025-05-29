@@ -21,8 +21,8 @@ export default function CommentDisplay({
 
   return (
     <div className="flex justify-between gap-3">
-      <div className="flex items-center gap-2">
-        <div className="relative size-12 rounded-full bg-orange-500">
+      <div className="flex items-start gap-2">
+        <div className="relative size-12 shrink-0 rounded-full bg-orange-500">
           <Image
             src="/person1.png"
             alt={`صورة ${comment.authorName}`}
@@ -30,7 +30,7 @@ export default function CommentDisplay({
             className="rounded-full object-cover"
           />
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 break-words">
           <span className="font-semibold">{comment.authorName}</span>
           <span className="text-sm text-gray-500">{comment.content}</span>
         </div>
