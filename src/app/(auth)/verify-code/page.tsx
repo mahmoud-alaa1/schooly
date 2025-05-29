@@ -1,6 +1,7 @@
 import VerifyCodeForm from "@/components/VerifyCodeForm";
 import { RectangleEllipsis } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const VerifyCode = () => {
   return (
@@ -14,7 +15,9 @@ const VerifyCode = () => {
           العودة
         </Link>
       </div>
-      <VerifyCodeForm />
+      <Suspense>
+        <VerifyCodeForm />
+      </Suspense>
     </div>
   );
 };
