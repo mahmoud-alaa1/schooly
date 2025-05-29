@@ -13,7 +13,7 @@ interface OptimisticDeleteConfig<TData, TId> {
 
 export default function useOptimisticDelete<
   TData extends Record<string, any>,
-  TId = number,
+  TId = number | string,
 >({
   deleteFn,
   queryKey,
