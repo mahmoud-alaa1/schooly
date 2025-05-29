@@ -1,0 +1,70 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+
+interface OptimisticDeleteConfig<TData, TId> {
+  deleteFn: (id: TId) => Promise<any>;
+  queryKey: unknown[];
+  matcher: (item: TData, id: TId) => boolean;
+  messages?: {
+    success?: string;
+    error?: string;
+  };
+}
+
+export default function useOptimisticDelete<
+  TData extends Record<string, any>,
+  TId = number,
+>({
+  deleteFn,
+  queryKey,
+  matcher,
+  messages = {
+    success: "تم الحذف بنجاح",
+    error: "حدث خطأ في الحذف",
+  },
+}: OptimisticDeleteConfig<TData, TId>) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteFn,
+
+    onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey });
+
+      const previousData = queryClient.getQueriesData({ queryKey });
+
+      queryClient.setQueriesData<{ pages: { data: TData[] }[] }>(
+        { queryKey },
+        (old) => {
+          if (!old?.pages) return old;
+          return {
+            ...old,
+            pages: old.pages.map((page) => ({
+              ...page,
+              data: page.data.filter((item) => !matcher(item, id)),
+            })),
+          };
+        },
+      );
+
+      return { previousData };
+    },
+
+    onSuccess: () => {
+      toast.success(messages.success);
+    },
+
+    onError: (error, _, context) => {
+      if (context?.previousData) {
+        context.previousData.forEach(([queryKey, value]) => {
+          queryClient.setQueryData(queryKey, value);
+        });
+      }
+      toast.error(error instanceof Error ? error.message : messages.error);
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey });
+    },
+  });
+}

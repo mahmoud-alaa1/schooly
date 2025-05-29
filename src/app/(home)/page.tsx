@@ -1,5 +1,5 @@
 import HomeworksList from "@/components/Homeworks/HomeworksList";
-import Posts from "@/components/posts/PostsList";
+import PostsList from "@/components/posts/PostsList";
 import SideNav from "@/components/SideNav/SideNav";
 import UpcomingLessons from "@/components/UpcomingLessons/UpcomingLessonsList";
 
@@ -13,7 +13,7 @@ export default function Page() {
         dir="ltr"
         className="scrollbar-hide h-[calc(100vh-140px)] overflow-auto"
       >
-        <Posts />
+        <PostsList />
       </main>
       <aside className="hidden h-[calc(100vh-140px)] flex-col gap-5 overflow-auto rounded-lg xl:flex">
         <UpcomingLessons />

@@ -1,0 +1,46 @@
+"use client";
+
+import Image from "next/image";
+import ActionsMenu from "../ActionsMenu";
+import useDeleteComment from "@/hooks/comments/useDeleteComment";
+import { useAuth } from "@/store/auth";
+import { useEffect } from "react";
+import { toast } from "sonner";
+
+export default function CommentDisplay({
+  comment,
+  postId,
+  onEdit,
+}: {
+  comment: IComment;
+  onEdit: () => void;
+  postId: string | number;
+}) {
+  const { mutate: deleteComment } = useDeleteComment(postId);
+  const user = useAuth((state) => state.user);
+
+  return (
+    <div className="flex justify-between gap-3">
+      <div className="flex items-center gap-2">
+        <div className="relative size-12 rounded-full bg-orange-500">
+          <Image
+            src="/person1.png"
+            alt={comment.authorName}
+            fill
+            className="rounded-full object-cover"
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <span className="font-semibold">{comment.authorName}</span>
+          <span className="text-sm text-gray-500">{comment.content}</span>
+        </div>
+      </div>
+      {comment.authorId === user?.id && (
+        <ActionsMenu
+          onEdit={onEdit}
+          onDelete={() => deleteComment(comment.id)}
+        />
+      )}
+    </div>
+  );
+}
