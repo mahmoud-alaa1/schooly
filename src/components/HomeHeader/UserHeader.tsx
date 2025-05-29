@@ -7,10 +7,10 @@ export default function UserHeader() {
 
   return (
     <div className="flex gap-2 h-full items-center">
-      <Avatar  />
+      <Avatar src={'/person1.png'} alt="person" size="12" />
       <div className="flex flex-col justify-center">
         <span>{user?.name}</span>
-        <span className="text-[#00000073]">{user?.role === 2 ? 'حساب طالب' : "حساب معلم" }</span>  
+        <span className="text-[#00000073] text-sm">{user?.role === 2 ? 'حساب طالب' : "حساب معلم" }</span>  
       </div>
     </div>
   );
