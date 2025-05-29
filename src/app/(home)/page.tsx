@@ -1,7 +1,6 @@
 import HomeHeader from "@/components/HomeHeader/HomeHeader";
 import HomeworksList from "@/components/Homeworks/HomeworksList";
 import Posts from "@/components/posts/PostsList";
-import SideNav from "@/components/SideNav/SideNav";
 import UpcomingLessons from "@/components/UpcomingLessons/UpcomingLessonsList";
 
 export default function Page() {
