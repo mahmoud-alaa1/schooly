@@ -17,10 +17,12 @@ export default function SideNav() {
           <SideNavLogo />
         </Link>
       </div>
-      <div className="flex h-full flex-col p-5">
+      <div className="flex flex-col p-5">
         <SideNavButton />
         <SideNavRoutes />
         <SideNavClasses />
+      </div>
+      <div className="mt-auto p-5">
         <SideNavQrCode />
         <SideNavAccount />
       </div>
