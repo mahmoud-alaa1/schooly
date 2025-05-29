@@ -8,7 +8,7 @@ interface HomeLayoutProps {
 export default function HomeLayout({ children }: HomeLayoutProps) {
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <div className="grid grid-cols-[clamp(300px,25vw,360px)_auto]">
+      <div className="grid grid-cols-[300px_auto]">
         <aside className="scrollbar-hide h-[100dvh] overflow-auto border-l-2 border-[#D9D9D9]">
           <SideNav />
         </aside>
