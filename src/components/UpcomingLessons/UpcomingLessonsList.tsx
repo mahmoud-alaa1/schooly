@@ -6,7 +6,8 @@ import useUpcomingLessons from "@/hooks/lessons/useUpcomingLessons";
 import { Box, BoxBody, BoxHeader } from "../Box";
 import Link from "next/link";
 export default function UpcomingLessonsList() {
-  const { data, isLoading, isError } = useUpcomingLessons();
+  // const { data, isLoading, isError } = useUpcomingLessons();
+  // console.log(data);
   return (
     <Box>
       <BoxHeader>

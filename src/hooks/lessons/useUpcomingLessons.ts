@@ -3,7 +3,7 @@ import { getUpcomingLessons } from "@/services/lessonServices";
 
 export default function useUpcomingLessons() {
   const res = useInfinite({
-    queryKey: ["posts"],
+    queryKey: ["upcoming-lessons"],
     fetchFn: async (pageNumber: number) => {
       return await getUpcomingLessons({
         Page: pageNumber,
