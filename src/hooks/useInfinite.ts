@@ -18,7 +18,6 @@ function useInfinite<T>({
           ? lastPageParam + 1
           : undefined;
 
-      console.log(nextPage);
       return nextPage;
     },
     initialPageParam: 1,

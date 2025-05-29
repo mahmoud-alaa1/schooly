@@ -38,14 +38,12 @@ export default function FormInput<TFormValues extends FieldValues>({
           {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
           <FormControl>
             <div className="relative">
-              {Icon && (
-                <div className="absolute inset-y-0 end-0.5 ">{Icon}</div>
-              )}
+              {Icon && <div className="absolute inset-y-0 end-0.5">{Icon}</div>}
               <Input
                 id={name}
                 {...inputProps}
                 {...field}
-                className={`${Icon ? "pl-8" : ""}  ${className || ""}`}
+                className={`${Icon ? "pl-8" : ""} ${className || ""}`}
               />
             </div>
           </FormControl>
