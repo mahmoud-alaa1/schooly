@@ -34,7 +34,9 @@ export default function PostBody({ post }: { post: IPost }) {
       {isEditing ? (
         <PostEdit post={post} cancelEdit={() => setIsEditing(false)} />
       ) : (
-        <p className="whitespace-pre-wrap">{post.content}</p>
+        <p className="overflow-wrap-anywhere break-words whitespace-pre-wrap">
+          {post.content}
+        </p>
       )}
       <span className="text-muted-foreground">
         {getDistanceToNow(post.createdAt)}

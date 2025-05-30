@@ -14,7 +14,7 @@ export default function SideNavMenu() {
         </SheetTrigger>
         <SheetContent
           side="right"
-          className="scrollbar-hide gap-5 overflow-auto bg-white"
+          className="scrollbar-hide w-[300px] gap-5 overflow-auto bg-white"
         >
           <SideNav />
         </SheetContent>
