@@ -1,5 +1,4 @@
 import LogoutButton from "../LogoutButton";
-import UserHeader from "./UserHeader";
 import { cn } from "@/lib/utils";
 
 export default function HomeHeader({ className }: { className?: string }) {

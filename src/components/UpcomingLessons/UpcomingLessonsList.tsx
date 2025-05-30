@@ -5,9 +5,62 @@ import { Clock } from "lucide-react";
 import useUpcomingLessons from "@/hooks/lessons/useUpcomingLessons";
 import { Box, BoxBody, BoxHeader } from "../Box";
 import Link from "next/link";
+import UpcomingLessonsItem from "./UpcomingLessonsItem";
 export default function UpcomingLessonsList() {
-  // const { data, isLoading, isError } = useUpcomingLessons();
-  // console.log(data);
+  const { data, isLoading, isError } = useUpcomingLessons();
+
+  // mock data for testing intefacr ILesson[]
+  const mockLessons: ILesson[] = [
+    {
+      id: "1",
+      classRoomId: "class-1",
+      teacherId: "teacher-1",
+      subject: "فيزياء",
+      grade: "الصف الأول إعدادي",
+      title: "الدرس الخامس: الضرب الإتجاهي والقياسي",
+      lessonType: 0,
+      date: "2025-10-01",
+      from: "10:00",
+      to: "11:00",
+    },
+    {
+      id: "2",
+      classRoomId: "class-2",
+      teacherId: "teacher-2",
+      subject: "كيمياء",
+      grade: "الصف الأول إعدادي",
+      title: "مقدمة في الكيمياء العضوية",
+      lessonType: 0,
+      date: "2025-5-30",
+      from: "6:30",
+      to: "12:00",
+    },
+    {
+      id: "3",
+      classRoomId: "class-3",
+      teacherId: "teacher-3",
+      subject: "رياضيات",
+      grade: "الصف الأول إعدادي",
+      title: "حل المعادلات الخطية",
+      lessonType: 0,
+      date: "2025-4-03",
+      from: "12:00",
+      to: "13:00",
+    },
+    {
+      id: "4",
+      classRoomId: "class-4",
+      teacherId: "teacher-4",
+      subject: "علوم",
+      grade: "الصف الأول إعدادي",
+      title: "مقدمة في علم الأحياء",
+      lessonType: 0,
+      date: "2025-5-30",
+      from: "13:00",
+      to: "14:00",
+    },
+  ];
+
   return (
     <Box>
       <BoxHeader>
@@ -21,7 +74,13 @@ export default function UpcomingLessonsList() {
           </Button>
         </Link>
       </BoxHeader>
-      <BoxBody>test</BoxBody>
+      <BoxBody>
+        <ul className="list-none py-2">
+          {mockLessons.map((lesson) => (
+            <UpcomingLessonsItem key={lesson.id} lesson={lesson} />
+          ))}
+        </ul>
+      </BoxBody>
     </Box>
   );
 }

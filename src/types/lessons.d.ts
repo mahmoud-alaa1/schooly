@@ -1,3 +1,16 @@
+interface ILesson {
+  id: string;
+  classRoomId: string;
+  teacherId: string;
+  subject: string;
+  grade: string;
+  title: string;
+  lessonType: ELessonType;
+  date: string;
+  from: string;
+  to: string;
+}
+
 interface ILessonPutData {
   id: string;
   classRoomId: string;
