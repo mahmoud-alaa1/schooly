@@ -20,7 +20,7 @@ import { useState } from "react";
 
 type ActionsMenuProps = {
   onDelete: () => void;
-  onEdit?: () => void;
+  onEdit: () => void;
 };
 
 export default function ActionsMenu({ onDelete, onEdit }: ActionsMenuProps) {

@@ -7,35 +7,30 @@ import { useEffect } from "react";
 import { Form } from "@/components/ui/form";
 import FormTextArea from "@/components/forms/FormTextArea";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { SendHorizonal, X } from "lucide-react";
 import { commentSchema } from "@/schemas/commentsSchema";
-import useUpdateComment from "@/hooks/comments/useUpdateComment";
 import Spinner from "@/components/Spinner";
-import { useAuth } from "@/store/auth";
+import useUpdatePost from "@/hooks/posts/useUpdatePost";
 
-export default function CommentEdit({
-  postId,
+export default function PostEdit({
+  post,
   cancelEdit,
-  comment,
 }: {
-  postId: string | number;
   cancelEdit: () => void;
-  comment: IComment;
+  post: IPost;
 }) {
-  const user = useAuth((state) => state.user);
   const form = useForm<commentSchema>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
-      content: comment.content,
+      content: post.content,
     },
   });
 
-  const { mutate: updateComment, isPending } = useUpdateComment(postId);
+  const { mutate: updatePost, isPending } = useUpdatePost();
 
   function onSubmit(values: commentSchema) {
-    updateComment({
-      id: comment.id,
+    updatePost({
+      id: post.id,
       content: values.content,
     });
     cancelEdit();
@@ -64,18 +59,8 @@ export default function CommentEdit({
           }}
           control={form.control}
           name="content"
-          placeholder="اضف تعليقك .... "
+          placeholder="حدث تغييراتك هنا .... "
           onEnterSubmit={form.handleSubmit(onSubmit)}
-          rightComponent={
-            <div className="relative size-8 rounded-full bg-orange-500">
-              <Image
-                src="/person1.png"
-                alt={`صورة ${user?.name || "المستخدم"}`}
-                fill
-                className="rounded-full object-cover"
-              />
-            </div>
-          }
           leftComponent={
             <div className="flex gap-2">
               <Button
@@ -98,7 +83,7 @@ export default function CommentEdit({
               </Button>
             </div>
           }
-          className="px-12 pt-3 pl-25"
+          className="bg-gray-200/50 pl-24"
         />
       </form>
     </Form>

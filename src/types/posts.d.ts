@@ -15,3 +15,8 @@ interface IPost {
   authorName: string;
   classRoomId: string;
 }
+
+interface IPostPutData {
+  id: number | string;
+  content: string;
+}

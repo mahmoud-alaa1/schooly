@@ -2,6 +2,9 @@ interface ICommentPostData {
   postId: string | number;
   content: string;
 }
+interface ICommentPostResponse {
+  data: IComment;
+}
 
 interface IComment {
   id: string | number;
@@ -10,4 +13,16 @@ interface IComment {
   authorId: string | number;
   authorName: string;
   authorEmail: string;
+}
+
+interface ICommentPutData {
+  id: string | number;
+  content: string;
+}
+interface IUpdateCommentResponse {
+  data: {
+    id: string | number;
+    content: string;
+    authorId: string | number;
+  };
 }

@@ -4,8 +4,6 @@ import Image from "next/image";
 import ActionsMenu from "../ActionsMenu";
 import useDeleteComment from "@/hooks/comments/useDeleteComment";
 import { useAuth } from "@/store/auth";
-import { useEffect } from "react";
-import { toast } from "sonner";
 
 export default function CommentDisplay({
   comment,
@@ -32,7 +30,9 @@ export default function CommentDisplay({
         </div>
         <div className="flex flex-col gap-1 break-words">
           <span className="font-semibold">{comment.authorName}</span>
-          <span className="text-sm text-gray-500">{comment.content}</span>
+          <span className="text-sm whitespace-pre-wrap text-gray-500">
+            {comment.content}
+          </span>
         </div>
       </div>
       {comment.authorId === user?.id && (

@@ -2,10 +2,14 @@
 
 import useGetAllPosts from "@/hooks/posts/useGetAllPosts";
 import PostItem from "./PostItem";
+import PostSkeleton from "./PostSkeleton";
 
 export default function PostsList() {
-  const { data, isLoading, error, ref } = useGetAllPosts();
+  const { data, isFetchingNextPage, error, ref } = useGetAllPosts();
   const posts = data?.pages.flatMap((page) => page.data);
+
+  console.log(isFetchingNextPage);
+
   return (
     <div className="flex flex-col gap-4">
       {posts?.map((post, index) => (
@@ -13,6 +17,7 @@ export default function PostsList() {
           <PostItem post={post} />
         </div>
       ))}
+      {isFetchingNextPage && <PostSkeleton />}
     </div>
   );
 }
