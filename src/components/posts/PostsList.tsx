@@ -5,7 +5,7 @@ import PostItem from "./PostItem";
 import PostSkeleton from "./PostSkeleton";
 
 export default function PostsList() {
-  const { data, isFetchingNextPage, error, ref } = useGetAllPosts();
+  const { data, isFetchingNextPage, isPending, error, ref } = useGetAllPosts();
   const posts = data?.pages.flatMap((page) => page.data);
 
   console.log(isFetchingNextPage);
@@ -17,7 +17,7 @@ export default function PostsList() {
           <PostItem post={post} />
         </div>
       ))}
-      {isFetchingNextPage && <PostSkeleton />}
+      {(isFetchingNextPage || isPending) && <PostSkeleton />}
     </div>
   );
 }
