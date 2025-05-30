@@ -5,8 +5,10 @@ import { NotebookText } from "lucide-react";
 import useUpcomingLessons from "@/hooks/lessons/useUpcomingLessons";
 import { Box, BoxBody, BoxHeader } from "../Box";
 import Link from "next/link";
+import { HOMEWORKS_PER_PAGE } from "@/lib/constants";
+import HomeworksSkeleton from "./HomeworksSkeleton";
 export default function HomeworksList() {
-  // const { data, isLoading, isError } = useUpcomingLessons();
+  const { data, isLoading, isError } = useUpcomingLessons();
   return (
     <Box>
       <BoxHeader>
@@ -20,7 +22,15 @@ export default function HomeworksList() {
           </Button>
         </Link>
       </BoxHeader>
-      <BoxBody>test</BoxBody>
+      <BoxBody>
+        {/* {isLoading && ( */}
+        <>
+          {Array.from({ length: HOMEWORKS_PER_PAGE }).map((_, i) => (
+            <HomeworksSkeleton key={i} />
+          ))}
+        </>
+        {/* )} */}
+      </BoxBody>
     </Box>
   );
 }
