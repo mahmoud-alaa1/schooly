@@ -48,7 +48,7 @@ export async function deleteComment(id: number | string) {
 
 export async function createComment(data: ICommentPostData) {
   try {
-    const response = await api.post<ICommentPostResponse>(`/comment`, data);
+    const response = await api.post<IComment>(`/comment`, data);
     console.log(response.data);
     return response.data;
   } catch (error) {

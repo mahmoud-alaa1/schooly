@@ -14,7 +14,7 @@ export default function PostItem({ post }: { post: IPost }) {
       <PostBody post={post} />
 
       <BoxBody className="flex flex-col gap-4">
-        {post.comments.length > 0 && <PostCommentsList postId={post.id} />}
+        <PostCommentsList postId={post.id} />
         <CreateCommet postId={post.id} />
       </BoxBody>
     </Box>

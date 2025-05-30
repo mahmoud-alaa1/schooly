@@ -6,7 +6,7 @@ export const AUTH_ROUTES = [
   "/reset-password",
 ];
 
-export const POSTS_PER_PAGE = 1;
+export const POSTS_PER_PAGE = 4;
 export const UPCOMING_LESSONS_PER_PAGE = 5;
 export const HOMEWORKS_PER_PAGE = 5;
 export const COMMENTS_PER_PAGE = 2000;

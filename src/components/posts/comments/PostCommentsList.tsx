@@ -6,7 +6,7 @@ export default function PostCommentsList({
 }: {
   postId: string | number;
 }) {
-  const { data, isPending, error, ref } = useGetComment({ postId });
+  const { data, ref } = useGetComment({ postId });
   const comments = data?.pages.flatMap((page) => page.data);
 
   if (!comments?.length) return null;
