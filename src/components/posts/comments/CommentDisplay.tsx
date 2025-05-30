@@ -26,6 +26,7 @@ export default function CommentDisplay({
             alt={`صورة ${comment.authorName}`}
             fill
             className="rounded-full object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div className="flex flex-col gap-1 break-words">
