@@ -17,7 +17,7 @@ export default function UpcomingLessonsItem({
 
   return (
     <li className="border-[#F0F0F0] py-3 not-last:border-b-1">
-      <div className="flex justify-between gap-1.5">
+      <div className="flex items-center justify-between gap-1.5">
         <div className="flex items-center gap-3">
           <Image
             src={"/physics.webp"}

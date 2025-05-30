@@ -1,18 +1,14 @@
 import HomeHeader from "@/components/HomeHeader/HomeHeader";
-import HomeworksList from "@/components/Homeworks/HomeworksList";
 import Posts from "@/components/posts/PostsList";
-import UpcomingLessons from "@/components/UpcomingLessons/UpcomingLessonsList";
+import SideBar from "@/components/SideBar";
 
 export default function Page() {
   return (
-    <div className="">
+    <div>
       <HomeHeader />
-      <main className="scrollbar-hide grid h-[calc(100vh-100px)] grid-cols-[1fr_400px] gap-5 overflow-auto p-5">
+      <main className="scrollbar-hide grid h-[calc(100vh-100px)] grid-cols-1 gap-5 overflow-auto p-5 sm:grid-cols-[2fr_1fr]">
         <Posts />
-        <aside className="hidden h-[calc(100vh-140px)] flex-col gap-5 overflow-auto rounded-lg xl:flex">
-          <UpcomingLessons />
-          <HomeworksList />
-        </aside>
+        <SideBar />
       </main>
     </div>
   );

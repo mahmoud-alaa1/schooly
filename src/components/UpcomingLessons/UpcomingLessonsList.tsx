@@ -6,6 +6,8 @@ import useUpcomingLessons from "@/hooks/lessons/useUpcomingLessons";
 import { Box, BoxBody, BoxHeader } from "../Box";
 import Link from "next/link";
 import UpcomingLessonsItem from "./UpcomingLessonsItem";
+import UpcomingLessonSkeleton from "./UpcomingLessonSkeleton";
+import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
 export default function UpcomingLessonsList() {
   const { data, isLoading, isError } = useUpcomingLessons();
 
@@ -31,7 +33,7 @@ export default function UpcomingLessonsList() {
       grade: "الصف الأول إعدادي",
       title: "مقدمة في الكيمياء العضوية",
       lessonType: 0,
-      date: "2025-5-30",
+      date: "2025-6-2",
       from: "6:30",
       to: "12:00",
     },
@@ -43,9 +45,9 @@ export default function UpcomingLessonsList() {
       grade: "الصف الأول إعدادي",
       title: "حل المعادلات الخطية",
       lessonType: 0,
-      date: "2025-4-03",
-      from: "12:00",
-      to: "13:00",
+      date: "2025-5-30",
+      from: "20:00",
+      to: "22:00",
     },
     {
       id: "4",
@@ -75,11 +77,18 @@ export default function UpcomingLessonsList() {
         </Link>
       </BoxHeader>
       <BoxBody>
-        <ul className="list-none py-2">
+        {/* <ul className="list-none">
           {mockLessons.map((lesson) => (
             <UpcomingLessonsItem key={lesson.id} lesson={lesson} />
           ))}
-        </ul>
+        </ul> */}
+        {/* {isLoading && ( */}
+        <>
+          {Array.from({ length: UPCOMING_LESSONS_PER_PAGE }).map((_, i) => (
+            <UpcomingLessonSkeleton key={i} />
+          ))}
+        </>
+        {/* )} */}
       </BoxBody>
     </Box>
   );
