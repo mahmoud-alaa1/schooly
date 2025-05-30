@@ -4,8 +4,6 @@ import Image from "next/image";
 import ActionsMenu from "../ActionsMenu";
 import useDeleteComment from "@/hooks/comments/useDeleteComment";
 import { useAuth } from "@/store/auth";
-import { useEffect } from "react";
-import { toast } from "sonner";
 
 export default function CommentDisplay({
   comment,
@@ -28,6 +26,7 @@ export default function CommentDisplay({
             alt={`صورة ${comment.authorName}`}
             fill
             className="rounded-full object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div className="flex flex-col gap-1 break-words">

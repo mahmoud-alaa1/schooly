@@ -21,6 +21,7 @@ export default function PostItem({ post }: { post: IPost }) {
                 alt={`صورة ${post.authorName}`}
                 fill
                 className="rounded-full object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
             <span className="font-semibold">{post.authorName}</span>

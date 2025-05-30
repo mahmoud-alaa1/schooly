@@ -1,4 +1,3 @@
-import HomeHeader from "@/components/HomeHeader/HomeHeader";
 import SideNav from "@/components/SideNav/SideNav";
 
 interface HomeLayoutProps {

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import CommentDisplay from "./CommentDisplay";
 import CommentEdit from "./CommentEdit";

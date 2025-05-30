@@ -10,6 +10,8 @@ function SideNavQrCode() {
             fill
             alt="teacher model"
             className="scale-x-[-1]"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={true}
           />
         </div>
         <div className="overflow-hidden p-2" dir="ltr">
@@ -19,7 +21,7 @@ function SideNavQrCode() {
               width={70}
               height={70}
               alt="qr-code"
-              className="rounded-lg"
+              className="w-auto rounded-lg"
             />
             <span className="text-lg font-bold text-white">
               حــــمـــل
