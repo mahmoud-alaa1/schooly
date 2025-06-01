@@ -6,7 +6,7 @@ import PostSkeleton from "./PostSkeleton";
 import { POSTS_PER_PAGE } from "@/lib/constants";
 
 export default function PostsList() {
-  const { data, isFetchingNextPage, isPending, ref } = useGetAllPosts();
+  const { data, isFetching, ref } = useGetAllPosts();
   const posts = data?.pages.flatMap((page) => page.data);
 
   return (
@@ -16,7 +16,7 @@ export default function PostsList() {
           <PostItem post={post} />
         </div>
       ))}
-      {(isFetchingNextPage || isPending) && (
+      {isFetching && (
         <>
           {Array.from({ length: POSTS_PER_PAGE }).map((_, i) => (
             <PostSkeleton key={i} />

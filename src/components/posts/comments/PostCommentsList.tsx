@@ -1,12 +1,13 @@
 import useGetComment from "@/hooks/comments/useGetComment";
 import CommentItem from "./CommentItem";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function PostCommentsList({
   postId,
 }: {
   postId: string | number;
 }) {
-  const { data, ref } = useGetComment({ postId });
+  const { data, ref, isFetching } = useGetComment({ postId });
   const comments = data?.pages.flatMap((page) => page.data);
 
   if (!comments?.length) return null;
@@ -21,6 +22,18 @@ export default function PostCommentsList({
           <CommentItem comment={comment} postId={postId} />
         </li>
       ))}
+      {isFetching &&
+        Array.from({ length: 2 }).map((_, i) => (
+          <li key={i}>
+            <div className="flex gap-3">
+              <Skeleton className="size-12 shrink-0 rounded-full" />
+              <div className="flex-1 space-y-2">
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-4 w-full" />
+              </div>
+            </div>
+          </li>
+        ))}
     </ul>
   );
 }
