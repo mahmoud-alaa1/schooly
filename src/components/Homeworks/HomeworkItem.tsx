@@ -1,8 +1,11 @@
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { Download } from "lucide-react";
+import HomeworkDownload from "./HomeworkDownload";
 
-export default function HomeworkItem() {
+interface IHomeworkProps {
+  homework: IHomework;
+}
+
+export default function HomeworkItem({ homework }: IHomeworkProps) {
   return (
     <li className="border-[#F0F0F0] py-3 not-last:border-b-1">
       <div className="flex items-center justify-between gap-1.5">
@@ -14,16 +17,14 @@ export default function HomeworkItem() {
             alt="subject logo"
           />
           <div>
-            <h4 className="text-sm">واجب 2024-02-24.pdf</h4>
-            <p className="text-sm text-[#00000073]">
-              {" "}
-              الدرس الخامس: الضرب الإتجاهي والقياسي
-            </p>
+            <h4 className="text-sm">{homework.fileName}</h4>
+            <p className="text-sm text-[#00000073]">{homework.lessonTitle}</p>
           </div>
         </div>
-        <Button variant="outline" className="rounded-full border-2">
-          <Download />
-        </Button>
+        <HomeworkDownload
+          fileName={homework?.fileName}
+          fileUrl={homework?.fileUrl}
+        />
       </div>
     </li>
   );

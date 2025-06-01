@@ -2,14 +2,15 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { NotebookText } from "lucide-react";
-import useUpcomingLessons from "@/hooks/lessons/useUpcomingLessons";
 import { Box, BoxBody, BoxHeader } from "../Box";
 import Link from "next/link";
 import { HOMEWORKS_PER_PAGE } from "@/lib/constants";
 import HomeworksSkeleton from "./HomeworksSkeleton";
 import HomeworkItem from "./HomeworkItem";
+import useGetAllHomeworks from "@/hooks/homeworks/useGetAllHomeworks";
 export default function HomeworksList() {
-  const { data, isLoading, isError } = useUpcomingLessons();
+  const { data, isLoading, isError } = useGetAllHomeworks();
+  const homeworks = data?.pages.flatMap((data) => data.data);
   return (
     <Box>
       <BoxHeader>
@@ -24,19 +25,28 @@ export default function HomeworksList() {
         </Link>
       </BoxHeader>
       <BoxBody>
-        {/* <ul className="list-none">
-          {mockLessons.map((lesson) => (
-            <UpcomingLessonsItem key={lesson.id} lesson={lesson} />
-          ))}
-        </ul> */}
-        {/* {isLoading && ( */}
-        <>
-          {Array.from({ length: HOMEWORKS_PER_PAGE }).map((_, i) => (
-            // <HomeworksSkeleton key={i} />
-            <HomeworkItem key={i} />
-          ))}
-        </>
-        {/* )} */}
+        {isError ? (
+          <p className="text-red-500">حدث خطأ أثناء تحميل الواجبات.</p>
+        ) : homeworks?.length === 0 && !isLoading ? (
+          <p className="text-gray-500">لا توجد واجبات</p>
+        ) : (
+          <ul className="list-none">
+            {homeworks?.map((homework) => (
+              <HomeworkItem
+                key={`${homework?.homeWorkId}`}
+                homework={homework}
+              />
+            ))}
+          </ul>
+        )}
+
+        {isLoading && (
+          <>
+            {Array.from({ length: HOMEWORKS_PER_PAGE }).map((_, i) => (
+              <HomeworksSkeleton key={i} />
+            ))}
+          </>
+        )}
       </BoxBody>
     </Box>
   );
