@@ -3,22 +3,25 @@ import { HOMEWORKS_PER_PAGE } from "@/lib/constants";
 import { isAxiosError } from "axios";
 
 export async function getHomeworks({
-  Page,
-  PageSize = HOMEWORKS_PER_PAGE,
+  page,
+  pageSize = HOMEWORKS_PER_PAGE,
   ClassRoomId,
 }: {
-  Page?: string | number;
-  PageSize?: string | number;
+  page?: string | number;
+  pageSize?: string | number;
   ClassRoomId?: string;
 }) {
   try {
-    const response = await api.get(`/homework/active`, {
-      params: {
-        Page,
-        PageSize,
-        ClassRoomId,
+    const response = await api.get<IPaginatedResponse<IHomework>>(
+      `/homework/active`,
+      {
+        params: {
+          page,
+          pageSize,
+          ClassRoomId,
+        },
       },
-    });
+    );
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {

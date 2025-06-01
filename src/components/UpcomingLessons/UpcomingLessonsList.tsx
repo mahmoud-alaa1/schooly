@@ -27,6 +27,8 @@ export default function UpcomingLessonsList() {
       <BoxBody>
         {isError ? (
           <p className="text-red-500">حدث خطأ أثناء تحميل الدروس القادمة.</p>
+        ) : lessons?.length === 0 && !isLoading ? (
+          <p className="text-gray-500">لا توجد حصص قادمة.</p>
         ) : (
           <ul className="list-none">
             {lessons?.map((lesson) => (
