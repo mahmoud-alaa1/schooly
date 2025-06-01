@@ -1,14 +1,18 @@
+type TLessonStatus = "Upcoming" | "Completed" | "Cancelled";
+
 interface ILesson {
   id: string;
-  classRoomId: string;
   teacherId: string;
-  subject: string;
-  grade: string;
+  teacherName: string;
+  classRoomId: string;
   title: string;
+  grade: string;
+  subject: string;
   lessonType: ELessonType;
   date: string;
   from: string;
   to: string;
+  status: number;
 }
 
 interface ILessonPutData {

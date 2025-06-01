@@ -7,6 +7,7 @@ import { Box, BoxBody, BoxHeader } from "../Box";
 import Link from "next/link";
 import { HOMEWORKS_PER_PAGE } from "@/lib/constants";
 import HomeworksSkeleton from "./HomeworksSkeleton";
+import HomeworkItem from "./HomeworkItem";
 export default function HomeworksList() {
   const { data, isLoading, isError } = useUpcomingLessons();
   return (
@@ -23,10 +24,16 @@ export default function HomeworksList() {
         </Link>
       </BoxHeader>
       <BoxBody>
+        {/* <ul className="list-none">
+          {mockLessons.map((lesson) => (
+            <UpcomingLessonsItem key={lesson.id} lesson={lesson} />
+          ))}
+        </ul> */}
         {/* {isLoading && ( */}
         <>
           {Array.from({ length: HOMEWORKS_PER_PAGE }).map((_, i) => (
-            <HomeworksSkeleton key={i} />
+            // <HomeworksSkeleton key={i} />
+            <HomeworkItem key={i} />
           ))}
         </>
         {/* )} */}
