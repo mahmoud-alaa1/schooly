@@ -5,18 +5,21 @@ import { isAxiosError } from "axios";
 export async function getUpcomingLessons({
   Page,
   PageSize = UPCOMING_LESSONS_PER_PAGE,
-  ClassRoomId,
+  classRoomId,
+  Status,
 }: {
   Page?: string | number;
   PageSize?: string | number;
-  ClassRoomId?: string;
+  classRoomId?: string;
+  Status?: TLessonStatus;
 }) {
   try {
-    const response = await api.get(`/lesson/upcoming`, {
+    const response = await api.get<IPaginatedResponse<ILesson>>(`/lesson`, {
       params: {
         Page,
         PageSize,
-        ClassRoomId,
+        classRoomId,
+        Status,
       },
     });
     return response.data;
