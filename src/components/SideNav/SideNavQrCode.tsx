@@ -2,15 +2,14 @@ import Image from "next/image";
 
 function SideNavQrCode() {
   return (
-    <div className="relative mt-auto pt-8">
+    <div className="relative mt-auto overflow-hidden pt-8">
       <div className="rounded-lg bg-[#35DDAB] p-3">
-        <div className="absolute -right-[30%] bottom-0 z-10 h-[210px] w-[300px]">
+        <div className="absolute -right-[10%] bottom-0 z-10 h-[90%] w-[60%]">
           <Image
             src={"/model.webp"}
             fill
             alt="teacher model"
             className="scale-x-[-1]"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={true}
           />
         </div>
@@ -32,7 +31,7 @@ function SideNavQrCode() {
         </div>
         <Image
           src={"/Vector.svg"}
-          width={280}
+          width={300}
           height={50}
           alt="objects background"
           className="relative -bottom-3 -left-3"
