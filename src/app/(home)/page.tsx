@@ -8,7 +8,7 @@ export default function Page() {
     <div>
       <HomeHeader />
       <main className="p-5">
-        <div className="grid h-[calc(100vh-100px)] grid-cols-1 gap-5 md:grid-cols-[2fr_1fr]">
+        <div className="grid h-[calc(100dvh-118px)] grid-cols-1 gap-5 md:grid-cols-[2fr_1fr]">
           <div className="scrollbar-hide h-full space-y-5 overflow-auto">
             <Hero />
             <div className="">
