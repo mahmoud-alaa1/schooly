@@ -1,4 +1,9 @@
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Button } from "../ui/button";
 import SideNavLogo from "../Logos/SideNavLogo";
 import SideNav from "./SideNav";
@@ -16,6 +21,7 @@ export default function SideNavMenu() {
           side="right"
           className="scrollbar-hide w-[300px] gap-5 overflow-auto bg-white"
         >
+          <SheetTitle className="sr-only">القائمة الجانبية</SheetTitle>
           <SideNav />
         </SheetContent>
       </Sheet>

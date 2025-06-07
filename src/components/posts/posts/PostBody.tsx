@@ -7,6 +7,7 @@ import { useState } from "react";
 import PostEdit from "./PostEdit";
 import ActionsMenu from "../ActionsMenu";
 import useDeletePost from "@/hooks/posts/useDeletePost";
+import RoleGuard from "@/components/RoleGuard";
 
 export default function PostBody({ post }: { post: IPost }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -26,10 +27,12 @@ export default function PostBody({ post }: { post: IPost }) {
           </div>
           <span className="font-semibold">{post.authorName}</span>
         </div>
-        <ActionsMenu
-          onDelete={() => deletePost(post.id)}
-          onEdit={() => setIsEditing(true)}
-        />
+        <RoleGuard role="OWNER" ownerId={post.authorId}>
+          <ActionsMenu
+            onDelete={() => deletePost(post.id)}
+            onEdit={() => setIsEditing(true)}
+          />
+        </RoleGuard>
       </div>
       {isEditing ? (
         <PostEdit post={post} cancelEdit={() => setIsEditing(false)} />

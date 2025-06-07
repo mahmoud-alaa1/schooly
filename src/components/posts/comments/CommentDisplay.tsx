@@ -3,7 +3,7 @@
 import Image from "next/image";
 import ActionsMenu from "../ActionsMenu";
 import useDeleteComment from "@/hooks/comments/useDeleteComment";
-import { useAuth } from "@/store/auth";
+import RoleGuard from "@/components/RoleGuard";
 
 export default function CommentDisplay({
   comment,
@@ -15,7 +15,6 @@ export default function CommentDisplay({
   postId: string | number;
 }) {
   const { mutate: deleteComment } = useDeleteComment(postId);
-  const user = useAuth((state) => state.user);
 
   return (
     <div className="flex justify-between gap-3">
@@ -36,12 +35,12 @@ export default function CommentDisplay({
           </span>
         </div>
       </div>
-      {comment.authorId === user?.id && (
+      <RoleGuard role="OWNER" ownerId={comment.authorId as string}>
         <ActionsMenu
           onEdit={onEdit}
           onDelete={() => deleteComment(comment.id)}
         />
-      )}
+      </RoleGuard>
     </div>
   );
 }
