@@ -17,7 +17,7 @@ interface ILesson {
   status: number;
 }
 
-declare interface ILessonPutData {
+interface ILessonPutData {
   id: string;
   classRoomId: string;
   title: string;
@@ -27,7 +27,7 @@ declare interface ILessonPutData {
   to: string;
 }
 
-declare interface ILessonPostData {
+interface ILessonPostData {
   classRoomId: string;
   title: string;
   lessonType: ELessonType;

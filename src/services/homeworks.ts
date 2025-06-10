@@ -47,9 +47,14 @@ export async function deleteHomework(id: number | string) {
   }
 }
 
-export async function createHomework(data: ILessonPostData) {
+export async function createHomework(data: {
+  lessonId: string;
+  classRoomId: string;
+  toDate: string;
+  fileUrl: string;
+}) {
   try {
-    const response = await api.post(`/post`, data);
+    const response = await api.post(`/homework`, data);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
