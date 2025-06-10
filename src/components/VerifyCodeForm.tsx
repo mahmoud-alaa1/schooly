@@ -23,7 +23,6 @@ function VerifyCodeForm() {
   });
 
   function onSubmit(values: VerifyCodeSchema) {
-    console.log("Submitted values:", values);
     mutate({ ...values, email });
   }
 
@@ -65,7 +64,7 @@ function VerifyCodeForm() {
             <Button
               type="button"
               variant="link"
-              className="text-sm p-0"
+              className="p-0 text-sm"
               onClick={() => {
                 forgetPasswordMutation({ email });
                 form.reset();

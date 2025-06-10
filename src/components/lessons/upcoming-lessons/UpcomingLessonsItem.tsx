@@ -1,6 +1,6 @@
 import { getUpcomingLessonsBadgeText } from "@/lib/utils";
 import Image from "next/image";
-import { Badge } from "../ui/badge";
+import { Badge } from "../../ui/badge";
 import { ILesson } from "@/types/lessons";
 
 interface UpcomingLessonsItemProps {

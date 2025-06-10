@@ -19,7 +19,6 @@ function ForgetPasswordForm() {
   });
 
   function onSubmit(values: forgetPasswordSchema) {
-    console.log("Submitted values:", values);
     mutate(values);
   }
 

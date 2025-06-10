@@ -5,12 +5,15 @@ import { useEffect } from "react";
 function useInfinite<T>({
   queryKey,
   fetchFn,
+  refetchInterval,
 }: {
   queryKey: string[];
   fetchFn: (pageNumber: number) => Promise<IPaginatedResponse<T>>;
+  refetchInterval?: number;
 }) {
   const result = useInfiniteQuery({
     queryKey,
+    refetchInterval,
     queryFn: ({ pageParam = 1 }) => fetchFn(pageParam),
     getNextPageParam: (lastPage, _, lastPageParam) => {
       const nextPage =

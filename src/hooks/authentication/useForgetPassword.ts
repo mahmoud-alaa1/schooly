@@ -10,8 +10,6 @@ function useForgetPassword() {
       return await forgetPasswordService(data);
     },
     onSuccess: (data, variables) => {
-      console.log(data.message);
-
       router.push(`/verify-code?email=${variables.email}`);
     },
     onError: (error) => {
