@@ -5,6 +5,7 @@ import NavLink from "../NavLink";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 import useGetAllClassrooms from "@/hooks/classrooms/useGetAllClassrooms";
+import { Skeleton } from "../ui/skeleton";
 
 const subjectConfig: Record<string, { icon: React.ReactNode; color: string }> =
   {
@@ -35,14 +36,34 @@ const subjectConfig: Record<string, { icon: React.ReactNode; color: string }> =
   };
 
 export default function SideNavClasses() {
-  const { data: classrooms } = useGetAllClassrooms();
+  const { data: classrooms, isLoading } = useGetAllClassrooms();
+
+  if (isLoading) {
+    return (
+      <div className="mt-4">
+        <div className="border-b-2 pr-3 pb-3 text-sm font-bold text-[#00000073]">
+          فصولي الدراسية
+        </div>
+        <ul className="mt-3 flex flex-col gap-2">
+          {[1, 2, 3, 4, 5, 6].map((index) => (
+            <li key={index}>
+              <div className="flex w-full items-center gap-2 rounded-lg p-1">
+                <Skeleton className="h-8 w-8 rounded-full bg-[#c0cdc2]" />
+                <Skeleton className="h-4 w-32 bg-[#c0cdc2]" />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-4">
       <div className="border-b-2 pr-3 pb-3 text-sm font-bold text-[#00000073]">
         فصولي الدراسية
       </div>
-      <ul className="flex flex-col mt-3">
+      <ul className="mt-3 flex flex-col">
         {classrooms?.data?.map((classroom: IClassroom) => {
           const config =
             subjectConfig[classroom.subject] || subjectConfig.default;
