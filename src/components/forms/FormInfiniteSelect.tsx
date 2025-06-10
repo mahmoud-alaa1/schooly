@@ -61,6 +61,9 @@ export default function FormInfiniteSelect<
   });
 
   const options = data?.pages.flatMap((page) => page.data) ?? [];
+  const lastPage = data?.pages[data.pages.length - 1];
+  const hasMoreData =
+    lastPage && lastPage.meta.currentPage < lastPage.meta.totalPages;
 
   return (
     <FormField
@@ -100,6 +103,13 @@ export default function FormInfiniteSelect<
                     <Spinner />
                   </div>
                 )}
+
+                {!isFetching && !hasMoreData && (
+                  <div className="text-muted-foreground py-2 text-center text-sm">
+                    لا يوجد المزيد من البيانات
+                  </div>
+                )}
+
                 <div ref={ref} className="h-0.5" />
               </SelectContent>
             </Select>
