@@ -7,6 +7,7 @@ export default function useUpcomingLessons() {
     fetchFn: async (pageNumber: number) => {
       return await getUpcomingLessons({
         Page: pageNumber,
+        Status: "Upcoming",
       });
     },
   });
