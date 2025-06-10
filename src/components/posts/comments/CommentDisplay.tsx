@@ -4,6 +4,7 @@ import Image from "next/image";
 import ActionsMenu from "../ActionsMenu";
 import useDeleteComment from "@/hooks/comments/useDeleteComment";
 import RoleGuard from "@/components/RoleGuard";
+import { format } from "date-fns";
 
 export default function CommentDisplay({
   comment,
@@ -15,6 +16,7 @@ export default function CommentDisplay({
   postId: string | number;
 }) {
   const { mutate: deleteComment } = useDeleteComment(postId);
+  const formattedDate = format(new Date(comment.createdAt), "yyyy/MM/dd");
 
   return (
     <div className="flex justify-between gap-3">
@@ -29,7 +31,10 @@ export default function CommentDisplay({
           />
         </div>
         <div className="flex flex-col gap-1 break-words">
-          <span className="font-semibold">{comment.authorName}</span>
+          <div className="flex items-center gap-3">
+            <span className="font-semibold">{comment.authorName}</span>
+            <span className="text-sm text-gray-500">{formattedDate}</span>
+          </div>
           <span className="text-sm whitespace-pre-wrap text-gray-500">
             {comment.content}
           </span>

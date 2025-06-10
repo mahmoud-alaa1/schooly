@@ -8,7 +8,7 @@ import {
 } from "@/types/lessons";
 import { isAxiosError } from "axios";
 
-export async function getUpcomingLessons({
+export async function getLessons({
   Page,
   PageSize = UPCOMING_LESSONS_PER_PAGE,
   classRoomId,

@@ -7,6 +7,7 @@ import AnimatedTabsContent from "@/components/AnimatedTabsContent";
 import CreatePost from "./CreatePost";
 import { motion } from "framer-motion";
 import CreateSession from "./CreateSession";
+import CreateHomework from "./CreateHomework";
 
 const tabs = [
   { value: "homework", icon: Sheet, label: "واجب" },
@@ -22,13 +23,7 @@ export default function CreateNew() {
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <motion.div className="px-5 py-2.5">
           <AnimatedTabsContent value="homework" selectedValue={selectedTab}>
-            <div className="py-2">
-              محتوى الواجب... Lorem ipsum, dolor sit amet consectetur
-              adipisicing elit. Impedit, cum perferendis placeat quia
-              exercitationem sit aliquid magni nobis reiciendis! Vero nobis
-              optio asperiores quasi dicta animi. Assumenda provident
-              consequuntur dicta.
-            </div>
+            <CreateHomework />
           </AnimatedTabsContent>
 
           <AnimatedTabsContent value="session" selectedValue={selectedTab}>
@@ -45,7 +40,7 @@ export default function CreateNew() {
             <TabsTrigger
               key={tab.value}
               value={tab.value}
-              className={`data-[state=active]:text-primary data-[state=active]:bg-white flex gap-6 rounded-none border-0 p-0 first:rounded-bl-lg last:rounded-br-lg data-[state=active]:border-2! data-[state=inactive]:border-y-2 data-[state=inactive]:text-neutral-600 ${index !== tabs.length - 1 ? "border-r border-neutral-200" : "border-r-0"} `}
+              className={`data-[state=active]:text-primary flex gap-6 rounded-none border-0 p-0 first:rounded-bl-lg last:rounded-br-lg data-[state=active]:border-2! data-[state=active]:bg-white data-[state=inactive]:border-y-2 data-[state=inactive]:text-neutral-600 ${index !== tabs.length - 1 ? "border-r border-neutral-200" : "border-r-0"} `}
             >
               <tab.icon size={18} />
               <span>{tab.label}</span>

@@ -1,4 +1,4 @@
-import { getHomeworks } from "@/services/homeworks";
+import { getHomeworks } from "@/services/homeworksServices";
 import useInfinite from "../useInfinite";
 
 export default function useGetAllHomeworks() {
