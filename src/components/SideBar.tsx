@@ -1,5 +1,5 @@
 "use client";
-import UpcomingLessons from "@/components/UpcomingLessons/UpcomingLessonsList";
+import UpcomingLessons from "@/components/upcoming-lessons/UpcomingLessonsList";
 import HomeworksList from "@/components/Homeworks/HomeworksList";
 import { useViewport } from "@/hooks/useViewport";
 

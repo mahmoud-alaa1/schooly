@@ -1,5 +1,11 @@
 import api from "@/lib/axios";
 import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
+import {
+  ILesson,
+  ILessonPostData,
+  ILessonPutData,
+  TLessonStatus,
+} from "@/types/lessons";
 import { isAxiosError } from "axios";
 
 export async function getUpcomingLessons({
@@ -62,7 +68,7 @@ export async function deleteLesson(id: number | string) {
 
 export async function updateLesson(data: ILessonPutData) {
   try {
-    const response = await api.put(`/post`, data);
+    const response = await api.put(`/lesson`, data);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -74,8 +80,9 @@ export async function updateLesson(data: ILessonPutData) {
 }
 
 export async function createLesson(data: ILessonPostData) {
+  console.log(data.lessonType);
   try {
-    const response = await api.post(`/post`, data);
+    const response = await api.post(`/lesson`, data);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {

@@ -1,5 +1,5 @@
 "use client";
-import { EROLES } from "@/types/roles";
+import { EROLES } from "@/types/enums";
 import Avatar from "../Avatar";
 import { useAuth } from "@/store/auth";
 

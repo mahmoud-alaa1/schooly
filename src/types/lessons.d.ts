@@ -1,3 +1,5 @@
+import { ELessonType } from "./enums";
+
 type TLessonStatus = "Upcoming" | "Completed" | "Cancelled";
 
 interface ILesson {
@@ -15,7 +17,7 @@ interface ILesson {
   status: number;
 }
 
-interface ILessonPutData {
+declare interface ILessonPutData {
   id: string;
   classRoomId: string;
   title: string;
@@ -25,19 +27,11 @@ interface ILessonPutData {
   to: string;
 }
 
-interface ILessonPostData {
+declare interface ILessonPostData {
   classRoomId: string;
   title: string;
   lessonType: ELessonType;
   date: string;
   from: string;
   to: string;
-}
-
-enum ELessonType {
-  EXPLANATION = 0,
-  HOMEWORK_SOLUTION = 1,
-  PRACTICE = 2,
-  REVISION = 3,
-  OTHER = 4,
 }

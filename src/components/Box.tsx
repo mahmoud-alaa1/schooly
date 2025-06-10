@@ -10,7 +10,7 @@ export function Box({
   return (
     <div
       className={`rounded-xl border-2 bg-white ${className || ""}`}
-      {...props}
+      {...(props as any)}
     >
       {children}
     </div>
@@ -32,7 +32,6 @@ export function BoxHeader({
     </div>
   );
 }
-
 export function BoxBody({
   children,
   className,

@@ -20,3 +20,7 @@ interface IPostPutData {
   id: number | string;
   content: string;
 }
+interface IPostPostData {
+  content: string;
+  classRoomId: string;
+}

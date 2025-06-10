@@ -38,7 +38,7 @@ export default function FormPassword<TFormValues extends FieldValues>({
       Icon={
         <Button
           variant="link"
-          className="text-muted-foreground cursor-pointer"
+          className="text-muted-foreground w-fit cursor-pointer"
           size="icon"
           type="button"
           onClick={() => setShowPassword(!showPassword)}

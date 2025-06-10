@@ -36,13 +36,20 @@ export default function FormTextArea<TFormValues extends FieldValues>({
   onEnterSubmit,
   ...inputProps
 }: FormInputProps<TFormValues>) {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
       if (e.shiftKey) {
         // Shift+Enter: Add new line
         return;
+      } else if (isMobile) {
+        // On mobile: Always add new line
+        return;
       } else {
-        // Enter only: Submit
+        // On desktop: Submit
         e.preventDefault();
         onEnterSubmit?.();
       }

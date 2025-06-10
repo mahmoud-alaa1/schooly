@@ -7,3 +7,7 @@ interface IClassroom {
 interface ISingleClassroomResponse {
   data: IClassroom;
 }
+
+interface IGetAllClassroomsResponse {
+  data: IClassroom[];
+}

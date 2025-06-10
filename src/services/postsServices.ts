@@ -88,10 +88,7 @@ export async function updatePost(data: {
   }
 }
 
-export async function createPost(data: {
-  content: string;
-  classRoomId: string;
-}) {
+export async function createPost(data: IPostPostData) {
   try {
     const response = await api.post(`/post`, data);
     return response.data;

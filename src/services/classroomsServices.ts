@@ -3,7 +3,7 @@ import { isAxiosError } from "axios";
 
 export async function getAllClassrooms() {
   try {
-    const response = await api.get(`/classroom/all`);
+    const response = await api.get<IGetAllClassroomsResponse>(`/classroom/all`);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {

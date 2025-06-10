@@ -10,7 +10,7 @@ import SideNav from "./SideNav";
 
 export default function SideNavMenu() {
   return (
-    <div className="fixed top-1/4 right-0 z-10 xl:hidden">
+    <div className="fixed top-1/4 right-0 z-50 xl:hidden">
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="ghost" className="p-0 hover:bg-transparent">

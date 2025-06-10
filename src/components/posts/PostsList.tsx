@@ -23,6 +23,11 @@ export default function PostsList() {
           ))}
         </>
       )}
+      {posts?.length === 0 && !isFetching && (
+        <div className="flex bg-white p-6 rounded-2xl items-center justify-center">
+          <p className="text-red-500">لا توجد منشورات لعرضها</p>
+        </div>
+      )}
     </div>
   );
 }

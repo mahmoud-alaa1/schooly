@@ -4,24 +4,34 @@ import {
   differenceInDays,
   differenceInSeconds,
   format,
-  formatDistanceToNow,
   isToday,
   isTomorrow,
   isValid,
   isWithinInterval,
   parseISO,
 } from "date-fns";
-import { ar, arEG } from "date-fns/locale";
+import { arEG } from "date-fns/locale";
 import { BADGE_MESSAGES, TIME_THRESHOLDS } from "./constants";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+import { formatDistanceToNow } from "date-fns";
+import { ar } from "date-fns/locale";
+
 export function getDistanceToNow(date: string | Date) {
-  return formatDistanceToNow(new Date(date), {
-    locale: ar,
-    addSuffix: true,
-  });
+  const now = new Date();
+  const targetDate = new Date(date);
+  const diffInSeconds = Math.floor(
+    (now.getTime() - targetDate.getTime()) / 1000,
+  );
+  const diffInHours = Math.floor(diffInSeconds / 3600);
+
+  if (diffInHours < 24) {
+    return formatDistanceToNow(targetDate, { addSuffix: true, locale: ar });
+  } else {
+    return format(targetDate, "dd MMM yyyy", { locale: ar });
+  }
 }
 
 type TBadgeVariant = "blue" | "orange" | "red" | "green" | "gray";

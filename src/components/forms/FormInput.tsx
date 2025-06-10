@@ -10,6 +10,7 @@ import {
 import { Input } from "../ui/input";
 import { Control, FieldValues, Path } from "react-hook-form";
 import { InputHTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 
 interface FormInputProps<TFormValues extends FieldValues>
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "name" | "defaultValue"> {
@@ -18,6 +19,8 @@ interface FormInputProps<TFormValues extends FieldValues>
   label?: string;
   description?: string;
   Icon?: React.ReactNode;
+  labelClassName?: string;
+  defaultValue?: string;
 }
 
 export default function FormInput<TFormValues extends FieldValues>({
@@ -27,6 +30,7 @@ export default function FormInput<TFormValues extends FieldValues>({
   Icon,
   description,
   className,
+  labelClassName,
   ...inputProps
 }: FormInputProps<TFormValues>) {
   return (
@@ -35,15 +39,23 @@ export default function FormInput<TFormValues extends FieldValues>({
       name={name}
       render={({ field }) => (
         <FormItem>
-          {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+          {label && (
+            <FormLabel htmlFor={name} className={cn("mb-1", labelClassName)}>
+              {label}
+            </FormLabel>
+          )}
           <FormControl>
-            <div className="relative">
-              {Icon && <div className="absolute inset-y-0 end-0.5">{Icon}</div>}
+            <div className="relative h-fit">
+              {Icon && (
+                <div className="absolute inset-y-0 end-2.5 flex items-center justify-center">
+                  {Icon}
+                </div>
+              )}
               <Input
                 id={name}
-                {...inputProps}
                 {...field}
-                className={`${Icon ? "pl-8" : ""} ${className || ""}`}
+                {...inputProps}
+                className={cn("pl-8", className)}
               />
             </div>
           </FormControl>

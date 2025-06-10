@@ -3,7 +3,7 @@
 import { useAuth } from "@/store/auth";
 import { Button } from "../ui/button";
 import { Plus } from "lucide-react";
-import { EROLES } from "@/types/roles";
+import { EROLES } from "@/types/enums";
 
 function SideNavButton() {
   const user = useAuth((state) => state.user);

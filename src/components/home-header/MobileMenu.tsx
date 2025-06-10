@@ -10,7 +10,7 @@ import { Button } from "../ui/button";
 import { Menu, Plus } from "lucide-react";
 import UserHeader from "./UserHeader";
 import LogoutButton from "../LogoutButton";
-import UpcomingLessonsList from "../UpcomingLessons/UpcomingLessonsList";
+import UpcomingLessonsList from "../upcoming-lessons/UpcomingLessonsList";
 import HomeworksList from "../Homeworks/HomeworksList";
 
 export default function MobileMenu() {
