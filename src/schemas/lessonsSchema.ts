@@ -1,12 +1,13 @@
-import { isBefore, parse } from "date-fns";
-import { z } from "zod";
+import { ELessonType } from "@/types/enums";
+import { nativeEnum, z } from "zod";
 
 export const createLessonSchema = z.object({
   title: z.string({
     required_error: "عنوان الجلسة مطلوب",
   }),
-  lessonType: z.coerce.number({
+  lessonType: nativeEnum(ELessonType, {
     required_error: "نوع الجلسة مطلوب",
+    invalid_type_error: "نوع الجلسة غير صحيح",
   }),
   date: z.date({
     required_error: "تاريخ الجلسة مطلوب",

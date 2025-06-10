@@ -47,19 +47,14 @@ export async function deleteHomework(id: number | string) {
   }
 }
 
-export async function createHomework(data: {
-  lessonId: string;
-  classRoomId: string;
-  toDate: string;
-  fileUrl: string;
-}) {
+export async function createHomework(data: IHomeworkPostData) {
   try {
     const response = await api.post(`/homework`, data);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
       console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في انشاء الحصة");
+      throw new Error(error.response?.data || "حدث خطأ ما في انشاء الواجب");
     }
     throw error;
   }

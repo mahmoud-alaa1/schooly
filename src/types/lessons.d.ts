@@ -1,6 +1,6 @@
 import { ELessonType } from "./enums";
 
-type TLessonStatus = "Upcoming" | "Completed" | "Cancelled";
+type TLessonStatus = "Upcoming" | "Completed" | "Canceled";
 
 interface ILesson {
   id: string;

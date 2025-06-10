@@ -4,3 +4,12 @@ interface IHomework {
   fileName: string;
   lessonTitle: string;
 }
+
+interface IHomeworkPostData {
+  lessonId: string;
+  classRoomId: string;
+  toDate: string | Date;
+  fileUrl: string;
+}
+
+type IHomeworkFormData = Omit<IHomeworkPostData, "classRoomId">;

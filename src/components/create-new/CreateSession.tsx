@@ -6,11 +6,10 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { createLessonSchema } from "@/schemas/lessonsSchema";
 import Spinner from "@/components/Spinner";
-import { useAuth } from "@/store/auth";
 import { useParams } from "next/navigation";
 import useCreateLesson from "@/hooks/lessons/useCreateLesson";
 import FormInput from "../forms/FormInput";
-import FormSelect from "../forms/FormSelect";
+import FormSelect from "../forms/FormSelectWithOptions";
 import { Clock } from "lucide-react";
 import FormDatePicker from "../forms/FormDatePicker";
 import { Button } from "../ui/button";
@@ -23,7 +22,7 @@ export default function CreateSession() {
   const form = useForm<createLessonSchema>({
     resolver: zodResolver(createLessonSchema),
     defaultValues: {
-      to: "00:00:00",
+      to: "00:00:01",
       from: "00:00:00",
     },
   });
@@ -36,7 +35,7 @@ export default function CreateSession() {
     mutate(
       {
         classRoomId: classroomId as string,
-        lessonType: values.lessonType,
+        lessonType: Number(values.lessonType),
         title: values.title,
         date: formattedDate,
         from: values.from,
@@ -49,6 +48,8 @@ export default function CreateSession() {
       },
     );
   }
+
+  console.log(form.watch("lessonType"));
   return (
     <Form {...form}>
       <form
@@ -56,7 +57,7 @@ export default function CreateSession() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-5"
       >
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid gap-5 sm:grid-cols-2">
           <FormSelect
             labelClassName="text-sm"
             control={form.control}
@@ -79,7 +80,7 @@ export default function CreateSession() {
             placeholder="عنوان الجلسة"
           />
         </div>
-        <div className="grid grid-cols-3 gap-5 wrap-anywhere">
+        <div className="grid gap-5 wrap-anywhere sm:grid-cols-3">
           <FormDatePicker
             placeholder="اختر التاريخ ..."
             label="التاريخ"

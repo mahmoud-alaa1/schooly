@@ -1,0 +1,20 @@
+import { z } from "zod";
+
+export const createHomeworkSchema = z.object({
+  lessonId: z.string({
+    required_error: "الرجاء اختيار الدرس",
+  }),
+  fileUrl: z.string({
+    required_error: "الرجاء اضافة ملف",
+  }),
+  toDate: z
+    .date({
+      required_error: "الرجاء اختيار تاريخ سماحية الطلب لرفع الواجب",
+      invalid_type_error: "الرجاء اختيار تاريخ صحيح",
+    })
+    .refine((date) => date instanceof Date && !isNaN(date.getTime()), {
+      message: "الرجاء اختيار تاريخ صحيح",
+    }),
+});
+
+export type createHomeworkSchema = z.infer<typeof createHomeworkSchema>;

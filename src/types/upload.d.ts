@@ -1,4 +1,4 @@
-interface IUploadPostResponse {
+ interface IUploadPostResponse {
   data: {
     id: number;
     fileName: string;
@@ -7,10 +7,10 @@ interface IUploadPostResponse {
   };
 }
 
-interface IUploadPost {
+ interface IUploadPost {
   formFile: File;
 }
 
-interface IUpload {
+ interface IUpload {
   fileName: string;
 }
