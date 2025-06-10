@@ -1,7 +1,8 @@
 "use client";
-import UpcomingLessons from "@/components/upcoming-lessons/UpcomingLessonsList";
+import UpcomingLessons from "@/components/lessons/upcoming-lessons/UpcomingLessonsList";
 import HomeworksList from "@/components/Homeworks/HomeworksList";
 import { useViewport } from "@/hooks/useViewport";
+import LiveLesson from "./lessons/live-lesson/LiveLesson";
 
 function SideBar() {
   const isLargeScreen = useViewport(768);
@@ -11,6 +12,7 @@ function SideBar() {
   }
   return (
     <aside className="scrollbar-hide flex flex-col gap-5 overflow-auto rounded-lg">
+      <LiveLesson />
       <UpcomingLessons />
       <HomeworksList />
     </aside>

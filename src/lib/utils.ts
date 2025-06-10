@@ -48,7 +48,6 @@ export function getUpcomingLessonsBadgeText(
   if (end <= start) {
     end = new Date(end.getTime() + 24 * 60 * 60 * 1000);
   }
-  console.log(start, end, now);
 
   // Past lesson
   if (differenceInSeconds(end, now) < 0)

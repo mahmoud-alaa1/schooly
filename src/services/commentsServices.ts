@@ -24,7 +24,6 @@ export async function getComments({
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data || "حدث خطأ ما في الحصول على التعليقات",
       );
@@ -39,7 +38,6 @@ export async function deleteComment(id: number | string) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(error.response?.data || "حدث خطأ ما في حذف التعليق");
     }
     throw error;
@@ -49,11 +47,9 @@ export async function deleteComment(id: number | string) {
 export async function createComment(data: ICommentPostData) {
   try {
     const response = await api.post<IComment>(`/comment`, data);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(error.response?.data || "حدث خطأ ما في انشاء التعليق");
     }
     throw error;
@@ -66,7 +62,6 @@ export async function updateComment(data: ICommentPutData): Promise<IComment> {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(error.response?.data || "حدث خطأ ما في تحديث التعليق");
     }
     throw error;
