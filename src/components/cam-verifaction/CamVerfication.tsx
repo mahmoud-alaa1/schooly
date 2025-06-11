@@ -24,7 +24,7 @@ interface CamVerficationProps {
 function CamVerfication({ open, setOpen }: CamVerficationProps) {
   const [image, setImage] = useState<string>("");
 
-  const { mutate, isPending, isError, isSuccess, reset } = useVerifyFace();
+  const { mutate, isPending, isError, isSuccess } = useVerifyFace();
 
   function onSubmit(image: string) {
     const imageBlob = base64ToBlob(image);
