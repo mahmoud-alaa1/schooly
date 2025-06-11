@@ -1,13 +1,17 @@
+"use client";
 import { Box, BoxHeader } from "@/components/Box";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import CamVerfication from "@/components/cam-verifaction/CamVerfication";
 import Users from "@/components/Users";
 import { useLiveLesson } from "@/hooks/useLiveLesson";
 
 import Image from "next/image";
+import { useState } from "react";
 
 function LiveLesson() {
   const { isError, lesson } = useLiveLesson();
+  const [isOpen, setIsOpen] = useState(false);
 
   if (isError) {
     return (
@@ -19,7 +23,7 @@ function LiveLesson() {
     );
   }
 
-  if (!lesson) return null;
+  // if (!lesson) return null;
   return (
     <Box>
       <BoxHeader className="flex flex-col justify-between gap-2">
@@ -46,7 +50,11 @@ function LiveLesson() {
           </Badge>
         </div>
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <Button className="grow">انضم للجلسة</Button>
+          <Button className="grow" onClick={() => setIsOpen(true)}>
+            انضم للجلسة
+          </Button>
+          {isOpen ? <CamVerfication open={isOpen} setOpen={setIsOpen} /> : null}
+
           <Users />
         </div>
       </BoxHeader>

@@ -5,7 +5,7 @@ import Spinner from "./Spinner";
 import { Form } from "./ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
-import { verifyCodeSchema, VerifyCodeSchema } from "@/schemas/verifyCode";
+import { verifyCodeSchema, VerifyCodeSchema } from "@/schemas/verifyCodeSchema";
 import useVerifyCode from "@/hooks/authentication/useVerifyCode";
 import { useSearchParams } from "next/navigation";
 
