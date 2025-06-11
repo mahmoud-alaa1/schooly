@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import CamInput from "./CamInput";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useVerifyFace from "@/hooks/authentication/useVerifyFace";
 import { base64ToBlob } from "@/lib/utils";
 import CamVerficationLoading from "./CamVerficationLoading";
