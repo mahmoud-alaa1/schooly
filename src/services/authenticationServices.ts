@@ -63,3 +63,24 @@ export async function resetPasswordService(data: IResetPasswordRequest) {
     throw error;
   }
 }
+
+export async function verifyFace(data: FormData) {
+  console.log("Verifying face with data:", data);
+  try {
+    const response = await api.post<IVerifyFaceResponse>(
+      `/auth/verify-face`,
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data || "حدث خطأ ما حاول مرة أخرى");
+    }
+    throw error;
+  }
+}

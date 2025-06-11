@@ -3,8 +3,6 @@ export enum EROLES {
   STUDENT = 1,
 }
 
-
-
 export enum ELessonType {
   Explain = 0,
   HomeworkSolution = 1,
