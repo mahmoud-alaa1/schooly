@@ -70,7 +70,7 @@ export default function SideNavClasses() {
           return (
             <li key={classroom.id}>
               <NavLink
-                href={`/classroom/${classroom.id}`}
+                href={`/classrooms/${classroom.id}`}
                 className="flex w-full items-center gap-2 rounded-lg p-1 text-sm text-[#00000073]"
                 nonActiveClassName="bg-transparent hover:bg-white"
                 activeClassName="bg-[#B5F3E0] text-[#017553] font-semibold"
