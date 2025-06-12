@@ -23,8 +23,9 @@ interface CamVerficationProps {
 
 function CamVerfication({ open, setOpen }: CamVerficationProps) {
   const [image, setImage] = useState<string>("");
+  const [isCapturing, setIsCapturing] = useState(false);
 
-  const { mutate, isPending, isError, isSuccess } = useVerifyFace();
+  const { mutate, isPending, isError, isSuccess, reset } = useVerifyFace();
 
   function onSubmit(image: string) {
     const imageBlob = base64ToBlob(image);
@@ -40,8 +41,16 @@ function CamVerfication({ open, setOpen }: CamVerficationProps) {
     });
   }
 
+  const handleRetakeImage = () => {
+    console.log("Retaking image...");
+    setImage("");
+    setIsCapturing(true);
+    reset();
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+      g
       <DialogContent
         className="bg-white p-0 [&>button:last-child]:hidden"
         dir="rtl"
@@ -57,16 +66,28 @@ function CamVerfication({ open, setOpen }: CamVerficationProps) {
             </button>
           </DialogHeader>
         </div>
-        {isPending ? (
-          <CamVerficationLoading />
-        ) : isError ? (
-          <CamVerficationError />
-        ) : isSuccess ? (
-          <CamVerficationSuccess />
-        ) : (
-          <CamInput onCapture={setImage} />
-        )}
-
+        <div className="p-4">
+          <div className="border-1 border-[#D9D9D9] bg-[#FAFAFA] p-4 py-8">
+            {isPending ? (
+              <CamVerficationLoading />
+            ) : isError ? (
+              <CamVerficationError />
+            ) : isSuccess ? (
+              <CamVerficationSuccess />
+            ) : (
+              <CamInput
+                onCapture={setImage}
+                isCapturing={isCapturing}
+                setIsCapturing={setIsCapturing}
+              />
+            )}
+          </div>
+          {isError && (
+            <Button className="mt-2 w-full" onClick={handleRetakeImage}>
+              اعادة التحقق
+            </Button>
+          )}
+        </div>
         <DialogFooter className="flex justify-end gap-2 border-t-2 p-4">
           <Button
             variant="outline"
