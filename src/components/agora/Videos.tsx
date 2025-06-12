@@ -2,44 +2,66 @@
 
 import {
   useJoin,
-  useLocalCameraTrack,
-  useLocalMicrophoneTrack,
-  usePublish,
   useRemoteAudioTracks,
   useRemoteUsers,
-  LocalUser,
   RemoteUser,
   LocalVideoTrack,
+  usePublish,
 } from "agora-rtc-react";
 import { useState, useEffect } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import { useFullscreen } from "@/hooks/useFullscreen";
+import { useMicrophone } from "@/hooks/useMicrophone";
+import { useCamera } from "@/hooks/useCamera";
+import { VideoToolbar } from "./VideoToolbar";
+import { motion, AnimatePresence } from "framer-motion";
+import { Minimize,  } from "lucide-react";
+import { Button } from "../ui/button";
+import Avatar from "../Avatar";
+
+const DefaultUserImage = () => (
+  <div className="flex h-full w-full items-center justify-center rounded-lg bg-white/50">
+    <Avatar src="/person1.png" className="ring-background size-30 ring-2" />
+  </div>
+);
 
 export const LiveVideo = () => {
   const [activeConnection, setActiveConnection] = useState(true);
-  const [micOn, setMic] = useState(true);
-  const [cameraOn, setCamera] = useState(true);
-
-  const { localMicrophoneTrack, isLoading: isLoadingMic } =
-    useLocalMicrophoneTrack(micOn);
-  const { localCameraTrack, isLoading: isLoadingCam } =
-    useLocalCameraTrack(cameraOn);
+  const {
+    isEnabled: micOn,
+    toggle: toggleMic,
+    track: localMicrophoneTrack,
+  } = useMicrophone();
+  const {
+    isEnabled: cameraOn,
+    toggle: toggleCamera,
+    track: localCameraTrack,
+  } = useCamera();
+  const [audioOn, setAudio] = useState(true);
+  const {
+    isFullscreen,
+    toggleFullscreen,
+    ref: videoContainerRef,
+  } = useFullscreen<HTMLDivElement>();
 
   const { lessonId, classroomId } = useParams();
 
   const remoteUsers = useRemoteUsers();
   const { audioTracks } = useRemoteAudioTracks(remoteUsers);
 
-  // Play audio tracks once and add error handling
   useEffect(() => {
     audioTracks.forEach((track) => {
       try {
-        track.play(); // REMOVE if using RemoteUser correctly
+        if (audioOn) {
+          track.play();
+        } else {
+          track.stop();
+        }
       } catch (error) {
         console.error("Error playing audio track:", error);
       }
     });
-  }, [audioTracks]);
-  const router = useRouter();
+  }, [audioTracks, audioOn]);
 
   useJoin(
     {
@@ -49,38 +71,168 @@ export const LiveVideo = () => {
     },
     activeConnection,
   );
-  usePublish([localMicrophoneTrack, localCameraTrack]);
-  const unit = "minmax(0, 1fr) ";
-  const deviceLoading = isLoadingMic || isLoadingCam;
 
-  if (deviceLoading)
-    return (
-      <div className="flex flex-col items-center pt-40">Loading devices...</div>
-    );
+  usePublish([localMicrophoneTrack, localCameraTrack]);
+
   return (
-    <div className="flex h-screen w-full flex-col justify-between p-1">
+    <div className="flex w-full grow flex-col justify-between p-1">
       <div
-        className={`grid flex-1 gap-1`}
+        ref={videoContainerRef}
+        className={`from-primary to-primary/30 relative grid flex-1 gap-4 rounded-xl bg-gradient-to-b p-4 shadow-2xl transition-all duration-300 ease-in-out`}
         style={{
           gridTemplateColumns:
-            remoteUsers.length > 9
-              ? unit.repeat(4)
-              : remoteUsers.length > 4
-                ? unit.repeat(3)
-                : remoteUsers.length > 1
-                  ? unit.repeat(2)
-                  : unit,
+            remoteUsers.length === 1
+              ? "1fr"
+              : remoteUsers.length === 2
+                ? "repeat(2, 1fr)"
+                : remoteUsers.length === 3
+                  ? "repeat(2, 1fr)"
+                  : "repeat(2, 1fr)",
+          gridTemplateRows:
+            remoteUsers.length === 1
+              ? "1fr"
+              : remoteUsers.length === 2
+                ? "1fr"
+                : remoteUsers.length === 3
+                  ? "repeat(2, 1fr)"
+                  : "repeat(2, 1fr)",
+          gridAutoRows: "1fr",
         }}
       >
-        <LocalVideoTrack
-          track={localCameraTrack}
-          play={true}
-          className="h-full w-full"
-        />
-        {remoteUsers.map((user) => (
-          <RemoteUser key={user.uid} user={user} playAudio={true} />
-        ))}
+        <motion.div
+          layout
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{
+            duration: 0.4,
+            ease: [0.4, 0, 0.2, 1],
+            scale: { duration: 0.3 },
+            opacity: { duration: 0.3 },
+          }}
+          whileHover={{ scale: 1.02 }}
+          className="relative h-full w-full"
+          style={{
+            gridColumn: remoteUsers.length === 3 ? "span 2" : "auto",
+            gridRow: remoteUsers.length === 3 ? "2" : "auto",
+          }}
+        >
+          {localCameraTrack ? (
+            <LocalVideoTrack
+              track={localCameraTrack}
+              play={true}
+              className="h-full w-full rounded-lg object-cover"
+            />
+          ) : (
+            <DefaultUserImage />
+          )}
+        </motion.div>
+        <AnimatePresence mode="popLayout">
+          {remoteUsers
+            .slice(0, remoteUsers.length > 4 ? 4 : remoteUsers.length)
+            .map((user, index) => (
+              <motion.div
+                key={user.uid}
+                layout
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.8,
+                  y: -20,
+                  transition: {
+                    duration: 0.3,
+                    ease: [0.4, 0, 0.2, 1],
+                  },
+                }}
+                transition={{
+                  layout: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+                  duration: 0.4,
+                  ease: [0.4, 0, 0.2, 1],
+                  scale: { duration: 0.3 },
+                  opacity: { duration: 0.3 },
+                }}
+                whileHover={{ scale: 1.02 }}
+                className="relative h-full w-full"
+                style={{
+                  gridColumn:
+                    remoteUsers.length === 3 && index === 2 ? "span 2" : "auto",
+                  gridRow:
+                    remoteUsers.length === 3 && index === 2 ? "2" : "auto",
+                }}
+              >
+                {user.hasVideo ? (
+                  <RemoteUser
+                    user={user}
+                    playAudio={true}
+                    className="h-full w-full rounded-lg object-cover"
+                  />
+                ) : (
+                  <DefaultUserImage />
+                )}
+              </motion.div>
+            ))}
+          {remoteUsers.length > 4 && (
+            <motion.button
+              layout
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{
+                opacity: 0,
+                scale: 0.8,
+                transition: {
+                  duration: 0.3,
+                  ease: [0.4, 0, 0.2, 1],
+                },
+              }}
+              transition={{
+                layout: { duration: 0.4, ease: [0.4, 0, 0.2, 1] },
+                duration: 0.4,
+                ease: [0.4, 0, 0.2, 1],
+                scale: { duration: 0.3 },
+                opacity: { duration: 0.3 },
+              }}
+              whileHover={{ scale: 1.1 }}
+              className="bg-primary hover:bg-primary/90 absolute right-4 bottom-4 flex h-12 w-12 items-center justify-center rounded-full text-white shadow-lg"
+              onClick={() => {
+                // TODO: Implement show more users functionality
+              }}
+            >
+              <span className="text-xl font-bold">
+                +{remoteUsers.length - 4}
+              </span>
+            </motion.button>
+          )}
+        </AnimatePresence>
+        {isFullscreen && (
+          <Button className="absolute top-4 right-4 size-10 text-white shadow-lg">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{
+                duration: 0.3,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+              whileHover={{ scale: 1.1 }}
+              onClick={toggleFullscreen}
+            >
+              <Minimize />
+            </motion.div>
+          </Button>
+        )}
       </div>
+
+      <VideoToolbar
+        micOn={micOn}
+        toggleMic={toggleMic}
+        cameraOn={cameraOn}
+        toggleCamera={toggleCamera}
+        audioOn={audioOn}
+        setAudio={setAudio}
+        isFullscreen={isFullscreen}
+        toggleFullscreen={toggleFullscreen}
+        setActiveConnection={setActiveConnection}
+      />
     </div>
   );
 };
