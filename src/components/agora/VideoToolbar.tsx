@@ -47,7 +47,7 @@ export const VideoToolbar = ({
   const router = useRouter();
 
   return (
-    <div className="mt-3 flex items-center justify-center gap-3" dir="ltr">
+    <div className="mt-3 flex-wrap flex items-center justify-center gap-3" dir="ltr">
       <AnimatedButton
         isActive={micOn}
         onClick={toggleMic}

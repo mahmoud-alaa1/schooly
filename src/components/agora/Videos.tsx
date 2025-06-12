@@ -21,7 +21,7 @@ import Avatar from "../Avatar";
 
 const DefaultUserImage = () => (
   <div className="flex h-full w-full items-center justify-center rounded-lg bg-white/50">
-    <Avatar src="/person1.png" className="ring-background size-30 ring-2" />
+    <Avatar src="/person1.png" className="ring-background size-25 ring-2" />
   </div>
 );
 
