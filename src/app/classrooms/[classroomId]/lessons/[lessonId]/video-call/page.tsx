@@ -4,7 +4,7 @@ import React from "react";
 
 export default function page() {
   return (
-    <div className="h-screen flex flex-col bg-[#E6FBF5] p-5">
+    <div className="flex h-[100dvh] flex-col bg-[#E6FBF5] p-5">
       <LiveRoomHeader />
       <AgorLiveVideoWrapper />
     </div>
