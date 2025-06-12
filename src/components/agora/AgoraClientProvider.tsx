@@ -1,16 +1,7 @@
 "use client";
 
-import { AgoraRTCProvider, useRTCClient } from "agora-rtc-react";
-import AgoraRTC, {
-  LocalVideoTrack,
-  RemoteUser,
-  useJoin,
-  useLocalCameraTrack,
-  useLocalMicrophoneTrack,
-  usePublish,
-  useRemoteAudioTracks,
-  useRemoteUsers,
-} from "agora-rtc-react";
+import { AgoraRTCProvider } from "agora-rtc-react";
+import AgoraRTC from "agora-rtc-react";
 
 const client = AgoraRTC.createClient({
   mode: "rtc",
