@@ -10,28 +10,30 @@ import {
 } from "../ui/dialog";
 import CamInput from "./CamInput";
 import { useState } from "react";
-import useVerifyFace from "@/hooks/authentication/useVerifyFace";
 import { base64ToBlob } from "@/lib/utils";
 import CamVerficationLoading from "./CamVerficationLoading";
 import CamVerficationError from "./CamVerficationError";
 import CamVerficationSuccess from "./CamVerficationSuccess";
+import useJoinLesson from "@/hooks/lessons/useJoinLesson";
 
 interface CamVerficationProps {
   open: boolean;
   setOpen: (open: boolean) => void;
+  lessonId: string;
 }
 
-function CamVerfication({ open, setOpen }: CamVerficationProps) {
+function CamVerfication({ open, setOpen, lessonId }: CamVerficationProps) {
   const [image, setImage] = useState<string>("");
   const [isCapturing, setIsCapturing] = useState(false);
 
-  const { mutate, isPending, isError, isSuccess, reset } = useVerifyFace();
+  const { mutate, isPending, isError, isSuccess, reset } = useJoinLesson();
 
   function onSubmit(image: string) {
     const imageBlob = base64ToBlob(image);
     const formData = new FormData();
     formData.append("image", imageBlob);
-    mutate(formData, {
+    const data = { lessonId, formData };
+    mutate(data, {
       onSuccess: () => {
         console.log("Form submitted successfully");
       },
@@ -42,7 +44,6 @@ function CamVerfication({ open, setOpen }: CamVerficationProps) {
   }
 
   const handleRetakeImage = () => {
-    console.log("Retaking image...");
     setImage("");
     setIsCapturing(true);
     reset();
@@ -50,7 +51,6 @@ function CamVerfication({ open, setOpen }: CamVerficationProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      g
       <DialogContent
         className="bg-white p-0 [&>button:last-child]:hidden"
         dir="rtl"
