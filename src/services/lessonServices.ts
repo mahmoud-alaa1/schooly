@@ -2,6 +2,7 @@ import api from "@/lib/axios";
 import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
 import {
   ILesson,
+  ILessonJoinData,
   ILessonJoinResponse,
   ILessonPostData,
   ILessonPutData,
@@ -99,14 +100,13 @@ export async function joinLesson(
   lessonId: string,
   token?: string,
 ) {
-export async function joinLesson(data: ILessonJoinData) {
   try {
     const response = await api.post<ILessonJoinResponse>(
       `/lesson/join`,
       formData,
       {
         params: {
-          Id: data.lessonId,
+          Id: lessonId,
         },
         headers: {
           "Content-Type": "multipart/form-data",

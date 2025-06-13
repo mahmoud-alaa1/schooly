@@ -1,7 +1,6 @@
 "use client";
 
 import { base64ToBlob } from "@/lib/utils";
-import { base64ToBlob } from "@/lib/utils";
 import { joinLesson } from "@/services/lessonServices";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -17,10 +16,7 @@ function useJoinLesson() {
       const imageBlob = base64ToBlob(data.image);
       const sentData = new FormData();
       sentData.append("image", imageBlob);
-      return await joinLesson({
-        lessonId: data.lessonId,
-        formData: sentData,
-      });
+      return await joinLesson(sentData, data.lessonId);
     },
     onSuccess: (data, varaibles) => {
       console.log("Face verification successful:", data);
