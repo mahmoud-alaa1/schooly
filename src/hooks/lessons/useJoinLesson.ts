@@ -12,13 +12,14 @@ interface IJoinLessonData extends ILessonJoinData {
 function useJoinLesson() {
   const router = useRouter();
   const mutation = useMutation({
-    mutationFn: async (formData: FormData) => {
+    mutationFn: async (data: {
+      image: string;
+      lessonId: string;
+      classroomId: string;
+    }) => {
       const res = await fetch(`/api/agora/token`, {
         method: "POST",
-        body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        body: JSON.stringify(data),
       });
       if (!res.ok) throw new Error("فشل تحقق الهوية");
       return res.json() as Promise<ILessonJoinResponse>;
@@ -33,7 +34,7 @@ function useJoinLesson() {
     },
 
     onError: (error) => {
-      console.log("Error during verify code:", error.message);
+      console.log("Error during verify code:", error.name);
     },
   });
   return mutation;

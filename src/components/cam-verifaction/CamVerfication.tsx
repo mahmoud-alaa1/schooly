@@ -15,6 +15,7 @@ import CamVerficationLoading from "./CamVerficationLoading";
 import CamVerficationError from "./CamVerficationError";
 import CamVerficationSuccess from "./CamVerficationSuccess";
 import useJoinLesson from "@/hooks/lessons/useJoinLesson";
+import { joinLesson } from "@/services/lessonServices";
 
 interface CamVerficationProps {
   open: boolean;
@@ -38,16 +39,14 @@ function CamVerfication({
     const imageBlob = base64ToBlob(image);
     const formData = new FormData();
     formData.append("image", imageBlob);
-    formData.append(
-      "lessonId",
-      lessonId || "c634e9e2-a7e5-4301-a400-9e7f3eb8e376",
-    );
+
     const data = {
       lessonId: lessonId || "c634e9e2-a7e5-4301-a400-9e7f3eb8e376",
-      formData,
+      image,
       classroomId,
     };
-    mutate(formData, {
+
+    mutate(data, {
       onSuccess: () => {
         console.log("Form submitted successfully");
       },
