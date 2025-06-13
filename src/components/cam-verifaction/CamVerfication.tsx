@@ -10,12 +10,10 @@ import {
 } from "../ui/dialog";
 import CamInput from "./CamInput";
 import { useState } from "react";
-import { base64ToBlob } from "@/lib/utils";
 import CamVerficationLoading from "./CamVerficationLoading";
 import CamVerficationError from "./CamVerficationError";
 import CamVerficationSuccess from "./CamVerficationSuccess";
 import useJoinLesson from "@/hooks/lessons/useJoinLesson";
-import { joinLesson } from "@/services/lessonServices";
 
 interface CamVerficationProps {
   open: boolean;
@@ -37,7 +35,7 @@ function CamVerfication({
 
   function onSubmit(image: string) {
     const data = {
-      lessonId: lessonId || "c634e9e2-a7e5-4301-a400-9e7f3eb8e376",
+      lessonId: lessonId,
       image: image,
       classroomId,
     };

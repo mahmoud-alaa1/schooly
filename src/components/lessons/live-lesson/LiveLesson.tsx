@@ -24,7 +24,7 @@ function LiveLesson() {
     );
   }
 
-  // if (!lesson) return null;
+  if (!lesson) return null;
   return (
     <Box>
       <BoxHeader className="flex flex-col justify-between gap-2">

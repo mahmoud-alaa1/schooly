@@ -1,5 +1,6 @@
 "use client";
 
+import { base64ToBlob } from "@/lib/utils";
 import { joinLesson } from "@/services/lessonServices";
 import { ILessonJoinData, ILessonJoinResponse } from "@/types/lessons";
 import { useMutation } from "@tanstack/react-query";
@@ -17,20 +18,18 @@ function useJoinLesson() {
       lessonId: string;
       classroomId: string;
     }) => {
-      const res = await fetch(`/api/agora/token`, {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error("فشل تحقق الهوية");
-      return res.json() as Promise<ILessonJoinResponse>;
+      const imageBlob = base64ToBlob(data.image);
+      const sentData = new FormData();
+      sentData.append("image", imageBlob);
+      return await joinLesson(sentData, data.lessonId);
     },
-    onSuccess: (data) => {
+    onSuccess: (data, varaibles) => {
       console.log("Face verification successful:", data);
-      // setTimeout(() => {
-      //   router.push(
-      //     `/classrooms/${varaibles.classroomId}/lessons/${varaibles.lessonId}/video-call`,
-      //   );
-      // }, 3000);
+
+      localStorage.setItem("agora-token", data.data.token);
+      router.push(
+        `/classrooms/${varaibles.classroomId}/lessons/${varaibles.lessonId}/video-call`,
+      );
     },
 
     onError: (error) => {

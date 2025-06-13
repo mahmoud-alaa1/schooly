@@ -105,11 +105,10 @@ export async function joinLesson(
       formData,
       {
         params: {
-          Id: lessonId || "c634e9e2-a7e5-4301-a400-9e7f3eb8e376",
+          id: lessonId || "c634e9e2-a7e5-4301-a400-9e7f3eb8e376",
         },
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}` || "",
         },
       },
     );
