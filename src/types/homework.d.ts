@@ -11,5 +11,9 @@ interface IHomeworkPostData {
   toDate: string | Date;
   fileUrl: string;
 }
+interface ISubmitHomeworkPostData {
+  fileUrl: string;
+  homeWorkId: string;
+}
 
 type IHomeworkFormData = Omit<IHomeworkPostData, "classRoomId">;

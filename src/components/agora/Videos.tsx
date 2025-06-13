@@ -56,6 +56,15 @@ export const LiveVideo = () => {
         console.error("Error playing audio track:", error);
       }
     });
+    return () => {
+      audioTracks.forEach((track) => {
+        try {
+          track.stop();
+        } catch (error) {
+          console.error("Error stopping audio track:", error);
+        }
+      });
+    };
   }, [audioTracks, audioOn]);
 
   const id = useAuth((state) => state.user?.id);

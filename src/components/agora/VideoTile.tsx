@@ -5,7 +5,7 @@ import { Mic, MicOff, Video, VideoOff, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef, useEffect } from "react";
 import Avatar from "@/components/Avatar";
-import { ICameraVideoTrack, IRemoteVideoTrack, ITrack } from "agora-rtc-react";
+import { ICameraVideoTrack, IRemoteVideoTrack } from "agora-rtc-react";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 

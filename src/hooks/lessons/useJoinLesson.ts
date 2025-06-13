@@ -3,20 +3,17 @@
 import { joinLesson } from "@/services/lessonServices";
 import { ILessonJoinData } from "@/types/lessons";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function useJoinLesson() {
-  const router = useRouter();
   const mutation = useMutation({
     mutationFn: (data: ILessonJoinData) => joinLesson(data),
     onSuccess: (data) => {
       console.log("Face verification successful:", data);
-      //   setTimeout(() => {
-      //     router.push("/lesson");
-      //   }, 3000);
+      toast.success("تم التعرف على وجهك بنجاح، جاري تحويلك إلى الدرس");
     },
     onError: (error) => {
-      console.log("Error during verify code:", error.message);
+      console.error("Error during verify code:", error.message);
     },
   });
   return mutation;

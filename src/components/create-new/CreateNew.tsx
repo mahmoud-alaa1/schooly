@@ -11,6 +11,7 @@ import CreateHomework from "./CreateHomework";
 import RoleGuard from "../RoleGuard";
 import { useAuth } from "@/store/auth";
 import { EROLES } from "@/types/enums";
+import SubmitHomework from "./SubmitHomework";
 
 interface TabConfig {
   value: string;
@@ -52,7 +53,12 @@ export default function CreateNew() {
       <Tabs value={selectedTab} onValueChange={setSelectedTab}>
         <motion.div className="px-5 py-2.5">
           <AnimatedTabsContent value="homework" selectedValue={selectedTab}>
-            <CreateHomework />
+            <RoleGuard role="TEACHER">
+              <CreateHomework />
+            </RoleGuard>
+            <RoleGuard role="STUDENT">
+              <SubmitHomework />
+            </RoleGuard>
           </AnimatedTabsContent>
 
           <RoleGuard role="TEACHER">
