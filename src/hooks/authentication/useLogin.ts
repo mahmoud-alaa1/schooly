@@ -17,7 +17,7 @@ export default function useLogin() {
     },
     onSuccess: (data) => {
       router.push("/");
-      localStorage.setItem("token", data.data.token);
+      localStorage.setItem("token", data.token);
       login(data.data);
     },
     onError: (error) => {

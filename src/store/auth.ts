@@ -16,10 +16,14 @@ export const useAuth = create<State & Actions>()(
     (set) => ({
       user: null,
       login: (user) => set({ user }),
-      logout: () => set({ user: null }),
+      logout: () => {
+        set({ user: null });
+        localStorage.removeItem("token");
+        localStorage.removeItem("auth-storage");
+      },
     }),
     {
       name: "auth-storage",
-    }
-  )
+    },
+  ),
 );

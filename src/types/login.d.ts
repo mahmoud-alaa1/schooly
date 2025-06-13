@@ -5,9 +5,9 @@ interface IUser {
   email: string;
   name: string;
   role: EROLES;
-  token: string;
 }
 
 interface ILoginResponse {
   data: IUser;
+  token: string;
 }

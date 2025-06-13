@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
       ? 60 * 60 * 24 * 30 // 30 days
       : 60 * 60 * 2; // 2 hours
 
-    response.cookies.set("token", res.data.token, {
+    response.cookies.set("token", res.token, {
       httpOnly: true,
       secure: true,
       path: "/",
@@ -21,11 +21,12 @@ export async function POST(req: NextRequest) {
       sameSite: "none",
     });
 
+
     return response;
   } catch (error) {
     return NextResponse.json(
       { message: (error as Error).message || "حدث خطأ ما في تسجيل الدخول" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 }
