@@ -72,7 +72,7 @@ export const LiveVideo = () => {
   useJoin(
     {
       appid: process.env.NEXT_PUBLIC_AGORA_APP_ID!,
-      token: null,
+      token: localStorage.getItem("agora-token") || "",
       channel: lessonId as string,
       uid: id,
     },

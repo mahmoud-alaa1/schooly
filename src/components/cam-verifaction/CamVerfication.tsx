@@ -10,7 +10,6 @@ import {
 } from "../ui/dialog";
 import CamInput from "./CamInput";
 import { useState } from "react";
-import { base64ToBlob } from "@/lib/utils";
 import CamVerficationLoading from "./CamVerficationLoading";
 import CamVerficationError from "./CamVerficationError";
 import CamVerficationSuccess from "./CamVerficationSuccess";
@@ -20,19 +19,27 @@ interface CamVerficationProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   lessonId: string;
+  classroomId: string;
 }
 
-function CamVerfication({ open, setOpen, lessonId }: CamVerficationProps) {
+function CamVerfication({
+  open,
+  setOpen,
+  lessonId,
+  classroomId,
+}: CamVerficationProps) {
   const [image, setImage] = useState<string>("");
   const [isCapturing, setIsCapturing] = useState(false);
 
   const { mutate, isPending, isError, isSuccess, reset } = useJoinLesson();
 
   function onSubmit(image: string) {
-    const imageBlob = base64ToBlob(image);
-    const formData = new FormData();
-    formData.append("image", imageBlob);
-    const data = { lessonId, formData };
+    const data = {
+      lessonId: lessonId,
+      image: image,
+      classroomId,
+    };
+
     mutate(data, {
       onSuccess: () => {
         console.log("Form submitted successfully");
