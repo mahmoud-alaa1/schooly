@@ -36,13 +36,9 @@ function CamVerfication({
   const { mutate, isPending, isError, isSuccess, reset } = useJoinLesson();
 
   function onSubmit(image: string) {
-    const imageBlob = base64ToBlob(image);
-    const formData = new FormData();
-    formData.append("image", imageBlob);
-
     const data = {
       lessonId: lessonId || "c634e9e2-a7e5-4301-a400-9e7f3eb8e376",
-      image,
+      image: image,
       classroomId,
     };
 

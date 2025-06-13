@@ -15,32 +15,38 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const imageBlob = base64ToBlob(image);
-
-    // Create FormData for the joinLesson service
     const formData = new FormData();
-    formData.append("image", imageBlob, "image.jpg");
+    formData.append("image", base64ToBlob(image));
 
-    console.log("Joining lesson with ID:", lessonId, formData);
-    const res = await joinLesson(formData, lessonId);
+    const res = await joinLesson(
+      formData,
+      lessonId,
+      req.cookies.get("token")?.value,
+    );
 
     const response = NextResponse.json({ ...res });
 
-    if (res.data.token) {
-      const cookieExpiration = 60 * 60 * 3; // 3 hours
-      response.cookies.set("agora-token", res.data.token, {
-        httpOnly: true,
-        secure: true,
-        path: "/",
-        maxAge: cookieExpiration,
-        sameSite: "none",
-      });
-    }
+    const cookieExpiration = 60 * 60 * 5;
+    response.cookies.set("agora-token", res.data.token, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+      maxAge: cookieExpiration,
+      sameSite: "none",
+    });
 
     return response;
   } catch (error) {
+    const message =
+      typeof (error as any).message === "string"
+        ? (error as any).message
+        : JSON.stringify((error as any).message);
+
+    console.log(`i'm the route server error`, message);
     return NextResponse.json(
-      { message: (error as Error).message || "حدث خطأ ما في تحقق الهوية" },
+      {
+        message: message || "حدث خطأ ما في تحقق الهوية",
+      },
       { status: 400 },
     );
   }
