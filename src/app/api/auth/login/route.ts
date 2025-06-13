@@ -21,12 +21,11 @@ export async function POST(req: NextRequest) {
       sameSite: "none",
     });
 
-
     return response;
-  } catch (error) {
+  } catch {
     return NextResponse.json(
-      { message: (error as Error).message || "حدث خطأ ما في تسجيل الدخول" },
-      { status: 400 },
+      { message: "تاكد من صحة البريد الالكتروني وكلمة المرور" },
+      { status: 401 },
     );
   }
 }

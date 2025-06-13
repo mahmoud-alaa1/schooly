@@ -3,6 +3,7 @@ import { loginSchema } from "@/schemas/loginSchema";
 import { useAuth } from "@/store/auth";
 import { useRouter } from "next/navigation";
 import { ILoginResponse } from "@/types/login";
+import { toast } from "sonner";
 export default function useLogin() {
   const { login } = useAuth();
   const router = useRouter();
@@ -19,9 +20,13 @@ export default function useLogin() {
       router.push("/");
       localStorage.setItem("token", data.token);
       login(data.data);
+      toast.success("تم تسجيل الدخول بنجاح");
     },
     onError: (error) => {
       console.error(error);
+      toast.error(
+        "فشل تسجيل الدخول، يرجى التحقق من البريد الإلكتروني وكلمة المرور الخاصة بك",
+      );
     },
   });
   return mutation;
