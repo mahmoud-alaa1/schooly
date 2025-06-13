@@ -12,6 +12,7 @@ import { useState } from "react";
 function LiveLesson() {
   const { isError, lesson } = useLiveLesson();
   const [isOpen, setIsOpen] = useState(false);
+  console.log(lesson);
 
   if (isError) {
     return (
@@ -23,7 +24,7 @@ function LiveLesson() {
     );
   }
 
-  // if (!lesson) return null;
+  if (!lesson) return null;
   return (
     <Box>
       <BoxHeader className="flex flex-col justify-between gap-2">
@@ -53,7 +54,13 @@ function LiveLesson() {
           <Button className="grow" onClick={() => setIsOpen(true)}>
             انضم للجلسة
           </Button>
-          {isOpen ? <CamVerfication open={isOpen} setOpen={setIsOpen} /> : null}
+          {isOpen ? (
+            <CamVerfication
+              open={isOpen}
+              setOpen={setIsOpen}
+              lessonId={lesson?.id}
+            />
+          ) : null}
 
           <Users />
         </div>

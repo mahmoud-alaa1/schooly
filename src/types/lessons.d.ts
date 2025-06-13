@@ -35,3 +35,8 @@ interface ILessonPostData {
   from: string;
   to: string;
 }
+
+interface ILessonJoinData {
+  lessonId: string;
+  formData: FormData;
+}

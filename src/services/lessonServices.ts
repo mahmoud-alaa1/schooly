@@ -2,6 +2,7 @@ import api from "@/lib/axios";
 import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
 import {
   ILesson,
+  ILessonJoinData,
   ILessonPostData,
   ILessonPutData,
   TLessonStatus,
@@ -93,9 +94,18 @@ export async function createLesson(data: ILessonPostData) {
   }
 }
 
-export async function joinLesson(id: number | string) {
+export async function joinLesson(data: ILessonJoinData) {
+  console.log("Data: ,", data);
   try {
-    const response = await api.post(`/lesson/join/${id}`);
+    const response = await api.post(
+      `/lesson/join/${data.lessonId}`,
+      data.formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
