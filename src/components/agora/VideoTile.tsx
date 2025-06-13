@@ -34,10 +34,20 @@ export default function VideoTile({
 
   useEffect(() => {
     if (track && hasVideo && containerRef.current) {
-      track.play(containerRef.current);
-      return () => track.stop();
+      try {
+        track.play(containerRef.current);
+        return () => {
+          try {
+            track.stop();
+          } catch (error) {
+            console.error("Error stopping track:", error);
+          }
+        };
+      } catch (error) {
+        console.error("Error playing track:", error);
+      }
     }
-  }, [track, hasVideo]);
+  }, [track, hasVideo, uid, isLocal]);
 
   return (
     <motion.div

@@ -37,7 +37,7 @@ export const LiveVideo = () => {
     ref: videoContainerRef,
   } = useFullscreen<HTMLDivElement>();
 
-  const { lessonId, classroomId } = useParams();
+  const { lessonId } = useParams();
 
   const remoteUsers = useRemoteUsers();
   const { audioTracks } = useRemoteAudioTracks(remoteUsers);
@@ -70,6 +70,8 @@ export const LiveVideo = () => {
 
   usePublish([localMicrophoneTrack, localCameraTrack]);
 
+  console.log(remoteUsers.length, "remote users length");
+
   return (
     <div className="flex w-full grow flex-col justify-between p-1">
       <div
@@ -101,15 +103,17 @@ export const LiveVideo = () => {
           onToggleCamera={toggleCamera}
         />
         <AnimatePresence mode="popLayout">
-          {remoteUsers.slice(0, 3).map((user) => (
-            <VideoTile
-              key={user.uid}
-              uid={user.uid}
-              track={user.videoTrack}
-              hasVideo={user.hasVideo}
-              hasAudio={user.hasAudio}
-            />
-          ))}
+          {remoteUsers.slice(0, 3).map((user) => {
+            return (
+              <VideoTile
+                key={user.uid}
+                uid={user.uid}
+                track={user.videoTrack}
+                hasVideo={user.hasVideo}
+                hasAudio={user.hasAudio}
+              />
+            );
+          })}
           {remoteUsers.length > 3 && (
             <motion.button
               layout
@@ -137,7 +141,7 @@ export const LiveVideo = () => {
               }}
             >
               <span className="text-xl font-bold">
-                +{remoteUsers.length - 4}
+                +{remoteUsers.length - 3}
               </span>
             </motion.button>
           )}
