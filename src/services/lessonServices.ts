@@ -95,12 +95,14 @@ export async function createLesson(data: ILessonPostData) {
 }
 
 export async function joinLesson(data: ILessonJoinData) {
-  console.log("Data: ,", data);
   try {
     const response = await api.post(
       `/lesson/join/${data.lessonId}`,
       data.formData,
       {
+        params: {
+          Id: data.lessonId,
+        },
         headers: {
           "Content-Type": "multipart/form-data",
         },
