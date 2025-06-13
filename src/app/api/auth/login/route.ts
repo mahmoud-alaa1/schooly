@@ -5,6 +5,8 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
+    console.log("Request body:", body);
+
     const res = await loginsService(body);
 
     const response = NextResponse.json({ ...res });

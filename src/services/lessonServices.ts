@@ -2,7 +2,7 @@ import api from "@/lib/axios";
 import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
 import {
   ILesson,
-  ILessonJoinData,
+  ILessonJoinResponse,
   ILessonPostData,
   ILessonPutData,
   TLessonStatus,
@@ -94,11 +94,16 @@ export async function createLesson(data: ILessonPostData) {
   }
 }
 
+export async function joinLesson(
+  formData: FormData,
+  lessonId: string,
+  token?: string,
+) {
 export async function joinLesson(data: ILessonJoinData) {
   try {
-    const response = await api.post(
-      `/lesson/join/${data.lessonId}`,
-      data.formData,
+    const response = await api.post<ILessonJoinResponse>(
+      `/lesson/join`,
+      formData,
       {
         params: {
           Id: data.lessonId,
@@ -111,9 +116,9 @@ export async function joinLesson(data: ILessonJoinData) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
+      console.error(error.response?.data);
       throw new Error(
-        error.response?.data || "حدث خطأ ما في الانضمام إلى الحصة",
+        error.response?.data ?? "حدث خطأ ما في الانضمام إلى الحصة",
       );
     }
     throw error;

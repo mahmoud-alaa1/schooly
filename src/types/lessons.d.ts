@@ -40,3 +40,9 @@ interface ILessonJoinData {
   lessonId: string;
   formData: FormData;
 }
+
+interface ILessonJoinResponse {
+  data: {
+    token: string;
+  };
+}

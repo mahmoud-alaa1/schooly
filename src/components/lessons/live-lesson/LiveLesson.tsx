@@ -59,6 +59,7 @@ function LiveLesson() {
               open={isOpen}
               setOpen={setIsOpen}
               lessonId={lesson?.id}
+              classroomId={lesson?.classRoomId}
             />
           ) : null}
 

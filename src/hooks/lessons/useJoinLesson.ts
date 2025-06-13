@@ -1,6 +1,7 @@
 "use client";
 
 import { base64ToBlob } from "@/lib/utils";
+import { base64ToBlob } from "@/lib/utils";
 import { joinLesson } from "@/services/lessonServices";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
