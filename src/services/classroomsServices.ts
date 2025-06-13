@@ -32,3 +32,17 @@ export async function getSingleClassroom(id: string) {
     throw error;
   }
 }
+export async function getUserClassrooms() {
+  try {
+    const response = await api.get(`/user/classrooms`);
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.error(error);
+      throw new Error(
+        error.response?.data || "حدث خطأ ما في الحصول على فصولك الدراسية",
+      );
+    }
+    throw error;
+  }
+}

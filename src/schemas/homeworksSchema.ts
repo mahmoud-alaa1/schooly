@@ -17,8 +17,8 @@ export const createHomeworkSchema = z.object({
     }),
 });
 export const submitHomeworkSchema = z.object({
-  lessonId: z.string({
-    required_error: "الرجاء اختيار الدرس",
+  homeWorkId: z.string({
+    required_error: "الرجاء اختيار الواجب",
   }),
   fileUrl: z.string({
     required_error: "الرجاءاضافة ملف",

@@ -60,9 +60,12 @@ export async function createHomework(data: IHomeworkPostData) {
   }
 }
 
-export async function submitHomework(data: IHomeworkPostData) {
+export async function submitHomework(data: ISubmitHomeworkPostData) {
   try {
-    const response = await api.post(`/homework`, data);
+    const response = await api.post(
+      `/homework/${data.homeWorkId}/submit`,
+      data,
+    );
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {

@@ -4,8 +4,8 @@ import React from "react";
 import NavLink from "../NavLink";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
-import useGetAllClassrooms from "@/hooks/classrooms/useGetAllClassrooms";
 import { Skeleton } from "../ui/skeleton";
+import useGetUserClassrooms from "@/hooks/classrooms/useGetUserClassrooms";
 
 const subjectConfig: Record<string, { icon: React.ReactNode; color: string }> =
   {
@@ -36,7 +36,7 @@ const subjectConfig: Record<string, { icon: React.ReactNode; color: string }> =
   };
 
 export default function SideNavClasses() {
-  const { data: classrooms, isLoading } = useGetAllClassrooms();
+  const { data: classrooms, isLoading } = useGetUserClassrooms();
 
   if (isLoading) {
     return (

@@ -77,6 +77,7 @@ export default function FormInfiniteSelect<
           )}
           <FormControl>
             <Select
+              key={field.value}
               onValueChange={field.onChange}
               defaultValue={field.value?.toString()}
               value={field.value?.toString()}
@@ -87,7 +88,7 @@ export default function FormInfiniteSelect<
               <SelectTrigger dir="rtl" className={cn("w-full", className)}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
-              <SelectContent className="max-h-56" dir="rtl">
+              <SelectContent id={name} className="max-h-56" dir="rtl">
                 {options.map((item) => (
                   <SelectItem
                     key={getOptionValue(item).toString()}

@@ -5,13 +5,13 @@ import { Mic, MicOff, Video, VideoOff, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRef, useEffect } from "react";
 import Avatar from "@/components/Avatar";
-import { ITrack } from "agora-rtc-react";
+import { ICameraVideoTrack, IRemoteVideoTrack } from "agora-rtc-react";
 import { Badge } from "../ui/badge";
 import { cn } from "@/lib/utils";
 
 interface VideoTileProps {
   uid?: string | number;
-  track?: ITrack | null;
+  videoTrack?: IRemoteVideoTrack | ICameraVideoTrack | null;
   hasVideo: boolean;
   hasAudio: boolean;
   isLocal?: boolean;
@@ -22,7 +22,7 @@ interface VideoTileProps {
 
 export default function VideoTile({
   uid,
-  track,
+  videoTrack,
   hasVideo,
   hasAudio,
   isLocal = false,
@@ -33,21 +33,15 @@ export default function VideoTile({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (track && hasVideo && containerRef.current) {
+    if (hasVideo && videoTrack && containerRef.current) {
       try {
-        track.play(containerRef.current);
-        return () => {
-          try {
-            track.stop();
-          } catch (error) {
-            console.error("Error stopping track:", error);
-          }
-        };
+        videoTrack.play(containerRef.current);
+        return () => videoTrack.stop();
       } catch (error) {
-        console.error("Error playing track:", error);
+        console.error(`Error playing track for user ${uid}:`, error);
       }
     }
-  }, [track, hasVideo, uid, isLocal]);
+  }, [videoTrack, uid, hasVideo]);
 
   return (
     <motion.div

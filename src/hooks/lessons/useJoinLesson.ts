@@ -4,14 +4,13 @@ import { base64ToBlob } from "@/lib/utils";
 import { joinLesson } from "@/services/lessonServices";
 import { ILessonJoinData, ILessonJoinResponse } from "@/types/lessons";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface IJoinLessonData extends ILessonJoinData {
   classroomId: string;
 }
 
 function useJoinLesson() {
-  const router = useRouter();
   const mutation = useMutation({
     mutationFn: async (data: {
       image: string;
@@ -30,10 +29,12 @@ function useJoinLesson() {
       router.push(
         `/classrooms/${varaibles.classroomId}/lessons/${varaibles.lessonId}/video-call`,
       );
+      toast.success("تم التعرف على وجهك بنجاح، جاري تحويلك إلى الدرس");
     },
 
     onError: (error) => {
-      console.log("Error during verify code:", error.name);
+
+      console.error("Error during verify code:", error.message);
     },
   });
   return mutation;

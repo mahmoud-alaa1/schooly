@@ -5,6 +5,7 @@ import {
   useRemoteAudioTracks,
   useRemoteUsers,
   usePublish,
+  useRemoteVideoTracks,
 } from "agora-rtc-react";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
@@ -41,6 +42,7 @@ export const LiveVideo = () => {
 
   const remoteUsers = useRemoteUsers();
   const { audioTracks } = useRemoteAudioTracks(remoteUsers);
+  useRemoteVideoTracks(remoteUsers); // This will give you the remote video tracks, it is import i should call it even if i don't user its return
 
   useEffect(() => {
     audioTracks.forEach((track) => {
@@ -54,6 +56,15 @@ export const LiveVideo = () => {
         console.error("Error playing audio track:", error);
       }
     });
+    return () => {
+      audioTracks.forEach((track) => {
+        try {
+          track.stop();
+        } catch (error) {
+          console.error("Error stopping audio track:", error);
+        }
+      });
+    };
   }, [audioTracks, audioOn]);
 
   const id = useAuth((state) => state.user?.id);
@@ -94,7 +105,7 @@ export const LiveVideo = () => {
       >
         <VideoTile
           uid="local"
-          track={localCameraTrack}
+          videoTrack={localCameraTrack}
           hasVideo={cameraOn}
           hasAudio={micOn}
           isLocal={true}
@@ -108,7 +119,7 @@ export const LiveVideo = () => {
               <VideoTile
                 key={user.uid}
                 uid={user.uid}
-                track={user.videoTrack}
+                videoTrack={user.videoTrack || null}
                 hasVideo={user.hasVideo}
                 hasAudio={user.hasAudio}
               />
