@@ -1,6 +1,7 @@
 export enum EROLES {
-  TEACHER = 2,
   STUDENT = 1,
+  TEACHER = 2,
+  OWNER = 3,
 }
 
 export enum ELessonType {

@@ -59,3 +59,16 @@ export async function createHomework(data: IHomeworkPostData) {
     throw error;
   }
 }
+
+export async function submitHomework(data: IHomeworkPostData) {
+  try {
+    const response = await api.post(`/homework`, data);
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.error(error);
+      throw new Error(error.response?.data || "حدث خطأ ما في انشاء الواجب");
+    }
+    throw error;
+  }
+}

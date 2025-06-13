@@ -1,31 +1,29 @@
 "use client";
 
 import { useAuth } from "@/store/auth";
+import { EROLES } from "@/types/enums";
+export type RoleKey = keyof typeof EROLES;
 
-type TRole = "OWNER" | "STUDENT" | "TEACHER";
+type RoleGuardProps =
+  | {
+      role: "OWNER";
+      ownerId: string;
+      children: React.ReactNode;
+    }
+  | {
+      role: Exclude<RoleKey, "OWNER">;
+      ownerId?: never;
+      children: React.ReactNode;
+    };
 
-interface RoleGuardProps {
-  ownerId: string;
-  role: TRole;
-  children: React.ReactNode;
-}
-
-export default function RoleGuard({ ownerId, role, children }: RoleGuardProps) {
+export default function RoleGuard({ role, ownerId, children }: RoleGuardProps) {
   const user = useAuth((state) => state.user);
-
   const hasAccess = () => {
     if (!user) return false;
 
-    switch (role) {
-      case "OWNER":
-        return user.id === ownerId;
-      case "STUDENT":
-        return user.role === "STUDENT";
-      case "TEACHER":
-        return user.role === "TEACHER";
-      default:
-        return false;
-    }
+    if (role === "OWNER") return user.id === ownerId;
+
+    return user.role === EROLES[role];
   };
 
   if (!hasAccess()) return null;

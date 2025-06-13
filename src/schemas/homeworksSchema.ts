@@ -16,5 +16,14 @@ export const createHomeworkSchema = z.object({
       message: "الرجاء اختيار تاريخ صحيح",
     }),
 });
+export const submitHomeworkSchema = z.object({
+  lessonId: z.string({
+    required_error: "الرجاء اختيار الدرس",
+  }),
+  fileUrl: z.string({
+    required_error: "الرجاءاضافة ملف",
+  }),
+});
 
+export type submitHomeworkSchema = z.infer<typeof submitHomeworkSchema>;
 export type createHomeworkSchema = z.infer<typeof createHomeworkSchema>;

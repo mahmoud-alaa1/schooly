@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginSchema } from "@/schemas/loginSchema";
 import { useAuth } from "@/store/auth";
 import { useRouter } from "next/navigation";
+import { ILoginResponse } from "@/types/login";
 export default function useLogin() {
   const { login } = useAuth();
   const router = useRouter();

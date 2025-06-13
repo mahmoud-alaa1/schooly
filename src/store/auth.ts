@@ -1,3 +1,4 @@
+import { IUser } from "@/types/login";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

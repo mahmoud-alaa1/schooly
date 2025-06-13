@@ -1,3 +1,5 @@
+import { EROLES } from "./enums";
+
 interface IUser {
   id: string;
   email: string;

@@ -1,4 +1,5 @@
 import api from "@/lib/axios";
+import { ILoginResponse } from "@/types/login";
 import { isAxiosError } from "axios";
 
 export async function loginsService(data: {
