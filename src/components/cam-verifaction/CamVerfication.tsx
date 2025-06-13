@@ -20,9 +20,15 @@ interface CamVerficationProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   lessonId: string;
+  classroomId: string;
 }
 
-function CamVerfication({ open, setOpen, lessonId }: CamVerficationProps) {
+function CamVerfication({
+  open,
+  setOpen,
+  lessonId,
+  classroomId,
+}: CamVerficationProps) {
   const [image, setImage] = useState<string>("");
   const [isCapturing, setIsCapturing] = useState(false);
 
@@ -32,8 +38,16 @@ function CamVerfication({ open, setOpen, lessonId }: CamVerficationProps) {
     const imageBlob = base64ToBlob(image);
     const formData = new FormData();
     formData.append("image", imageBlob);
-    const data = { lessonId, formData };
-    mutate(data, {
+    formData.append(
+      "lessonId",
+      lessonId || "c634e9e2-a7e5-4301-a400-9e7f3eb8e376",
+    );
+    const data = {
+      lessonId: lessonId || "c634e9e2-a7e5-4301-a400-9e7f3eb8e376",
+      formData,
+      classroomId,
+    };
+    mutate(formData, {
       onSuccess: () => {
         console.log("Form submitted successfully");
       },
