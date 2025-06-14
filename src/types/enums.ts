@@ -18,6 +18,7 @@ export enum EGender {
 }
 export enum EDepartment {
   AMERICAN = 0,
+}
 
 export enum EVerificationState {
   CAPTURING = "capturing",
