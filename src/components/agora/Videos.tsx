@@ -74,7 +74,6 @@ export const LiveVideo = () => {
       appid: process.env.NEXT_PUBLIC_AGORA_APP_ID!,
       token: localStorage.getItem("agora-token") || "",
       channel: lessonId as string,
-      uid: id,
     },
     activeConnection,
   );

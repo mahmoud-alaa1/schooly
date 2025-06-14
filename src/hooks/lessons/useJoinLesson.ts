@@ -1,5 +1,6 @@
 "use client";
 
+import { JoinLessonData } from "@/components/cam-verifaction/Verification";
 import { base64ToBlob } from "@/lib/utils";
 import { joinLesson } from "@/services/lessonServices";
 import { useMutation } from "@tanstack/react-query";
@@ -8,11 +9,7 @@ import { useRouter } from "next/navigation";
 function useJoinLesson() {
   const router = useRouter();
   const mutation = useMutation({
-    mutationFn: async (data: {
-      image: string;
-      lessonId: string;
-      classroomId: string;
-    }) => {
+    mutationFn: async (data: JoinLessonData) => {
       const imageBlob = base64ToBlob(data.image);
       const sentData = new FormData();
       sentData.append("image", imageBlob);

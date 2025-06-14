@@ -11,3 +11,10 @@ export enum ELessonType {
   Revision = 3,
   Other = 4,
 }
+
+export enum EVerificationState {
+  CAPTURING = "capturing",
+  LOADING = "loading",
+  ERROR = "error",
+  SUCCESS = "success",
+}

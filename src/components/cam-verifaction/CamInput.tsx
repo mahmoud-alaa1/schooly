@@ -1,87 +1,52 @@
 "use client";
+import { useWebCamera } from "@/hooks/useWebCamera";
+import { getCameraState } from "@/lib/utils";
+import CapturedImage from "./camera/CapturedImage";
+import CameraPreview from "./camera/CameraPreview";
+import CameraPlaceholder from "./camera/CameraPlaceholder";
 
-import React, {
-  useRef,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-} from "react";
-import Image from "next/image";
-import Webcam from "react-webcam";
-import { Camera, ScanEye } from "lucide-react";
-import { Button } from "../ui/button";
-interface CameraInputProps {
+export interface CameraInputProps {
   onCapture?: (imageData: string) => void;
   isCapturing: boolean;
   setIsCapturing: (isCapturing: boolean) => void;
 }
-
 const CamInput = ({
   onCapture,
   isCapturing,
   setIsCapturing,
 }: CameraInputProps) => {
-  const webcamRef = useRef<Webcam>(null);
-  const [image, setImage] = useState<string | null>(null);
+  const { webcamRef, image, capture, resetCapture } = useWebCamera(onCapture);
 
-  const capture = () => {
-    const screenshot = webcamRef.current?.getScreenshot();
-    if (screenshot) {
-      setImage(screenshot);
-      onCapture?.(screenshot);
-    }
+  const cameraState = getCameraState(!!image, isCapturing);
+
+  const handleCapture = () => {
+    capture();
     setIsCapturing(false);
   };
 
-  return (
-    <div>
-      {image ? (
-        <div className="relative flex w-full flex-col items-center justify-center">
-          <Image
-            src={image}
-            alt="Captured"
-            width={500}
-            height={200}
-            style={{ width: "100%", maxWidth: "500px", objectFit: "cover" }}
-          />
-          <Button
-            onClick={() => {
-              setImage(null);
-              setIsCapturing(true);
-            }}
-            className="absolute bottom-3 flex items-center gap-2"
-          >
-            التقط صورة جديدة
-          </Button>
-        </div>
-      ) : isCapturing ? (
-        <div className="relative flex w-full flex-col items-center justify-center">
-          <Webcam
-            audio={false}
-            ref={webcamRef}
-            screenshotFormat="image/jpeg"
-            width={500}
-            videoConstraints={{ facingMode: "user" }}
-          />
-          <Button
-            onClick={capture}
-            className="absolute bottom-3 flex items-center gap-2"
-          >
-            <span> التقط صورة</span>
-            <ScanEye className="h-4 w-4" />
-          </Button>
-        </div>
-      ) : (
-        <button
-          onClick={() => setIsCapturing(true)}
-          className="flex w-full cursor-pointer flex-col items-center justify-center"
-        >
-          <Camera />
-          <span className="text-[#00000073]"> التقط صورة من خلال الكامير</span>
-        </button>
-      )}
-    </div>
-  );
+  const handleRetake = () => {
+    resetCapture();
+    setIsCapturing(true);
+  };
+
+  const handleStartCapture = () => {
+    setIsCapturing(true);
+  };
+
+  const renderCameraInterface = () => {
+    switch (cameraState) {
+      case "captured":
+        return <CapturedImage image={image!} onRetake={handleRetake} />;
+      case "capturing":
+        return (
+          <CameraPreview webcamRef={webcamRef} onCapture={handleCapture} />
+        );
+      default:
+        return <CameraPlaceholder onStartCapture={handleStartCapture} />;
+    }
+  };
+
+  return <div className="w-full">{renderCameraInterface()}</div>;
 };
 
 export default CamInput;

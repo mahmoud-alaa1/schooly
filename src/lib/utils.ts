@@ -101,3 +101,12 @@ export function base64ToBlob(dataURI: string) {
 
   return new Blob([ia], { type: mimeString });
 }
+
+export const getCameraState = (
+  hasImage: boolean,
+  isCapturing: boolean,
+): "placeholder" | "capturing" | "captured" => {
+  if (hasImage) return "captured";
+  if (isCapturing) return "capturing";
+  return "placeholder";
+};

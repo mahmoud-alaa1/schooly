@@ -1,6 +1,6 @@
 import StatusIcon from "../ErrorIcon";
 
-function CamVerficationSuccess() {
+function VerificationSuccess() {
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <h2 className="text-center text-2xl font-bold text-[#000000D9]">
@@ -13,4 +13,4 @@ function CamVerficationSuccess() {
   );
 }
 
-export default CamVerficationSuccess;
+export default VerificationSuccess;
