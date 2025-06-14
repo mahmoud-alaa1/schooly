@@ -79,7 +79,7 @@ const Verification = ({
         <VerificationActions
           onCancel={handleCancel}
           onSubmit={handleSubmit}
-          isSubmitDisabled={isPending || isError || !capturedImage}
+          isSubmitDisabled={isPending || isError || !capturedImage || isSuccess}
           isPending={isPending}
         />
       </DialogContent>
