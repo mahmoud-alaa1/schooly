@@ -8,6 +8,7 @@ import PostEdit from "./PostEdit";
 import ActionsMenu from "../ActionsMenu";
 import useDeletePost from "@/hooks/posts/useDeletePost";
 import RoleGuard from "@/components/RoleGuard";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function PostBody({ post }: { post: IPost }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -34,13 +35,30 @@ export default function PostBody({ post }: { post: IPost }) {
           />
         </RoleGuard>
       </div>
-      {isEditing ? (
-        <PostEdit post={post} cancelEdit={() => setIsEditing(false)} />
-      ) : (
-        <p className="overflow-wrap-anywhere break-words whitespace-pre-wrap">
-          {post.content}
-        </p>
-      )}
+      <AnimatePresence mode="wait">
+        {isEditing ? (
+          <motion.div
+            key="edit"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+          >
+            <PostEdit post={post} cancelEdit={() => setIsEditing(false)} />
+          </motion.div>
+        ) : (
+          <motion.p
+            key="view"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-wrap-anywhere break-words whitespace-pre-wrap"
+          >
+            {post.content}
+          </motion.p>
+        )}
+      </AnimatePresence>
       <span className="text-muted-foreground">
         {getDistanceToNow(post.createdAt)}
       </span>

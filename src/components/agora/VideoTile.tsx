@@ -46,9 +46,9 @@ export default function VideoTile({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+      initial={{ opacity: 0 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.8, y: -20 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
       whileHover={{ scale: 1.02 }}
       className={cn(
