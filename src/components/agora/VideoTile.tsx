@@ -64,10 +64,7 @@ export default function VideoTile({
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center rounded-lg bg-white/50">
-          <Avatar
-            src="/person1.png"
-            className="ring-background size-24 ring-2"
-          />
+          <Avatar size={96} />
         </div>
       )}
 

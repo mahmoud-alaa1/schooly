@@ -13,7 +13,7 @@ export async function getHomeworks({
 }) {
   try {
     const response = await api.get<IPaginatedResponse<IHomework>>(
-      `/homework/active`,
+      `/homework/all`,
       {
         params: {
           page,

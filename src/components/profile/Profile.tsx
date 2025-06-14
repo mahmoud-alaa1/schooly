@@ -1,7 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { PencilLine, User2, Mail } from "lucide-react";
+import {
+  PencilLine,
+  User2,
+  Mail,
+  Phone,
+  UserCog,
+  Calendar,
+} from "lucide-react";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,33 +18,39 @@ import { Box, BoxBody, BoxHeader } from "../Box";
 import FormInput from "../forms/FormInput";
 import useGetProfile from "@/hooks/profile/useGetProfile";
 import { useState, useEffect } from "react";
+import ExtraInfoBox from "./ExtraInfoBox";
+import InfoItem from "./InfoItem";
+import FormImageDropzone from "../forms/FormImageDropzone";
+import usePutProfile from "@/hooks/profile/usePutProfile";
+import Spinner from "../Spinner";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getImageUrl } from "@/lib/utils";
 
 export default function Profile() {
   const [isEditMode, setIsEditMode] = useState(false);
-  const { data, isPending, error } = useGetProfile();
+  const { data, isPending } = useGetProfile();
+  const { mutate, isPending: isUpdating } = usePutProfile();
   const form = useForm<editProfileSchema>({
     resolver: zodResolver(editProfileSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      profilePictureUrl: "",
-    },
   });
 
   useEffect(() => {
     if (data?.data) {
       form.reset({
-        name: data.data.name || "",
-        email: data.data.email || "",
-        profilePictureUrl: data.data.profilePictureUrl || "",
+        name: data.data.name,
+        email: data.data.email,
+        profilePictureUrl: data.data.profilePictureUrl,
       });
     }
   }, [data, form]);
 
   function onSubmit(values: editProfileSchema) {
     console.log(values);
+    mutate(values);
     setIsEditMode(false);
   }
+
+  console.log(form.watch());
 
   return (
     <Form {...form}>
@@ -47,31 +60,48 @@ export default function Profile() {
           <div className="relative px-6 pb-3">
             <div className="relative -mt-16 mb-6">
               <div className="relative inline-block">
-                <Image
-                  src={data?.data?.profilePictureUrl || "/person1.png"}
-                  alt="صورة الملف الشخصي"
-                  width={128}
-                  height={128}
-                  className="rounded-full border-4 border-neutral-100 bg-orange-300 object-cover shadow-lg"
-                  priority
-                />
-                {isEditMode && (
-                  <Button
-                    className="absolute end-1 bottom-1 size-8! rounded-full"
-                    size="icon"
-                  >
-                    <PencilLine size={16} />
-                  </Button>
+                {isEditMode ? (
+                  <FormImageDropzone<editProfileSchema>
+                    control={form.control}
+                    name="profilePictureUrl"
+                  />
+                ) : isPending ? (
+                  <Skeleton className="h-32 w-32 rounded-full" />
+                ) : (
+                  <Image
+                    src={
+                      form.getValues("profilePictureUrl")
+                        ? getImageUrl(form.getValues("profilePictureUrl"))
+                        : getImageUrl(data?.data?.profilePictureUrl)
+                    }
+                    alt="صورة الملف الشخصي"
+                    width={128}
+                    height={128}
+                    className="rounded-full border-4 border-neutral-100 bg-orange-300 object-cover shadow-lg"
+                    priority
+                  />
                 )}
               </div>
-              <p className="mt-3">{data?.data?.name ?? "لا يوجد اسم"}</p>
+              <div className="mt-3">
+                {isPending ? (
+                  <Skeleton className="h-6 w-40" />
+                ) : (
+                  (data?.data?.name ?? "لا يوجد اسم")
+                )}
+              </div>
             </div>
             <div className="mb-6 flex gap-3">
               <Button
                 type={isEditMode ? "button" : "submit"}
-                onClick={() => !isEditMode && setIsEditMode(true)}
+                onClick={() => setIsEditMode(!isEditMode)}
               >
-                {isEditMode ? "حفظ التغييرات" : "تعديل الملف الشخصي"}
+                {isUpdating ? (
+                  <Spinner />
+                ) : isEditMode ? (
+                  "حفظ التغييرات"
+                ) : (
+                  "تعديل الملف الشخصي"
+                )}
                 <PencilLine className="mr-2" />
               </Button>
               {isEditMode && (
@@ -98,31 +128,70 @@ export default function Profile() {
               </div>
             </BoxHeader>
             <BoxBody className="space-y-4 p-4!">
-              <FormInput<editProfileSchema>
-                control={form.control}
-                name="name"
-                placeholder="الاسم الكامل"
-                label="الاسم الكامل"
-                className="h-12"
-                disabled={!isEditMode}
+              {isEditMode ? (
+                <FormInput<editProfileSchema>
+                  control={form.control}
+                  name="name"
+                  placeholder="الاسم الكامل"
+                  label="الاسم الكامل"
+                  className="h-12"
+                  disabled={!isEditMode}
+                />
+              ) : (
+                <InfoItem
+                  label="الاسم الكامل"
+                  value={data?.data?.name ?? null}
+                  isLoading={isPending}
+                />
+              )}
+              {isEditMode ? (
+                <FormInput<editProfileSchema>
+                  control={form.control}
+                  name="email"
+                  placeholder="البريد الإلكتروني"
+                  label="البريد الإلكتروني"
+                  className="h-12"
+                  disabled={!isEditMode}
+                  Icon={<Mail size={18} />}
+                />
+              ) : (
+                <InfoItem
+                  label="البريد الإلكتروني"
+                  value={data?.data?.email ?? null}
+                  icon={Mail}
+                />
+              )}
+              <InfoItem
+                label="رقم الهاتف"
+                value={data?.data?.phoneNumber ?? null}
+                icon={Phone}
               />
-              <FormInput<editProfileSchema>
-                control={form.control}
-                name="email"
-                placeholder="البريد الإلكتروني"
-                label="البريد الإلكتروني"
-                className="h-12"
-                disabled={!isEditMode}
-                Icon={<Mail size={18} />}
+              <InfoItem
+                label="تاريخ الميلاد"
+                value={data?.data?.dateOfBirth ?? null}
+                icon={Calendar}
+              />
+              <InfoItem
+                label="النوع"
+                value={data?.data?.gender === 0 ? "ذكر" : "أنثى"}
+                icon={User2}
+              />
+              <InfoItem
+                label="الدور"
+                value={
+                  data?.data?.role === 0
+                    ? "مدير"
+                    : data?.data?.role === 1
+                      ? "طالب"
+                      : data?.data?.role === 2
+                        ? "معلم"
+                        : "مالك"
+                }
+                icon={UserCog}
               />
             </BoxBody>
           </Box>
-          <Box>
-            <BoxHeader>
-              <h2 className="text-lg font-semibold">تعديل الملف الشخصي</h2>
-            </BoxHeader>
-            <BoxBody className="space-y-4 p-4!">not yet</BoxBody>
-          </Box>
+          <ExtraInfoBox />
         </div>
       </form>
     </Form>

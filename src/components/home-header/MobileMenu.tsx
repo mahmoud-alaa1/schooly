@@ -25,6 +25,9 @@ export default function MobileMenu() {
         <SheetContent side="left" className="gap-5 overflow-auto bg-white p-5">
           <SheetHeader className="sr-only">
             <SheetTitle>Side Menu</SheetTitle>
+            <SheetDescription>
+              قائمة تحتوي على معلومات المستخدم والواجبات والحصص القادمة
+            </SheetDescription>
           </SheetHeader>
           <div className="flex flex-col gap-5 sm:hidden">
             <div className="flex items-center justify-between">
