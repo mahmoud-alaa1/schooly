@@ -8,7 +8,6 @@ export default function Users() {
         {Array.from({ length: 5 }).map((_, index) => (
           <Avatar
             key={index}
-            src="/person1.png"
             className="ring-background size-8! ring-2"
           />
         ))}
