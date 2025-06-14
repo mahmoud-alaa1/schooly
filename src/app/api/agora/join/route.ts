@@ -16,7 +16,8 @@ export async function POST(req: NextRequest) {
     }
 
     const formData = new FormData();
-    formData.append("image", base64ToBlob(image));
+    const imageBlob = base64ToBlob(image);
+    formData.append("image", imageBlob);
 
     const res = await joinLesson(
       formData,
