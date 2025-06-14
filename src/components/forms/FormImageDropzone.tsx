@@ -85,8 +85,10 @@ export default function FormImageDropzone<TFormValues extends FieldValues>({
                 >
                   <Image
                     src={
-                      formFiles[0]?.url ||
-                      process.env.NEXT_PUBLIC_API_URL + `/upload/${value}` ||
+                      formFiles[0]?.url ??
+                      (value
+                        ? `${process.env.NEXT_PUBLIC_API_URL}/upload/${value}`
+                        : null) ??
                       defaultImage
                     }
                     alt="صورة الملف الشخصي"
