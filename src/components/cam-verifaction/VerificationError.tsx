@@ -1,7 +1,7 @@
 import React from "react";
 import StatusIcon from "../ErrorIcon";
 
-function CamVerficationError() {
+function VerificationError() {
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       <h2 className="text-center text-2xl font-bold text-[#000000D9]">
@@ -14,4 +14,4 @@ function CamVerficationError() {
   );
 }
 
-export default CamVerficationError;
+export default VerificationError;
