@@ -88,19 +88,19 @@ function FilePreview({ file, url, onRemove, onChange }: FilePreviewProps) {
     file.type ===
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
-  const handleUpload = () => {
-    const formData = new FormData();
-    formData.append("formFile", file);
-    res.mutate(formData, {
-      onSuccess: (data) => {
-        onChange(data.data.storedFileName);
-      },
-    });
-  };
-
   useEffect(() => {
+    const handleUpload = () => {
+      const formData = new FormData();
+      formData.append("formFile", file);
+      res.mutate(formData, {
+        onSuccess: (data) => {
+          onChange(data.data.storedFileName);
+        },
+      });
+    };
+
     handleUpload();
-  }, [file]);
+  }, [file, res, onChange]);
 
   return (
     <div className="flex items-center justify-between rounded-xl border-2 p-2">

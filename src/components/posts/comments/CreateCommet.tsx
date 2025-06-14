@@ -6,15 +6,13 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import FormTextArea from "@/components/forms/FormTextArea";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { SendHorizonal } from "lucide-react";
 import { commentSchema } from "@/schemas/commentsSchema";
 import useCreateComment from "@/hooks/comments/useCreateComment";
 import Spinner from "@/components/Spinner";
-import { useAuth } from "@/store/auth";
+import Avatar from "@/components/Avatar";
 
 export default function CreateCommet({ postId }: { postId: string | number }) {
-  const user = useAuth((state) => state.user);
   const form = useForm<commentSchema>({
     resolver: zodResolver(commentSchema),
     defaultValues: {
@@ -46,17 +44,7 @@ export default function CreateCommet({ postId }: { postId: string | number }) {
           name="content"
           placeholder="اضف تعليقك .... "
           onEnterSubmit={form.handleSubmit(onSubmit)}
-          rightComponent={
-            <div className="relative size-8 rounded-full bg-orange-500">
-              <Image
-                src="/person1.png"
-                alt={`صورة ${user?.name || "المستخدم"}`}
-                fill
-                className="rounded-full object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            </div>
-          }
+          rightComponent={<Avatar />}
           leftComponent={
             <Button
               variant="outline"

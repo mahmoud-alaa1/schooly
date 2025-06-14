@@ -85,7 +85,11 @@ export default function FormInfiniteSelect<
               required={required}
               {...props}
             >
-              <SelectTrigger dir="rtl" className={cn("w-full", className)}>
+              <SelectTrigger
+                id={name}
+                dir="rtl"
+                className={cn("w-full", className)}
+              >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
               <SelectContent id={name} className="max-h-56" dir="rtl">

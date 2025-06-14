@@ -8,6 +8,7 @@ function SideNavQrCode() {
           <Image
             src={"/model.webp"}
             fill
+            sizes="(max-width: 768px) 100vw, 300px"
             alt="teacher model"
             className="scale-x-[-1]"
             priority={true}

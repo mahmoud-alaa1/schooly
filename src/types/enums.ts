@@ -1,4 +1,5 @@
 export enum EROLES {
+  ADMIN = 0,
   STUDENT = 1,
   TEACHER = 2,
   OWNER = 3,
@@ -11,6 +12,12 @@ export enum ELessonType {
   Revision = 3,
   Other = 4,
 }
+export enum EGender {
+  MALE = 0,
+  FEMALE = 1,
+}
+export enum EDepartment {
+  AMERICAN = 0,
 
 export enum EVerificationState {
   CAPTURING = "capturing",

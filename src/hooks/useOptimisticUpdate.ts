@@ -32,23 +32,32 @@ export default function useOptimisticUpdate<
 
     onMutate: async (input) => {
       await queryClient.cancelQueries({ queryKey });
+
       const previousData = queryClient.getQueryData(queryKey);
 
-      queryClient.setQueryData<{ pages: { data: TData[] }[] }>(
-        queryKey,
-        (old) => {
-          if (!old?.pages) return old;
+      // Handle paginated data
+      if (
+        previousData &&
+        typeof previousData === "object" &&
+        "pages" in previousData
+      ) {
+        queryClient.setQueryData(queryKey, (old: any) => {
           return {
             ...old,
-            pages: old.pages.map((page) => ({
+            pages: old.pages.map((page: any) => ({
               ...page,
-              data: page.data.map((item) =>
+              data: page.data.map((item: TData) =>
                 matcher(item, input) ? updater(item, input) : item,
               ),
             })),
           };
-        },
-      );
+        });
+      }
+
+      // Handle non-paginated object data
+      else if (previousData && matcher(previousData as TData, input)) {
+        queryClient.setQueryData(queryKey, (old: TData) => updater(old, input));
+      }
 
       return { previousData };
     },
