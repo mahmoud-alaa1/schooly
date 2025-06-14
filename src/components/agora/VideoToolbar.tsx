@@ -20,6 +20,7 @@ import {
 } from "../ui/dialog";
 import { useRouter } from "next/navigation";
 import { AnimatedButton } from "./AnimatedButton";
+import useLeaveLesson from "@/hooks/lessons/useLeaveLesson";
 
 interface VideoToolbarProps {
   micOn: boolean;
@@ -45,9 +46,13 @@ export const VideoToolbar = ({
   setActiveConnection,
 }: VideoToolbarProps) => {
   const router = useRouter();
+  const { mutate } = useLeaveLesson();
 
   return (
-    <div className="mt-3 flex-wrap flex items-center justify-center gap-3" dir="ltr">
+    <div
+      className="mt-3 flex flex-wrap items-center justify-center gap-3"
+      dir="ltr"
+    >
       <AnimatedButton
         isActive={micOn}
         onClick={toggleMic}
@@ -71,7 +76,7 @@ export const VideoToolbar = ({
         className="bg-red-500 px-10 hover:bg-red-600 active:scale-95"
         onClick={() => {
           setActiveConnection(false);
-          router.push("/");
+          mutate();
         }}
       >
         <PhoneOff className="h-5 w-5" />

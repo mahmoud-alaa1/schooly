@@ -107,3 +107,11 @@ export function getImageUrl(filename?: string | null): string {
   if (filename.startsWith("http")) return filename;
   return `${process.env.NEXT_PUBLIC_API_URL}/upload/${filename}`;
 }
+export const getCameraState = (
+  hasImage: boolean,
+  isCapturing: boolean,
+): "placeholder" | "capturing" | "captured" => {
+  if (hasImage) return "captured";
+  if (isCapturing) return "capturing";
+  return "placeholder";
+};

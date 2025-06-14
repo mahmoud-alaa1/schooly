@@ -1,22 +1,20 @@
 "use client";
 
-import { base64ToBlob } from "@/lib/utils";
-import { joinLesson } from "@/services/lessonServices";
+import { JoinLessonData } from "@/components/cam-verifaction/Verification";
+import { ILessonJoinResponse } from "@/types/lessons";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 function useJoinLesson() {
   const router = useRouter();
   const mutation = useMutation({
-    mutationFn: async (data: {
-      image: string;
-      lessonId: string;
-      classroomId: string;
-    }) => {
-      const imageBlob = base64ToBlob(data.image);
-      const sentData = new FormData();
-      sentData.append("image", imageBlob);
-      return await joinLesson(sentData, data.lessonId);
+    mutationFn: async (data: JoinLessonData) => {
+      const res = await fetch(`/api/agora/join`, {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error("فشل تحقق الهوية");
+      return res.json() as Promise<ILessonJoinResponse>;
     },
     onSuccess: (data, varaibles) => {
       console.log("Face verification successful:", data);

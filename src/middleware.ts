@@ -9,6 +9,7 @@ function isAuthRoute(pathname: string) {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("token")?.value;
+  const agoraToken = request.cookies.get("agora-token")?.value;
 
   if (token && isAuthRoute(pathname)) {
     return NextResponse.redirect(new URL("/", request.url));
@@ -18,6 +19,10 @@ export function middleware(request: NextRequest) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);
+  }
+
+  if (!agoraToken && pathname.includes("video-call")) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return NextResponse.next();

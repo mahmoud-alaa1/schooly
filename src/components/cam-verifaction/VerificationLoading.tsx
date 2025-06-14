@@ -1,7 +1,7 @@
 import { CircleArrowLeft } from "lucide-react";
 import Image from "next/image";
 
-function CamVerficationLoading() {
+function VerificationLoading() {
   return (
     <div>
       <h2 className="text-center text-2xl font-bold">يتم مقارنة الصورة.,.. </h2>
@@ -28,4 +28,4 @@ function CamVerficationLoading() {
   );
 }
 
-export default CamVerficationLoading;
+export default VerificationLoading;

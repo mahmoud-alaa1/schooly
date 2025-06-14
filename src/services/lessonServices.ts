@@ -110,6 +110,7 @@ export async function joinLesson(
         },
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: token ? `Bearer ${token}` : undefined,
         },
       },
     );
