@@ -15,12 +15,7 @@ const links: {
     icon: <Home />,
     color: "#899FE7",
   },
-  {
-    title: "الجدول",
-    href: "/lessons-table",
-    icon: <Table />,
-    color: "#EA7EAD",
-  },
+ 
   {
     title: "الواجبات",
     href: "/homeworks",

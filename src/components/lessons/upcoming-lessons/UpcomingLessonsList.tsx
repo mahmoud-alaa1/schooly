@@ -18,11 +18,6 @@ export default function UpcomingLessonsList() {
           <Clock size={18} />
           <h3 className="font-medium">حصصك القادمة</h3>
         </div>
-        <Link href="/table">
-          <Button variant="link" className="p-0">
-            الكل
-          </Button>
-        </Link>
       </BoxHeader>
       <BoxBody>
         {isError ? (
