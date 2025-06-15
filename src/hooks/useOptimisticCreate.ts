@@ -58,9 +58,6 @@ export default function useOptimisticCreate<TData, TInput>({
 
     onSuccess: () => {
       toast.success(messages.success);
-    },
-
-    onSettled: () => {
       queryClient.invalidateQueries({ queryKey });
     },
   });

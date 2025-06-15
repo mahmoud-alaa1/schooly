@@ -22,18 +22,6 @@ export default function PostCommentsList({
           <CommentItem comment={comment} postId={postId} />
         </li>
       ))}
-      {isFetching &&
-        Array.from({ length: 2 }).map((_, i) => (
-          <li key={i}>
-            <div className="flex gap-3">
-              <Skeleton className="size-12 shrink-0 rounded-full" />
-              <div className="flex-1 space-y-2">
-                <Skeleton className="h-4 w-24" />
-                <Skeleton className="h-4 w-full" />
-              </div>
-            </div>
-          </li>
-        ))}
     </ul>
   );
 }

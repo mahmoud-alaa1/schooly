@@ -13,7 +13,7 @@ export default function useLogin() {
         method: "POST",
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error("فشل تسجيل الدخول");
+      if (!res.ok) throw new Error((await res.json()).data.message);
       return res.json() as Promise<ILoginResponse>;
     },
     onSuccess: (data) => {
@@ -24,9 +24,7 @@ export default function useLogin() {
     },
     onError: (error) => {
       console.error(error);
-      toast.error(
-        "فشل تسجيل الدخول، يرجى التحقق من البريد الإلكتروني وكلمة المرور الخاصة بك",
-      );
+      toast.error(error.message);
     },
   });
   return mutation;
