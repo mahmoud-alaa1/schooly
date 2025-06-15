@@ -21,10 +21,10 @@ export async function POST(req: NextRequest) {
 
     return response;
   } catch (error) {
-    if (isAxiosError(error)) {
+    if (isAxiosError<IErrorResponse>(error)) {
       return NextResponse.json(
         {
-          data: error.response?.data ?? { message: error.message },
+          data: error.response?.data,
         },
         {
           status: error.response?.status || 500,

@@ -40,7 +40,7 @@ export async function verifyCodeService(data: IVerifyCodeRequest) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new AxiosError(error.response?.data || "حدث خطأ ما حاول مرة أخرى");
+      throw new Error(error.response?.data || "حدث خطأ ما حاول مرة أخرى");
     }
     throw error;
   }
