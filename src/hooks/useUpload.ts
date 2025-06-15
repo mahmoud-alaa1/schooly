@@ -9,6 +9,10 @@ export default function useUpload() {
     onSettled: () => {
       setProgress(0);
     },
+    retry: (failureCount, error) => {
+      console.error("Upload failed: ", failureCount, error);
+      return failureCount < 3;
+    },
   });
 
   useEffect(() => {

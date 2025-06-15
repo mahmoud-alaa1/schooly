@@ -100,7 +100,7 @@ function FilePreview({ file, url, onRemove, onChange }: FilePreviewProps) {
     };
 
     handleUpload();
-  }, [file, res, onChange]);
+  }, []);
 
   return (
     <div className="flex items-center justify-between rounded-xl border-2 p-2">
