@@ -1,5 +1,6 @@
 import { base64ToBlob } from "@/lib/utils";
 import { joinLesson } from "@/services/lessonServices";
+import { isAxiosError } from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -38,17 +39,19 @@ export async function POST(req: NextRequest) {
 
     return response;
   } catch (error) {
-    const message =
-      typeof (error as any).message === "string"
-        ? (error as any).message
-        : JSON.stringify((error as any).message);
-
-    console.log(`i'm the route server error`, message);
+    if (isAxiosError(error)) {
+      return NextResponse.json(
+        {
+          data: error.response?.data ?? { message: error.message },
+        },
+        {
+          status: error.response?.status || 500,
+        },
+      );
+    }
     return NextResponse.json(
-      {
-        message: message || "حدث خطأ ما في تحقق الهوية",
-      },
-      { status: 400 },
+      { error: "Internal Server Error" },
+      { status: 500 },
     );
   }
 }

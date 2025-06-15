@@ -21,7 +21,6 @@ const eslintConfig = [
       ...nextPlugin.configs.recommended.rules,
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      "no-unused-vars": "warn",
     },
   },
   ...compat.extends("next/core-web-vitals"),

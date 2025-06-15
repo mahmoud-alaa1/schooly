@@ -18,7 +18,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { useRouter } from "next/navigation";
 import { AnimatedButton } from "./AnimatedButton";
 import useLeaveLesson from "@/hooks/lessons/useLeaveLesson";
 
@@ -45,7 +44,6 @@ export const VideoToolbar = ({
   toggleFullscreen,
   setActiveConnection,
 }: VideoToolbarProps) => {
-  const router = useRouter();
   const { mutate } = useLeaveLesson();
 
   return (

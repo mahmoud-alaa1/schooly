@@ -2,7 +2,6 @@ import api from "@/lib/axios";
 import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
 import {
   ILesson,
-  ILessonJoinData,
   ILessonJoinResponse,
   ILessonPostData,
   ILessonPutData,
@@ -116,12 +115,6 @@ export async function joinLesson(
     );
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      console.error(error.response?.data);
-      throw new Error(
-        error.response?.data ?? "حدث خطأ ما في الانضمام إلى الحصة",
-      );
-    }
     throw error;
   }
 }

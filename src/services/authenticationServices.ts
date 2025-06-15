@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { ILoginResponse } from "@/types/login";
-import { isAxiosError } from "axios";
+import { AxiosError, isAxiosError } from "axios";
 
 export async function loginsService(data: {
   email: string;
@@ -11,10 +11,6 @@ export async function loginsService(data: {
     const response = await api.post<ILoginResponse>(`/auth/login`, data);
     return response.data;
   } catch (error) {
-    if (isAxiosError(error)) {
-      console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في تسجيل الدخول");
-    }
     throw error;
   }
 }
@@ -44,7 +40,7 @@ export async function verifyCodeService(data: IVerifyCodeRequest) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data || "حدث خطأ ما حاول مرة أخرى");
+      throw new AxiosError(error.response?.data || "حدث خطأ ما حاول مرة أخرى");
     }
     throw error;
   }
