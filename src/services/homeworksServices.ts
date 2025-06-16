@@ -34,7 +34,7 @@ export async function getHomeworks({
   }
 }
 
-export async function deleteHomework(id: number | string) {
+export async function deleteHomework(id: string) {
   try {
     const response = await api.delete(`/homework/${id}`);
     return response.data;
@@ -71,6 +71,21 @@ export async function submitHomework(data: ISubmitHomeworkPostData) {
     if (isAxiosError(error)) {
       console.error(error);
       throw new Error(error.response?.data || "حدث خطأ ما في انشاء الواجب");
+    }
+    throw error;
+  }
+}
+
+export async function getSubmittedStudents(homeWorkId: string) {
+  try {
+    const response = await api.get<IPaginatedResponse<IStudentSubmitHomework>>(
+      `/homework/${homeWorkId}/students`,
+    );
+    return response.data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      console.error(error);
+      throw new Error(error.response?.data || "حدث خطأ ما في ارسال الواجب");
     }
     throw error;
   }

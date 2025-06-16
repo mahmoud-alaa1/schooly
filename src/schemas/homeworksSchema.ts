@@ -7,7 +7,7 @@ export const createHomeworkSchema = z.object({
   fileUrl: z.string({
     required_error: "الرجاء اضافة ملف",
   }),
-  toDate: z
+  deadline: z
     .date({
       required_error: "الرجاء اختيار تاريخ سماحية الطلب لرفع الواجب",
       invalid_type_error: "الرجاء اختيار تاريخ صحيح",

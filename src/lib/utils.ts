@@ -6,6 +6,7 @@ import {
   differenceInMinutes,
   differenceInSeconds,
   format,
+  isPast,
   isToday,
   isTomorrow,
   isWithinInterval,
@@ -18,6 +19,7 @@ export function cn(...inputs: ClassValue[]) {
 
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
+import { stat } from "fs";
 
 export function getDistanceToNow(date: string | Date) {
   const now = new Date();
@@ -115,3 +117,24 @@ export const getCameraState = (
   if (isCapturing) return "capturing";
   return "placeholder";
 };
+
+export function formatDate(date: string) {
+  const parsedDate = parseISO(date);
+  const formattedDate = format(parsedDate, "dd MMMM yyyy", {
+    locale: arEG,
+  });
+  const formattedTime = format(parsedDate, "HH:mm", {
+    locale: arEG,
+  });
+
+  const data = { formattedDate, formattedTime };
+
+  if (isPast(parsedDate)) {
+    return { ...data, status: "completed" };
+  }
+
+  return {
+    ...data,
+    status: "active",
+  };
+}
