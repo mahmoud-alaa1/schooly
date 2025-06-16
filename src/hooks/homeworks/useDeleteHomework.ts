@@ -5,7 +5,7 @@ import { toast } from "sonner";
 
 function useDeleteHomework(homeWorkId: string) {
   const searchParams = useSearchParams();
-  const values = searchParams.get("classroom") || "all";
+  const values = searchParams.getAll("classroom") || "all";
 
   const queryClient = useQueryClient();
 
