@@ -40,6 +40,10 @@ import SubmissionList from "./SubmissionList";
 import { deleteHomework } from "@/services/homeworksServices";
 import { toast } from "sonner";
 import DeleteHomework from "./DeleteHomework";
+import RoleGuard from "@/components/RoleGuard";
+import SubmitHomework from "@/components/create-new/SubmitHomework";
+import SubmitOneHomework from "@/components/create-new/SubmitOneHomework";
+import HomeworkSubmit from "./HomeworkSubmit";
 
 const getStatusBadge = (status: string) => {
   switch (status) {
@@ -209,41 +213,48 @@ function HomeworkDetails({ homework }: HomeworkDetailsProps) {
           status={status}
           homework={homework}
         />
-        <div className="flex items-center gap-2">
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="default" size="sm">
-                <Eye className="ml-1 h-4 w-4" />
-                عرض
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl bg-white [&>button:last-child]:hidden">
-              <DialogHeader dir="rtl" className="text-right">
-                <DialogTitle>{homework.lessonTitle}</DialogTitle>
-                <DialogDescription>تفاصيل الواجب والتسليمات</DialogDescription>
-              </DialogHeader>
-              <Tabs defaultValue="details" className="w-full" dir="rtl">
-                <TabsList className="mb-2 w-full">
-                  <TabsTrigger value="details">التفاصيل</TabsTrigger>
-                  <TabsTrigger value="submissions">التسليمات</TabsTrigger>
-                </TabsList>
-                <TabsContent value="details">
-                  <HomeworkDetailsTab
-                    formattedDate={formattedDate}
-                    status={status}
-                    homework={homework}
-                    formattedTime={formattedTime}
-                  />
-                </TabsContent>
-                <TabsContent value="submissions">
-                  <SubmissionList homeworkId={homework.homeWorkId} />
-                </TabsContent>
-              </Tabs>
-            </DialogContent>
-          </Dialog>
+        <RoleGuard role="TEACHER">
+          <div className="flex items-center gap-2">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="default" size="sm">
+                  <Eye className="ml-1 h-4 w-4" />
+                  عرض
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl bg-white [&>button:last-child]:hidden">
+                <DialogHeader dir="rtl" className="text-right">
+                  <DialogTitle>{homework.lessonTitle}</DialogTitle>
+                  <DialogDescription>
+                    تفاصيل الواجب والتسليمات
+                  </DialogDescription>
+                </DialogHeader>
+                <Tabs defaultValue="details" className="w-full" dir="rtl">
+                  <TabsList className="mb-2 w-full">
+                    <TabsTrigger value="details">التفاصيل</TabsTrigger>
+                    <TabsTrigger value="submissions">التسليمات</TabsTrigger>
+                  </TabsList>
+                  <TabsContent value="details">
+                    <HomeworkDetailsTab
+                      formattedDate={formattedDate}
+                      status={status}
+                      homework={homework}
+                      formattedTime={formattedTime}
+                    />
+                  </TabsContent>
+                  <TabsContent value="submissions">
+                    <SubmissionList homeworkId={homework.homeWorkId} />
+                  </TabsContent>
+                </Tabs>
+              </DialogContent>
+            </Dialog>
 
-          <DeleteHomework homeworkId={homework.homeWorkId} />
-        </div>
+            <DeleteHomework homeworkId={homework.homeWorkId} />
+          </div>
+        </RoleGuard>
+        <RoleGuard role="STUDENT">
+          <HomeworkSubmit homework={homework} />
+        </RoleGuard>
       </div>
     </div>
   );

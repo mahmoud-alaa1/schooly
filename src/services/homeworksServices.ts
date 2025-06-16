@@ -34,9 +34,13 @@ export async function getHomeworks({
   }
 }
 
-export async function deleteHomework(id: string) {
+export async function deleteHomework(homeWorkId: string) {
   try {
-    const response = await api.delete(`/homework/${id}`);
+    const response = await api.delete(`/homework`, {
+      params: {
+        homeWorkId,
+      },
+    });
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {

@@ -8,18 +8,19 @@ import HomeworkList from "./HomeworkList";
 import HomeworkFilter from "./HomeworkFilter";
 import { useRouter, useSearchParams } from "next/navigation";
 import HomeworkHeader from "./HomeworkHeader";
+import RoleGuard from "@/components/RoleGuard";
+import HomeworkHeaderStudent from "./HomeworkHeaderStudent";
 
-export default function TeacherHomeworkPage() {
+export default function Homework() {
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  // Update URL when filters change
 
   const [selectedClass, setSelectedClass] = useState(
     searchParams.get("classroom") || "all",
   );
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { data, isError, ref, isFetching } = useGetAllHomeworks(
+    ["homeworks", selectedClass],
     selectedClass === "all" ? undefined : selectedClass,
   );
   const { data: classrooms, isLoading } = useGetUserClassrooms();
@@ -48,10 +49,15 @@ export default function TeacherHomeworkPage() {
   return (
     <div className="bg-gray-50 p-6" dir="rtl">
       <div className="mx-auto max-w-7xl space-y-6">
-        <HomeworkHeader
-          isCreateDialogOpen={isCreateDialogOpen}
-          setIsCreateDialogOpen={setIsCreateDialogOpen}
-        />
+        <RoleGuard role="TEACHER">
+          <HomeworkHeader
+            isCreateDialogOpen={isCreateDialogOpen}
+            setIsCreateDialogOpen={setIsCreateDialogOpen}
+          />
+        </RoleGuard>
+        <RoleGuard role="STUDENT">
+          <HomeworkHeaderStudent />
+        </RoleGuard>
 
         <HomeworkFilter
           selectedClass={selectedClass}
