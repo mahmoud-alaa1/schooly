@@ -24,11 +24,11 @@ export default function CreateHomework() {
   });
 
   function onSubmit(values: createHomeworkSchema) {
-    const formattedDate = values.toDate.toISOString();
+    const formattedDate = values.deadline.toISOString();
     mutate(
       {
         ...values,
-        toDate: formattedDate,
+        deadline: formattedDate,
       },
       {
         onSuccess: () => {
@@ -63,7 +63,7 @@ export default function CreateHomework() {
           />
           <FormDatePicker<createHomeworkSchema>
             control={form.control}
-            name="toDate"
+            name="deadline"
             placeholder="اختر تاريخ"
             label="نهاية موعد التسليم:"
           />

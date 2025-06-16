@@ -6,11 +6,13 @@ import { useFileDownloader } from "@/hooks/useFileDownloader";
 interface IHomeworkDownloadProps {
   fileUrl: string;
   fileName: string;
+  text?: string;
 }
 
 const HomeworkDownload: React.FC<IHomeworkDownloadProps> = ({
   fileUrl,
   fileName,
+  text,
 }) => {
   const { loading, error, downloadFile } = useFileDownloader();
 
@@ -26,7 +28,13 @@ const HomeworkDownload: React.FC<IHomeworkDownloadProps> = ({
         onClick={downloadFileHandler}
         disabled={loading}
       >
-        {loading ? <Loader className="animate-spin" /> : <Download />}
+        {loading ? (
+          <Loader className="animate-spin" />
+        ) : text ? (
+          text
+        ) : (
+          <Download />
+        )}
       </Button>
       {error && <span className="block text-xs text-red-500">{error}</span>}
     </div>

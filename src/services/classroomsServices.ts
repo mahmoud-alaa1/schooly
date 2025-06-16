@@ -34,7 +34,8 @@ export async function getSingleClassroom(id: string) {
 }
 export async function getUserClassrooms() {
   try {
-    const response = await api.get(`/user/classrooms`);
+    const response =
+      await api.get<IGetAllClassroomsResponse>(`/user/classrooms`);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
