@@ -1,3 +1,4 @@
+"use client";
 import useGetProfile from "@/hooks/profile/useGetProfile";
 import Image from "next/image";
 import React from "react";
