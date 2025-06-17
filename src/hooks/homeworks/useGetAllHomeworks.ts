@@ -1,14 +1,9 @@
 import { getHomeworks } from "@/services/homeworksServices";
 import useInfinite from "../useInfinite";
 
-export default function useGetAllHomeworks(
-  Key?: string[],
-  ClassRoomId?: string,
-) {
+export default function useGetAllHomeworks(ClassRoomId?: string) {
   const res = useInfinite({
-    queryKey: ClassRoomId
-      ? ["homeworks", ClassRoomId]
-      : ["homeworks", ...(Key || [])],
+    queryKey: ClassRoomId ? ["homeworks", ClassRoomId] : ["homeworks"],
     fetchFn: async (pageNumber: number) => {
       return await getHomeworks({
         page: pageNumber,

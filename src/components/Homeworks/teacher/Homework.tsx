@@ -20,7 +20,6 @@ export default function Homework() {
   );
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { data, isError, ref, isFetching } = useGetAllHomeworks(
-    ["homeworks", selectedClass],
     selectedClass === "all" ? undefined : selectedClass,
   );
   const { data: classrooms, isLoading } = useGetUserClassrooms();

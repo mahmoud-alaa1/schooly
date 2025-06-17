@@ -31,12 +31,14 @@ export default function HomeworksList() {
           <p className="text-gray-500">لا توجد واجبات</p>
         ) : (
           <ul className="list-none">
-            {homeworks?.map((homework) => (
-              <HomeworkItem
-                key={`${homework?.homeWorkId}`}
-                homework={homework}
-              />
-            ))}
+            {homeworks
+              ?.slice(0, HOMEWORKS_PER_PAGE)
+              .map((homework) => (
+                <HomeworkItem
+                  key={`${homework?.homeWorkId}`}
+                  homework={homework}
+                />
+              ))}
           </ul>
         )}
 
