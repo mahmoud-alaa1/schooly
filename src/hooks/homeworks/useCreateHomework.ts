@@ -7,8 +7,7 @@ export default function useCreateHomework() {
   const queryClient = useQueryClient();
   const { classroomId } = useParams();
   return useMutation({
-    mutationFn: (data: IHomeworkFormData) =>
-      createHomework({ ...data, classRoomId: classroomId as string }),
+    mutationFn: (data: IHomeworkFormData) => createHomework(data),
     onSuccess: (data) => {
       console.log("Homework created successfully:", data);
       toast.success("تم انشاء الواجب بنجاح");
