@@ -13,6 +13,7 @@ import { commentSchema } from "@/schemas/commentsSchema";
 import useUpdateComment from "@/hooks/comments/useUpdateComment";
 import Spinner from "@/components/Spinner";
 import { useAuth } from "@/store/auth";
+import UserAvatar from "@/components/UserAvatar";
 
 export default function CommentEdit({
   postId,
@@ -66,16 +67,7 @@ export default function CommentEdit({
           name="content"
           placeholder="اضف تعليقك .... "
           onEnterSubmit={form.handleSubmit(onSubmit)}
-          rightComponent={
-            <div className="relative size-8 rounded-full bg-orange-500">
-              <Image
-                src="/person1.png"
-                alt={`صورة ${user?.name || "المستخدم"}`}
-                fill
-                className="rounded-full object-cover"
-              />
-            </div>
-          }
+          rightComponent={<UserAvatar />}
           leftComponent={
             <div className="flex gap-2">
               <Button

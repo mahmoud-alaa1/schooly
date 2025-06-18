@@ -1,6 +1,5 @@
 import useGetComment from "@/hooks/comments/useGetComment";
 import CommentItem from "./CommentItem";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export default function PostCommentsList({
   postId,
@@ -9,6 +8,7 @@ export default function PostCommentsList({
 }) {
   const { data, ref, isFetching } = useGetComment({ postId });
   const comments = data?.pages.flatMap((page) => page.data);
+
 
   if (!comments?.length) return null;
 

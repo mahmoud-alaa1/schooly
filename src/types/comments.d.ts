@@ -13,6 +13,7 @@ interface IComment {
   authorId: string | number;
   authorName: string;
   authorEmail: string;
+  profilePictureUrl: string | null;
 }
 
 interface ICommentPutData {

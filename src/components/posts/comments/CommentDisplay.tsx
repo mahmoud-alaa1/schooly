@@ -23,7 +23,12 @@ export default function CommentDisplay({
       <div className="flex items-start gap-2">
         <div className="relative size-12 shrink-0 rounded-full bg-orange-500">
           <Image
-            src="/person1.png"
+            src={
+              comment.profilePictureUrl
+                ? process.env.NEXT_PUBLIC_API_URL +
+                  `/upload/${comment.profilePictureUrl}`
+                : "/person1.png"
+            }
             alt={`صورة ${comment.authorName}`}
             fill
             className="rounded-full object-cover"

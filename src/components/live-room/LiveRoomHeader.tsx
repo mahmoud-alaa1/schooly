@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, BoxBody } from "../Box";
 import { Badge } from "../ui/badge";
 import { Calendar, Clock } from "lucide-react";
@@ -6,7 +5,7 @@ import Users from "../Users";
 
 export default function LiveRoomHeader() {
   return (
-    <Box className="grid grid-cols-1 items-center md:grid-cols-[auto_1fr] mb-3">
+    <Box className="mb-3 grid grid-cols-1 items-center md:grid-cols-[auto_1fr]">
       <BoxBody className="sm:border-e sm:p-6!">
         <div>
           <Badge className="rounded-full py-1">حل الواجب</Badge>

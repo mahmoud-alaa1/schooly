@@ -6,8 +6,10 @@ import PostSkeleton from "./PostSkeleton";
 import { POSTS_PER_PAGE } from "@/lib/constants";
 
 export default function PostsList() {
-  const { data, isFetching, ref } = useGetAllPosts();
+  const { data, isFetching, ref, hasNextPage } = useGetAllPosts();
   const posts = data?.pages.flatMap((page) => page.data);
+
+  console.log("iam posts", posts);
 
   return (
     <div className="flex flex-col gap-4">
@@ -23,9 +25,9 @@ export default function PostsList() {
           ))}
         </>
       )}
-      {posts?.length === 0 && !isFetching && (
-        <div className="flex bg-white p-6 rounded-2xl items-center justify-center">
-          <p className="text-red-500">لا توجد منشورات لعرضها</p>
+      {!hasNextPage && (
+        <div className="flex items-center justify-center rounded-2xl bg-white p-6">
+          <p className="text-muted-foreground">لا توجد منشورات اخرى لعرضها</p>
         </div>
       )}
     </div>

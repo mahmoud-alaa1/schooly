@@ -42,7 +42,7 @@ export const LiveVideo = () => {
 
   const remoteUsers = useRemoteUsers();
   const { audioTracks } = useRemoteAudioTracks(remoteUsers);
-  useRemoteVideoTracks(remoteUsers); // This will give you the remote video tracks, it is import i should call it even if i don't user its return
+  useRemoteVideoTracks(remoteUsers); // This will give you the remote video tracks, it is important i should call it even if i don't use its return
 
   useEffect(() => {
     audioTracks.forEach((track) => {
@@ -74,13 +74,12 @@ export const LiveVideo = () => {
       appid: process.env.NEXT_PUBLIC_AGORA_APP_ID!,
       token: localStorage.getItem("agora-token"),
       channel: lessonId as string,
+      uid: id || undefined,
     },
     activeConnection,
   );
 
   usePublish([localMicrophoneTrack, localCameraTrack]);
-
-  console.log(remoteUsers.length, "remote users length");
 
   return (
     <div className="flex w-full grow flex-col justify-between p-1">

@@ -8,29 +8,22 @@ type TStudentExtra = {
   grade: EGender;
 };
 
-declare interface IProfileGetResponse {
-  data: {
-    id: string;
-    name: string;
-    email: string;
-    phoneNumber: string;
-    dateOfBirth: string;
-    gender: EGender;
-    profilePictureUrl: null;
-    role: EROLES;
-    studentExtra: null | TStudentExtra;
-  };
+declare interface IProfile {
+  id: string;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  dateOfBirth: string;
+  gender: EGender;
+  profilePictureUrl: null | string;
+  role: EROLES;
+  studentExtra: null | TStudentExtra;
 }
+
+declare interface IProfileGetResponse {
+  data: IProfile;
+}
+
 declare interface IProfilePutResponse {
-  data: {
-    id: string;
-    name: string;
-    email: string;
-    phoneNumber: string | null;
-    dateOfBirth: string;
-    gender: EGender;
-    profilePictureUrl: string | null;
-    role: EROLES;
-    studentExtra: null | TStudentExtra;
-  };
+  data: IProfile;
 }
