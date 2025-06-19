@@ -28,6 +28,7 @@ export default function PostBody({ post }: { post: IPost }) {
               }
               alt={`صورة ${post.authorName}`}
               fill
+              sizes="100%"
               className="rounded-full object-cover"
             />
           </div>
