@@ -12,7 +12,7 @@ export default function PostsList() {
 
   return (
     <AnimatePresence mode="popLayout">
-      <motion.div layout className="flex flex-col gap-4">
+      <motion.div layout className="flex h-fit! flex-col gap-4">
         {posts?.map((post, index) => (
           <motion.div
             key={post.id}
@@ -28,7 +28,7 @@ export default function PostsList() {
               delay: index * 0.1,
               layout: { duration: 0.3 },
             }}
-            layout
+            layout="position"
           >
             <PostItem post={post} />
           </motion.div>
@@ -49,13 +49,9 @@ export default function PostsList() {
           </>
         )}
         {!hasNextPage && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center justify-center rounded-2xl bg-white p-6"
-          >
+          <div className="flex items-center justify-center rounded-2xl bg-white p-6">
             <p className="text-muted-foreground">لا توجد منشورات اخرى لعرضها</p>
-          </motion.div>
+          </div>
         )}
       </motion.div>
     </AnimatePresence>

@@ -60,12 +60,12 @@ export default function ActionsMenu({ onDelete, onEdit }: ActionsMenuProps) {
               سيتم حذف نهائيًا ولا يمكن التراجع عن هذه العملية.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="flex justify-center! gap-2">
-            <Button variant="destructive" onClick={handleConfirmDelete}>
-              احذف
-            </Button>
+          <DialogFooter dir="rtl" className="flex justify-center! gap-2">
             <Button variant="outline" onClick={() => setOpenConfirm(false)}>
               إلغاء
+            </Button>
+            <Button variant="destructive" onClick={handleConfirmDelete}>
+              احذف
             </Button>
           </DialogFooter>
         </DialogContent>

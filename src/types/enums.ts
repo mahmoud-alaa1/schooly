@@ -6,11 +6,11 @@ export enum EROLES {
 }
 
 export enum ELessonType {
-  Explain = 0,
-  HomeworkSolution = 1,
-  Practice = 2,
-  Revision = 3,
-  Other = 4,
+  Explain = "0",
+  HomeworkSolution = "1",
+  Practice = "2",
+  Revision = "3",
+  Other = "4",
 }
 export enum EGender {
   MALE = 0,
