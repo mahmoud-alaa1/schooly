@@ -18,6 +18,7 @@ declare interface IProfile {
   profilePictureUrl: null | string;
   role: EROLES;
   studentExtra: null | TStudentExtra;
+  profilePictureUrl: string | null;
 }
 
 declare interface IProfileGetResponse {

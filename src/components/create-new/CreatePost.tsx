@@ -13,6 +13,7 @@ import Spinner from "@/components/Spinner";
 import { useAuth } from "@/store/auth";
 import useCreatePost from "@/hooks/posts/useCreatePost";
 import { useParams } from "next/navigation";
+import UserAvatar from "../UserAvatar";
 export default function CreatePost() {
   const user = useAuth((state) => state.user);
   const { isPending, mutate } = useCreatePost();
@@ -48,17 +49,7 @@ export default function CreatePost() {
           name="content"
           placeholder="اضف تعليقك .... "
           onEnterSubmit={form.handleSubmit(onSubmit)}
-          rightComponent={
-            <div className="relative size-8 rounded-full bg-orange-500">
-              <Image
-                src="/person1.png"
-                alt={`صورة ${user?.name || "المستخدم"}`}
-                fill
-                className="rounded-full object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            </div>
-          }
+          rightComponent={<UserAvatar />}
           leftComponent={
             <Button
               variant="outline"
