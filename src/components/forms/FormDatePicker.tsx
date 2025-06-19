@@ -56,12 +56,13 @@ export default function FormDatePicker<TFormValues extends FieldValues>({
             <Popover>
               <PopoverTrigger asChild>
                 <Button
+                  id={name}
                   variant={"outline"}
                   className="group border-input w-full justify-between border-2 bg-white px-3 font-normal outline-offset-0 outline-none focus-visible:outline-[3px]"
                 >
                   <span
                     className={cn(
-                      "truncate", 
+                      "truncate",
                       !field.value && "text-muted-foreground",
                     )}
                   >
