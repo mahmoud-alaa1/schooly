@@ -12,7 +12,6 @@ const JoinSessionActions = ({ onJoinSession }: JoinSessionActionsProps) => (
     <Button className="flex-1" onClick={onJoinSession} size="lg">
       {MESSAGES.JOIN_SESSION}
     </Button>
-    <Users />
   </div>
 );
 

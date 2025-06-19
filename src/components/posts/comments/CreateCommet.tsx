@@ -11,6 +11,7 @@ import { commentSchema } from "@/schemas/commentsSchema";
 import useCreateComment from "@/hooks/comments/useCreateComment";
 import Spinner from "@/components/Spinner";
 import Avatar from "@/components/Avatar";
+import UserAvatar from "@/components/UserAvatar";
 
 export default function CreateCommet({ postId }: { postId: string | number }) {
   const form = useForm<commentSchema>({
@@ -44,7 +45,7 @@ export default function CreateCommet({ postId }: { postId: string | number }) {
           name="content"
           placeholder="اضف تعليقك .... "
           onEnterSubmit={form.handleSubmit(onSubmit)}
-          rightComponent={<Avatar />}
+          rightComponent={<UserAvatar />}
           leftComponent={
             <Button
               variant="outline"

@@ -9,7 +9,6 @@ export default function PostCommentsList({
   const { data, ref, isFetching } = useGetComment({ postId });
   const comments = data?.pages.flatMap((page) => page.data);
 
-
   if (!comments?.length) return null;
 
   return (

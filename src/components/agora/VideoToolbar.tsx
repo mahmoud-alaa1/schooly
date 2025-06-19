@@ -9,15 +9,8 @@ import {
   PhoneOff,
   Maximize2,
   Minimize2,
-  Settings,
 } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+
 import { AnimatedButton } from "./AnimatedButton";
 import useLeaveLesson from "@/hooks/lessons/useLeaveLesson";
 
@@ -63,13 +56,6 @@ export const VideoToolbar = ({
         activeIcon={Video}
         inactiveIcon={VideoOff}
       />
-      <AnimatedButton
-        isActive={audioOn}
-        onClick={() => setAudio(!audioOn)}
-        activeIcon={Volume2}
-        inactiveIcon={VolumeX}
-      />
-
       <Button
         className="bg-red-500 px-10 hover:bg-red-600 active:scale-95"
         onClick={() => {
@@ -79,6 +65,12 @@ export const VideoToolbar = ({
       >
         <PhoneOff className="h-5 w-5" />
       </Button>
+      <AnimatedButton
+        isActive={audioOn}
+        onClick={() => setAudio(!audioOn)}
+        activeIcon={Volume2}
+        inactiveIcon={VolumeX}
+      />
 
       <AnimatedButton
         isActive={isFullscreen}
@@ -86,20 +78,6 @@ export const VideoToolbar = ({
         activeIcon={Minimize2}
         inactiveIcon={Maximize2}
       />
-
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button className="active:scale-95">
-            <Settings className="h-5 w-5" />
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Video Settings</DialogTitle>
-          </DialogHeader>
-          <div>just settings</div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

@@ -45,12 +45,10 @@ export default function Profile() {
   }, [data, form]);
 
   function onSubmit(values: editProfileSchema) {
-    console.log(values);
     mutate(values);
     setIsEditMode(false);
   }
 
-  console.log(form.watch());
 
   return (
     <Form {...form}>

@@ -1,6 +1,7 @@
 import api from "@/lib/axios";
 import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
 import {
+  IGetSingleLessonResponse,
   ILesson,
   ILessonJoinResponse,
   ILessonPostData,
@@ -43,7 +44,7 @@ export async function getLessons({
 
 export async function getSingleLesson(id: number | string) {
   try {
-    const response = await api.get(`/lesson/${id}`);
+    const response = await api.get<IGetSingleLessonResponse>(`/lesson/${id}`);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -81,7 +82,6 @@ export async function updateLesson(data: ILessonPutData) {
 }
 
 export async function createLesson(data: ILessonPostData) {
-  console.log(data.lessonType);
   try {
     const response = await api.post(`/lesson`, data);
     return response.data;

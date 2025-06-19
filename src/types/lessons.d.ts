@@ -46,3 +46,12 @@ interface ILessonJoinResponse {
     token: string;
   };
 }
+interface ILessonJoinResponse {
+  data: {
+    token: string;
+  };
+}
+
+interface IGetSingleLessonResponse {
+  data: ILesson;
+}

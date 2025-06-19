@@ -19,7 +19,28 @@ export function cn(...inputs: ClassValue[]) {
 
 import { formatDistanceToNow } from "date-fns";
 import { ar } from "date-fns/locale";
-import { stat } from "fs";
+
+/**
+ * Converts a time string from 24-hour format (e.g., "14:30")
+ * to 12-hour Arabic format (e.g., "٠٢:٣٠ م").
+ *
+ * @param time24 - Time string in "HH:mm" format (24-hour)
+ * @returns A string formatted in 12-hour Arabic format (e.g., "٠٢:٣٠ م")
+ */
+export function formatArabicTime(time24: string): string {
+  const [hours, minutes] = time24.split(":").map(Number);
+  if (isNaN(hours) || isNaN(minutes)) {
+    throw new Error("Invalid time format. Expected format: HH:mm");
+  }
+
+  const now = new Date();
+  now.setHours(hours);
+  now.setMinutes(minutes);
+  now.setSeconds(0);
+  now.setMilliseconds(0);
+
+  return format(now, "hh:mm aaaa", { locale: ar });
+}
 
 export function getDistanceToNow(date: string | Date) {
   const now = new Date();

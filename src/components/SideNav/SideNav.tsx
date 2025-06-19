@@ -7,7 +7,6 @@ import SideNavRoutes from "./SideNavRoutes";
 import SideNavClasses from "./SideNavClasses";
 import SideNavQrCode from "./SideNavQrCode";
 import SideNavAccount from "./SideNavAccount";
-import SideNavButton from "./SideNavButton";
 
 export default function SideNav() {
   return (
@@ -18,7 +17,6 @@ export default function SideNav() {
         </Link>
       </div>
       <div className="flex flex-col p-5">
-        <SideNavButton />
         <SideNavRoutes />
         <SideNavClasses />
       </div>

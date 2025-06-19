@@ -22,7 +22,6 @@ export default function SubmitHomework() {
   });
 
   function onSubmit(values: submitHomeworkSchema) {
-    console.log(values);
     mutate(values, {
       onSuccess: () => {
         clearFiles("fileUrl");

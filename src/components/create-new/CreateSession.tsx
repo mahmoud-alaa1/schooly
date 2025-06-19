@@ -51,7 +51,6 @@ export default function CreateSession() {
     );
   }
 
-  console.log(form.watch("lessonType"));
   return (
     <Form {...form}>
       <form

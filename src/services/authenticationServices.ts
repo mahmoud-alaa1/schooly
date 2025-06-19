@@ -62,7 +62,6 @@ export async function resetPasswordService(data: IResetPasswordRequest) {
 }
 
 export async function verifyFace(data: FormData) {
-  console.log("Verifying face with data:", data);
   try {
     const response = await api.post<IVerifyFaceResponse>(
       `/auth/verify-face`,
