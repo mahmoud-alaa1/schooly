@@ -24,6 +24,7 @@ export default function CreateSession() {
     defaultValues: {
       to: "00:00:01",
       from: "00:00:00",
+      date: new Date(),
     },
   });
 
@@ -35,6 +36,7 @@ export default function CreateSession() {
     mutate(
       {
         classRoomId: classroomId as string,
+        //@ts-ignore
         lessonType: Number(values.lessonType),
         title: values.title,
         date: formattedDate,

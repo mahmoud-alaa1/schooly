@@ -88,7 +88,9 @@ export async function createLesson(data: ILessonPostData) {
   } catch (error) {
     if (isAxiosError(error)) {
       console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في انشاء الحصة");
+      throw new Error(
+        error.response?.data.message || "حدث خطأ ما في انشاء الحصة",
+      );
     }
     throw error;
   }
