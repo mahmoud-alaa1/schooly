@@ -60,7 +60,7 @@ const Verification = ({
   return (
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent
-        className="bg-white p-0 [&>button:last-child]:hidden"
+        className="max-w-[600px] bg-white p-0 [&>button:last-child]:hidden"
         dir="rtl"
       >
         <VerificationHeader onClose={onClose} />
