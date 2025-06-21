@@ -15,19 +15,14 @@ const links: {
     icon: <Home />,
     color: "#899FE7",
   },
- 
+
   {
     title: "الواجبات",
     href: "/homeworks",
     icon: <Sheet />,
     color: "#B7C35E",
   },
-  {
-    title: "الطلاب",
-    href: "/students",
-    icon: <Users />,
-    color: "#34B428",
-  },
+
   {
     title: "حسابي",
     href: "/account",
