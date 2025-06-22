@@ -64,10 +64,17 @@ export default function FormSelect<TFormValues extends FieldValues>({
               required={required}
               {...props}
             >
-              <SelectTrigger id={name} dir="rtl" className={cn("w-full", className)}>
+              <SelectTrigger
+                id={name}
+                dir="rtl"
+                className={cn("w-full", className)}
+              >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
-              <SelectContent dir="rtl">
+              <SelectContent
+                dir="rtl"
+                className="max-h-[200px] overflow-y-auto"
+              >
                 {options.map((option) => (
                   <SelectItem
                     key={option.value}

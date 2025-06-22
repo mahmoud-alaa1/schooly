@@ -1,14 +1,14 @@
-import { createLesson } from "@/services/lessonServices";
-import { ILessonPostData } from "@/types/lessons";
+import { updateLesson } from "@/services/lessonServices";
+import { ILessonPutData } from "@/types/lessons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export default function useCreateLesson() {
+export default function useUpdateLesson() {
   const queryClient = useQueryClient();
   const res = useMutation({
-    mutationFn: async (data: ILessonPostData) => await createLesson(data),
+    mutationFn: async (data: ILessonPutData) => await updateLesson(data),
     onSuccess: (data) => {
-      toast.success("تم إنشاء الدرس بنجاح!");
+      toast.success("تم تحديث الدرس بنجاح!");
 
       queryClient.refetchQueries({
         queryKey: ["lessons"],
@@ -17,7 +17,7 @@ export default function useCreateLesson() {
     },
     onError: (error) => {
       console.error("Error creating lesson:", error.message);
-      toast.error("حدث خطأ أثناء إنشاء الدرس. يرجى المحاولة مرة أخرى.");
+      toast.error("حدث خطأ أثناء تحديث الدرس. يرجى المحاولة مرة أخرى.");
     },
     onSettled: () => {
       console.log("Create lesson mutation settled");
