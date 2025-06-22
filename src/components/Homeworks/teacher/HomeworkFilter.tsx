@@ -11,7 +11,7 @@ import {
 interface HomeworkFiltersProps {
   selectedClass: string;
   setSelectedClass: (value: string) => void;
-  classrooms: any;
+  classrooms: IClassroom[] | undefined;
   isLoading: boolean;
 }
 
@@ -28,7 +28,7 @@ export default function HomeworkFilter({
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-4 sm:flex-row">
-          {classrooms?.data && classrooms.data.length > 0 && (
+          {classrooms && classrooms.length > 0 && (
             <Select
               value={selectedClass}
               onValueChange={setSelectedClass}
@@ -39,7 +39,7 @@ export default function HomeworkFilter({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">جميع الصفوف</SelectItem>
-                {classrooms.data.map((classroom: any) => (
+                {classrooms.map((classroom: any) => (
                   <SelectItem key={classroom.id} value={classroom.id}>
                     {classroom.grade} - {classroom.subject}
                   </SelectItem>
@@ -48,7 +48,7 @@ export default function HomeworkFilter({
             </Select>
           )}
 
-          {classrooms?.data && classrooms.data.length === 0 && !isLoading && (
+          {classrooms && classrooms.length === 0 && !isLoading && (
             <div className="flex-1">
               <Label>لا توجد صفوف متاحة</Label>
             </div>

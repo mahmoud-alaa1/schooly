@@ -1,14 +1,13 @@
-import { createLesson } from "@/services/lessonServices";
-import { ILessonPostData } from "@/types/lessons";
+import { deleteLesson } from "@/services/lessonServices";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export default function useCreateLesson() {
+export default function useDeleteLesson(id: string) {
   const queryClient = useQueryClient();
   const res = useMutation({
-    mutationFn: async (data: ILessonPostData) => await createLesson(data),
-    onSuccess: (data) => {
-      toast.success("تم إنشاء الدرس بنجاح!");
+    mutationFn: () => deleteLesson(id),
+    onSuccess: () => {
+      toast.success("تم حذف الدرس بنجاح!");
 
       queryClient.refetchQueries({
         queryKey: ["lessons"],
@@ -17,7 +16,7 @@ export default function useCreateLesson() {
     },
     onError: (error) => {
       console.error("Error creating lesson:", error.message);
-      toast.error("حدث خطأ أثناء إنشاء الدرس. يرجى المحاولة مرة أخرى.");
+      toast.error("حدث خطأ أثناء حذف الدرس. يرجى المحاولة مرة أخرى.");
     },
     onSettled: () => {
       console.log("Create lesson mutation settled");

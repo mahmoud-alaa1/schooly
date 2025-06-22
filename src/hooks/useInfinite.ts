@@ -17,7 +17,7 @@ function useInfinite<T>({
     queryFn: ({ pageParam = 1 }) => fetchFn(pageParam),
     getNextPageParam: (lastPage, _, lastPageParam) => {
       const nextPage =
-        lastPage && lastPageParam < lastPage.meta.totalPages
+        lastPage && lastPageParam < lastPage?.meta?.totalPages
           ? lastPageParam + 1
           : undefined;
 

@@ -30,6 +30,7 @@ export async function getLessons({
         Status,
       },
     });
+    console.log("Lessons response:", response.data);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
@@ -55,7 +56,7 @@ export async function getSingleLesson(id: number | string) {
   }
 }
 
-export async function deleteLesson(id: number | string) {
+export async function deleteLesson(id: string) {
   try {
     const response = await api.delete(`/lesson/${id}`);
     return response.data;

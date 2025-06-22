@@ -20,4 +20,13 @@ export const createLessonSchema = z.object({
   }),
 });
 
+export const createLessonSchemaWithClassroomId = createLessonSchema.extend({
+  classRoomId: z.string({
+    required_error: "معرف الفصل الدراسي مطلوب",
+  }),
+});
+
+export type createLessonSchemaWithClassroomId = z.infer<
+  typeof createLessonSchemaWithClassroomId
+>;
 export type createLessonSchema = z.infer<typeof createLessonSchema>;

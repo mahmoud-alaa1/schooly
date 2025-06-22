@@ -22,6 +22,12 @@ const links: {
     icon: <Sheet />,
     color: "#B7C35E",
   },
+  {
+    title: "الحصص",
+    href: "/lessons",
+    icon: <Table />,
+    color: "#F3B5B5",
+  },
 
   {
     title: "حسابي",

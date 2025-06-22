@@ -1,9 +1,25 @@
 import api from "@/lib/axios";
+import { CLASSROOMS_PER_PAGE } from "@/lib/constants";
 import { isAxiosError } from "axios";
 
-export async function getAllClassrooms() {
+export async function getAllClassrooms({
+  Page,
+  PageSize = CLASSROOMS_PER_PAGE,
+}: {
+  Page?: string | number;
+  PageSize?: string | number;
+}) {
   try {
-    const response = await api.get<IGetAllClassroomsResponse>(`/classroom/all`);
+    const response = await api.get<IPaginatedResponse<IClassroom>>(
+      `/classroom/all`,
+      {
+        params: {
+          page: Page,
+          pageSize: PageSize,
+        },
+      },
+    );
+
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
