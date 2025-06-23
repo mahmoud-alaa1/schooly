@@ -38,6 +38,7 @@ export default function LoginForm() {
             label="البريد الالكتروني"
             placeholder="example@gmail.com"
             autoComplete="email"
+            dir="ltr"
           />
           <FormPassword<loginSchema>
             control={form.control}
@@ -45,6 +46,7 @@ export default function LoginForm() {
             label="كلمة المرور"
             placeholder="ادخل كلمة المرور"
             autoComplete="current-password"
+            dir="ltr"
           />
           <div className="flex justify-between text-[12px]">
             <FormCheckbox
