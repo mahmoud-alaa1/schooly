@@ -12,12 +12,19 @@ export const lessonTypeMap: Record<string, string> = {
   "3": "مراجعة",
   "4": "أخرى",
 };
-export enum ELessonType {
+export enum ELessonTypeString {
   Explain = "0",
   HomeworkSolution = "1",
   Practice = "2",
   Revision = "3",
   Other = "4",
+}
+export enum ELessonTypeNumber {
+  Explain = 0,
+  HomeworkSolution = 1,
+  Practice = 2,
+  Revision = 3,
+  Other = 4,
 }
 export enum EGender {
   MALE = 0,

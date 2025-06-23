@@ -10,9 +10,8 @@ export default function useCreateLesson() {
     onSuccess: (data) => {
       toast.success("تم إنشاء الدرس بنجاح!");
 
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: ["lessons"],
-        exact: false,
       });
     },
     onError: (error) => {

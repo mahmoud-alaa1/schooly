@@ -11,7 +11,7 @@ import {
   parse,
   parseISO,
 } from "date-fns";
-import { ELessonType } from "@/types/enums";
+import { ELessonTypeString } from "@/types/enums";
 
 import { Button } from "@/components/ui/button";
 import RoleGuard from "@/components/RoleGuard";
@@ -44,15 +44,15 @@ const statusText = (status: number) => {
   }
 };
 
-const lessonTypeText = (type: ELessonType) => {
+const lessonTypeText = (type: ELessonTypeString) => {
   switch (type) {
-    case ELessonType.Explain:
+    case ELessonTypeString.Explain:
       return "محاضرة";
-    case ELessonType.HomeworkSolution:
+    case ELessonTypeString.HomeworkSolution:
       return "حل واجب";
-    case ELessonType.Practice:
+    case ELessonTypeString.Practice:
       return "تدريب";
-    case ELessonType.Revision:
+    case ELessonTypeString.Revision:
       return "مراجعة";
     default:
       return "غير محدد";
@@ -127,7 +127,7 @@ function LessonInfo({ lesson }: ILessonInfoProps) {
 
             <div className="flex items-center gap-2">
               <span className="font-semibold">نوع الحصة:</span>
-              {lessonTypeText(String(lesson.lessonType) as ELessonType)}
+              {lessonTypeText(String(lesson.lessonType) as ELessonTypeString)}
             </div>
           </div>
           <div className="mt-4 flex items-center justify-end gap-2">

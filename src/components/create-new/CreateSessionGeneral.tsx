@@ -12,7 +12,7 @@ import FormSelect from "../forms/FormSelectWithOptions";
 import { Clock } from "lucide-react";
 import FormDatePicker from "../forms/FormDatePicker";
 import { Button } from "../ui/button";
-import { ELessonType } from "@/types/enums";
+import { ELessonTypeString } from "@/types/enums";
 import useGetAllClassrooms from "@/hooks/classrooms/useGetAllClassrooms";
 
 interface ICreateSessionGeneralProps {
@@ -88,11 +88,11 @@ export default function CreateSessionGeneral({
             name="lessonType"
             label="نوع الجلسة"
             options={[
-              { label: "شرح", value: ELessonType.Explain },
-              { label: "حل الواجب", value: ELessonType.HomeworkSolution },
-              { label: "تدريب", value: ELessonType.Practice },
-              { label: "مراجعة", value: ELessonType.Revision },
-              { label: "أخرى", value: ELessonType.Other },
+              { label: "شرح", value: ELessonTypeString.Explain },
+              { label: "حل الواجب", value: ELessonTypeString.HomeworkSolution },
+              { label: "تدريب", value: ELessonTypeString.Practice },
+              { label: "مراجعة", value: ELessonTypeString.Revision },
+              { label: "أخرى", value: ELessonTypeString.Other },
             ]}
             placeholder="اختر نوع الجلسة"
           />
