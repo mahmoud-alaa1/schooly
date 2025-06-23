@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { useAuth } from "@/store/auth";
 import { Skeleton } from "@/components/ui/skeleton";
+import useGetProfile from "@/hooks/profile/useGetProfile";
 
 interface AvatarProps {
   alt?: string;
@@ -11,9 +12,10 @@ interface AvatarProps {
 }
 
 export default function UserAvatar({ size = 28, className = "" }: AvatarProps) {
-  const user = useAuth((state) => state.user);
+  const { isPending, data } = useGetProfile();
 
-  if (!user) {
+  const user = data?.data;
+  if (!user || isPending) {
     return (
       <Skeleton
         className={`rounded-full ${className}`}

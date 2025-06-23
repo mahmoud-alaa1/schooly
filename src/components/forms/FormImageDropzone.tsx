@@ -82,6 +82,11 @@ export default function FormImageDropzone<TFormValues extends FieldValues>({
                     isDragActive && "opacity-50",
                     className,
                   )}
+                  style={{
+                    width: "128px",
+                    height: "128px",
+                    borderRadius: "50%",
+                  }}
                 >
                   <Image
                     src={
@@ -92,8 +97,7 @@ export default function FormImageDropzone<TFormValues extends FieldValues>({
                       defaultImage
                     }
                     alt="صورة الملف الشخصي"
-                    width={128}
-                    height={128}
+                    fill
                     className="rounded-full border-4 border-neutral-100 bg-orange-300 object-cover shadow-lg"
                     priority
                   />

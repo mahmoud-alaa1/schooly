@@ -49,7 +49,6 @@ export default function Profile() {
     setIsEditMode(false);
   }
 
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -57,7 +56,15 @@ export default function Profile() {
           <div className="from-primary h-32 bg-gradient-to-r to-emerald-600"></div>
           <div className="relative px-6 pb-3">
             <div className="relative -mt-16 mb-6">
-              <div className="relative inline-block">
+              <div
+                style={{
+                  width: "128px",
+                  height: "128px",
+                  borderRadius: "50%",
+                  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                }}
+                className="relative inline-block"
+              >
                 {isEditMode ? (
                   <FormImageDropzone<editProfileSchema>
                     control={form.control}
@@ -73,8 +80,7 @@ export default function Profile() {
                         : getImageUrl(data?.data?.profilePictureUrl)
                     }
                     alt="صورة الملف الشخصي"
-                    width={128}
-                    height={128}
+                    fill
                     className="rounded-full border-4 border-neutral-100 bg-orange-300 object-cover shadow-lg"
                     priority
                   />

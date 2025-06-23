@@ -1,4 +1,3 @@
-import React from "react";
 import SideNavLogo from "../Logos/SideNavLogo";
 
 import Link from "next/link";
