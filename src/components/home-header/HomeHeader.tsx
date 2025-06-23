@@ -13,6 +13,8 @@ function textHeader(pathname: string) {
       return "المعلمين";
     case "classrooms":
       return "الفصول الدراسية";
+    case "lessons":
+      return "الحصص";
     case "account":
       return "حسابي";
     default:

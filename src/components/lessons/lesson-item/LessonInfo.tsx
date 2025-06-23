@@ -87,24 +87,25 @@ function LessonInfo({ lesson }: ILessonInfoProps) {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 gap-2 text-sm text-gray-600 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-2 text-sm text-gray-600 md:grid-cols-2 lg:grid-cols-5">
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4" />
-              <span>Dr.{lesson.teacherName}</span>
+              <span>د.{lesson.teacherName}</span>
             </div>
             <div className="flex items-center gap-2">
               <BookOpen className="h-4 w-4" />
               <span>{lesson.grade}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4" />
               <span className="flex flex-col gap-1 space-x-1">
-                <span>
+                <span className="flex items-center gap-1">
+                  <Calendar className="h-4 w-4" />
                   {formatDate(lesson.date, "dd MMMM yyyy", {
                     locale: arEG,
                   })}
                 </span>
-                <span>
+                <span className="flex items-center gap-1">
+                  <Clock className="h-4 w-4" />
                   الساعة{" "}
                   {formatDate(
                     parse(lesson.from, "HH:mm:ss", new Date()),
@@ -129,16 +130,16 @@ function LessonInfo({ lesson }: ILessonInfoProps) {
               {lessonTypeText(String(lesson.lessonType) as ELessonType)}
             </div>
           </div>
-        </div>
-        <div className="flex gap-2">
-          {lesson.status === 0 && (
-            <RoleGuard role="TEACHER">
-              <EditLesson lesson={lesson} />
+          <div className="mt-4 flex items-center justify-end gap-2">
+            {lesson.status === 0 && (
+              <RoleGuard role="OWNER" ownerId={lesson.teacherId}>
+                <EditLesson lesson={lesson} />
+              </RoleGuard>
+            )}
+            <RoleGuard role="OWNER" ownerId={lesson.teacherId}>
+              <DeleteLesson lessonId={lesson.id} />
             </RoleGuard>
-          )}
-          <RoleGuard role="TEACHER">
-            <DeleteLesson lessonId={lesson.id} />
-          </RoleGuard>
+          </div>
         </div>
       </div>
     </div>
