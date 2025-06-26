@@ -21,10 +21,7 @@ export default function PostBody({ post }: { post: IPost }) {
           <div className="relative size-12 rounded-full bg-orange-500">
             <Image
               src={
-                post.profilePictureUrl
-                  ? process.env.NEXT_PUBLIC_API_URL +
-                    `/upload/${post.profilePictureUrl}`
-                  : "/person1.png"
+                post.profilePictureUrl ? post.profilePictureUrl : "/person1.png"
               }
               alt={`صورة ${post.authorName}`}
               fill

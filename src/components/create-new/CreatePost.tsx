@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import FormTextArea from "@/components/forms/FormTextArea";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import { SendHorizonal } from "lucide-react";
 import { commentSchema } from "@/schemas/commentsSchema";
 import Spinner from "@/components/Spinner";

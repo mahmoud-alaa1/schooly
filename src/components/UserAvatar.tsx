@@ -24,8 +24,10 @@ export default function UserAvatar({ size = 28, className = "" }: AvatarProps) {
     );
   }
 
+  console.log(data.data.profilePictureUrl);
+
   const imageSrc = user.profilePictureUrl
-    ? `${process.env.NEXT_PUBLIC_API_URL}/upload/${user.profilePictureUrl}`
+    ? user.profilePictureUrl
     : user.gender === 0
       ? "/assets/default-boy.webp"
       : "/assets/default-girl.webp";

@@ -25,8 +25,7 @@ export default function CommentDisplay({
           <Image
             src={
               comment.profilePictureUrl
-                ? process.env.NEXT_PUBLIC_API_URL +
-                  `/upload/${comment.profilePictureUrl}`
+                ? comment.profilePictureUrl
                 : "/person1.png"
             }
             alt={`صورة ${comment.authorName}`}
