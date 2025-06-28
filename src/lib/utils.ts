@@ -127,8 +127,9 @@ export function base64ToBlob(dataURI: string) {
 
 export function getImageUrl(filename?: string | null): string {
   if (!filename) return "/person1.png";
-  if (filename.startsWith("http")) return filename;
-  return filename;
+  if (filename.startsWith("http") || filename.startsWith("https"))
+    return filename;
+  return process.env.NEXT_PUBLIC_API_URL! + "/upload/" + filename;
 }
 export const getCameraState = (
   hasImage: boolean,

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useAuth } from "@/store/auth";
 import { Skeleton } from "@/components/ui/skeleton";
 import useGetProfile from "@/hooks/profile/useGetProfile";
+import { getImageUrl } from "@/lib/utils";
 
 interface AvatarProps {
   alt?: string;
@@ -27,7 +28,7 @@ export default function UserAvatar({ size = 28, className = "" }: AvatarProps) {
   console.log(data.data.profilePictureUrl);
 
   const imageSrc = user.profilePictureUrl
-    ? user.profilePictureUrl
+    ? getImageUrl(user.profilePictureUrl)
     : user.gender === 0
       ? "/assets/default-boy.webp"
       : "/assets/default-girl.webp";

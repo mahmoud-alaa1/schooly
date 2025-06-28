@@ -12,8 +12,8 @@ import useLogin from "@/hooks/authentication/useLogin";
 import Spinner from "./Spinner";
 
 const defaultValues: loginSchema = {
-  email: "teacher@example.com",
-  password: "string",
+  email: "mahmoud@teacher.com",
+  password: "123456",
   rememberMe: true,
 };
 

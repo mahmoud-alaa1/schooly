@@ -5,7 +5,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
+import { cn, getImageUrl } from "@/lib/utils";
 import { Control, FieldValues, Path } from "react-hook-form";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
@@ -89,11 +89,7 @@ export default function FormImageDropzone<TFormValues extends FieldValues>({
                   }}
                 >
                   <Image
-                    src={
-                      formFiles[0]?.url ??
-                      (value ? value : null) ??
-                      defaultImage
-                    }
+                    src={formFiles[0]?.url ?? getImageUrl(value)}
                     alt="صورة الملف الشخصي"
                     fill
                     className="rounded-full border-4 border-neutral-100 bg-orange-300 object-cover shadow-lg"

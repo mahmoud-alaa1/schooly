@@ -34,6 +34,7 @@ export default function FormPassword<TFormValues extends FieldValues>({
       description={description}
       type={showPassword ? "text" : "password"}
       className={className}
+      dir="ltr"
       {...inputProps}
       Icon={
         <Button
