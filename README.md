@@ -4,8 +4,6 @@
 
 ---
 
-# 📹 Demo
-
 ## 🏫 Classroom
 ![image](https://github.com/user-attachments/assets/07ee49e2-33c8-4b6c-ab79-969a21ca4f85)
 
@@ -43,7 +41,6 @@
 
 - Node.js >=14  
 - pnpm  
-- حساب على Supabase (لـ Auth و DB)  
 
 ### Setup
 
