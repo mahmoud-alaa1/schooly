@@ -2,6 +2,7 @@ import { createLesson } from "@/services/lessonServices";
 import { ILessonPostData } from "@/types/lessons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
+import useOptimisticCreate from "../useOptimisticCreate";
 
 export default function useCreateLesson() {
   const queryClient = useQueryClient();
@@ -11,7 +12,7 @@ export default function useCreateLesson() {
       toast.success("تم إنشاء الدرس بنجاح!");
 
       queryClient.invalidateQueries({
-        queryKey: ["lessons"],
+        queryKey: ["upcoming-lessons"],
       });
     },
     onError: (error) => {

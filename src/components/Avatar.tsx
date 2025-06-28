@@ -1,5 +1,6 @@
 "use client";
 import useGetProfile from "@/hooks/profile/useGetProfile";
+import { getImageUrl } from "@/lib/utils";
 import { useAuth } from "@/store/auth";
 import Image from "next/image";
 import React from "react";
@@ -17,6 +18,8 @@ export default function Avatar({
   className = "",
   src,
 }: AvatarProps) {
+
+  const imageSrc=getImageUrl(src);
   return (
     <div
       className={`relative overflow-hidden rounded-full border-2 border-white bg-neutral-50 ${className}`}
@@ -25,7 +28,7 @@ export default function Avatar({
       {src ? (
         <Image
           className="h-full w-full rounded-full object-cover"
-          src={process.env.NEXT_PUBLIC_API_URL! + "/upload/" + src}
+          src={imageSrc}
           alt="User Profile Picture"
           width={size}
           height={size}
