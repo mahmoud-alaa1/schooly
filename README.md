@@ -14,12 +14,11 @@
 
 ## 🌟 Features
 
-- 👥 **User Roles**: Student & Teacher registration and authentication (email/password + Google OAuth).
+- 👥 **User Roles**: Student & Teacher registration and authentication (email/password).
 - 🕵️‍♂️ **AI Attendance**: Facial recognition for real-time tracking.
 - 📢 **Announcements & Assignments**: Teachers can post and manage class-specific content.
 - 💬 **Interactive Comments**: Students can comment/edit on posts.
 - 📹 **Live Sessions**: WebRTC-powered video calls.
-- 🔄 **Real-time Updates**: Powered by Socket.io.
 - 📊 **Class Dashboard**: Instant overview of attendance & active sessions.
 
 ---
