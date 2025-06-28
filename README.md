@@ -4,6 +4,16 @@
 
 ---
 
+# 📹 Demo
+
+## 🏫 Classroom
+![image](https://github.com/user-attachments/assets/07ee49e2-33c8-4b6c-ab79-969a21ca4f85)
+
+## 📺 Video Call App
+![image](https://github.com/user-attachments/assets/9a163a3f-e1e5-46e9-88f0-bd04cfbd966d)
+
+---
+
 ## 🌟 Features
 
 - 👥 **User Roles**: Student & Teacher registration and authentication (email/password + Google OAuth).
@@ -32,7 +42,7 @@
 ### Prerequisites
 
 - Node.js >=14  
-- npm أو yarn  
+- pnpm  
 - حساب على Supabase (لـ Auth و DB)  
 
 ### Setup
@@ -40,7 +50,7 @@
 ```bash
 git clone https://github.com/yourusername/schooly.git
 cd schooly
-npm install        # or yarn
-cp .env.example .env.local
-# اضف مفاتيح Supabase وبيانات AI
-npm run dev
+pnpm i        
+cp .env 
+# Add API, agora keys
+pnpm dev
