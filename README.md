@@ -32,8 +32,8 @@
 - **Styling**: Tailwind CSS, Shadcn UI  
 - **State Management**: Zustand  
 - **Real-time & Video**: Socket.io, WebRTC  
-- **Backend & Auth**: Supabase Auth  
-- **AI/ML**: Custom face recognition logic
+- **Backend & Auth**: .NET Backend  
+- **AI/ML**: Custom face recognition logic deployed on backend server
 
 ---
 
