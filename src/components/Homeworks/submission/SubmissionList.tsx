@@ -18,8 +18,9 @@ interface SubmissionListProps {
 function SubmissionList({ homeworkId }: SubmissionListProps) {
   const { data, isFetching, ref } = useGetSubmittedStudents(homeworkId);
   const submissions = data?.pages.flatMap((data) => data.data);
+
   return (
-    <div className="scrollbar-hide h-96 overflow-auto">
+    <div className="scrollbar-hide h-72 overflow-auto">
       <Table dir="rtl">
         <TableHeader>
           <TableRow>

@@ -1,4 +1,4 @@
-import Homework from "@/components/Homeworks/teacher/Homework";
+import Homework from "@/components/Homeworks/homeworks/Homework";
 
 export default function page() {
   return (

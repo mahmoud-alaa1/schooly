@@ -10,7 +10,7 @@ import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
 import { ILesson } from "@/types/lessons";
 import React, { forwardRef } from "react";
 import LessonItem from "./lesson-item/LessonItem";
-import HomeworkDetailsSkeleton from "../Homeworks/teacher/HomeworkDetailsSkeleton";
+import HomeworkDetailsSkeleton from "../Homeworks/homeworks/HomeworkDetailsSkeleton";
 import RoleGuard from "../RoleGuard";
 
 interface LessonListProps {

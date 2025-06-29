@@ -1,6 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { TableCell, TableRow } from "@/components/ui/table";
-import React from "react";
 
 function SubmissionRowSkeleton() {
   return (

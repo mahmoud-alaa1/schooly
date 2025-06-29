@@ -1,11 +1,9 @@
 import { createHomework } from "@/services/homeworksServices";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
 import { toast } from "sonner";
 
 export default function useCreateHomework() {
   const queryClient = useQueryClient();
-  const { classroomId } = useParams();
   return useMutation({
     mutationFn: (data: IHomeworkFormData) => createHomework(data),
     onSuccess: (data) => {

@@ -13,11 +13,12 @@ import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { HomeworkInfo } from "./HomeworkInfo";
-import SubmissionList from "./SubmissionList";
-import DeleteHomework from "./DeleteHomework";
+import SubmissionList from "../submission/SubmissionList";
+import DeleteHomework from "../actions/DeleteHomework";
 import RoleGuard from "@/components/RoleGuard";
-import HomeworkSubmit from "./HomeworkSubmit";
+import HomeworkSubmit from "../actions/HomeworkSubmit";
 import { HomeworkDetailsTab } from "./HomeworkDetailsTab";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface HomeworkDetailsProps {
   homework: IHomework;
@@ -27,7 +28,28 @@ function HomeworkDetails({ homework }: HomeworkDetailsProps) {
   const { formattedDate, status, formattedTime } = formatDate(
     homework.deadline,
   );
+  const tabVariants = {
+    initial: {
+      opacity: 0,
+      x: 20,
+      scale: 0.95,
+    },
+    animate: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+    },
+    exit: {
+      opacity: 0,
+      x: -20,
+      scale: 0.95,
+    },
+  };
 
+  const transition = {
+    duration: 0.3,
+    ease: [0.4, 0.0, 0.2, 1],
+  };
   return (
     <div className="rounded-lg border p-4 transition-colors hover:bg-gray-50">
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
@@ -57,16 +79,38 @@ function HomeworkDetails({ homework }: HomeworkDetailsProps) {
                     <TabsTrigger value="details">التفاصيل</TabsTrigger>
                     <TabsTrigger value="submissions">التسليمات</TabsTrigger>
                   </TabsList>
-                  <TabsContent value="details">
-                    <HomeworkDetailsTab
-                      formattedDate={formattedDate}
-                      status={status}
-                      homework={homework}
-                      formattedTime={formattedTime}
-                    />
+                  <TabsContent value="details" className="relative">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key="details"
+                        variants={tabVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        transition={transition}
+                      >
+                        <HomeworkDetailsTab
+                          formattedDate={formattedDate}
+                          status={status}
+                          homework={homework}
+                          formattedTime={formattedTime}
+                        />
+                      </motion.div>
+                    </AnimatePresence>
                   </TabsContent>
-                  <TabsContent value="submissions">
-                    <SubmissionList homeworkId={homework.homeWorkId} />
+                  <TabsContent value="submissions" className="relative">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key="submissions"
+                        variants={tabVariants}
+                        initial="initial"
+                        animate="animate"
+                        exit="exit"
+                        transition={transition}
+                      >
+                        <SubmissionList homeworkId={homework.homeWorkId} />
+                      </motion.div>
+                    </AnimatePresence>
                   </TabsContent>
                 </Tabs>
               </DialogContent>

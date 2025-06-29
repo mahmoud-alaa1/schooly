@@ -50,7 +50,9 @@ export default function CreateHomework() {
             control={form.control}
             name="lessonId"
             queryKey={["lessons", classroomId as string]}
-            getOptionLabel={(item) => item.title}
+            getOptionLabel={(item) =>
+              `${item.grade} - ${item.subject} - ${item.title}`
+            }
             getOptionValue={(item) => item.id}
             fetchFn={(pageNumber) =>
               getLessons({
