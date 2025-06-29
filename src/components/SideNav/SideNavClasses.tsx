@@ -35,7 +35,7 @@ const subjectConfig: Record<string, { icon: React.ReactNode; color: string }> =
     default: { icon: <Globe size={16} />, color: "#899FE7" },
   };
 
-export default function SideNavClasses() {
+export default function SideNavClasses({ onClick }: { onClick?: () => void }) {
   const { data: classrooms, isLoading } = useGetUserClassrooms();
 
   if (isLoading) {
@@ -74,6 +74,7 @@ export default function SideNavClasses() {
                 className="flex w-full items-center gap-2 rounded-lg p-1 text-sm text-[#00000073]"
                 nonActiveClassName="bg-transparent hover:bg-white"
                 activeClassName="bg-[#B5F3E0] text-[#017553] font-semibold"
+                onClick={onClick}
               >
                 <Badge
                   style={{ backgroundColor: config.color }}
