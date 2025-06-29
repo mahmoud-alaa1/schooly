@@ -120,6 +120,7 @@ export default function CreateSessionGeneral({
             placeholder="وقت البدء"
             Icon={<Clock className="size-4" />}
             className="appearance-none pr-2 text-right [&::-webkit-calendar-picker-indicator]:hidden"
+            dir="rtl"
           />
 
           <FormInput
@@ -132,6 +133,7 @@ export default function CreateSessionGeneral({
             placeholder="وقت الانتهاء"
             Icon={<Clock className="size-4" />}
             className="appearance-none pr-2 text-right ltr:text-left rtl:text-right [&::-webkit-calendar-picker-indicator]:hidden"
+            dir="rtl"
           />
         </div>
         <Button type="submit">{isPending ? <Spinner /> : "انشئ"}</Button>

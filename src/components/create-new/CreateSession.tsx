@@ -22,7 +22,7 @@ export default function CreateSession() {
   const form = useForm<createLessonSchema>({
     resolver: zodResolver(createLessonSchema),
     defaultValues: {
-      to: "00:00:01",
+      to: "00:30:00",
       from: "00:00:00",
       date: new Date(),
     },
@@ -98,7 +98,8 @@ export default function CreateSession() {
             label="من"
             placeholder="وقت البدء"
             Icon={<Clock className="size-4" />}
-            className="appearance-none pr-2 text-right [&::-webkit-calendar-picker-indicator]:hidden"
+            className="appearance-none pr-2 [&::-webkit-calendar-picker-indicator]:hidden"
+            dir="rtl"
           />
 
           <FormInput
@@ -110,7 +111,8 @@ export default function CreateSession() {
             label="إلى"
             placeholder="وقت الانتهاء"
             Icon={<Clock className="size-4" />}
-            className="appearance-none pr-2 text-right ltr:text-left rtl:text-right [&::-webkit-calendar-picker-indicator]:hidden"
+            className="appearance-none pr-2 ltr:text-left rtl:text-right [&::-webkit-calendar-picker-indicator]:hidden"
+            dir="rtl"
           />
         </div>
         <Button type="submit">{isPending ? <Spinner /> : "انشئ"}</Button>
