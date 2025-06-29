@@ -21,6 +21,11 @@ interface LessonListProps {
 
 const LessonList = forwardRef<HTMLDivElement, LessonListProps>(
   ({ lessons, isFetching }, ref) => {
+    const data = lessons?.flatMap(
+      (lesson) => lesson.id === "3434003a-2de7-41f5-8791-061d865120ae",
+    );
+    console.log("Rendering LessonList", data, lessons);
+
     return (
       <Card>
         <CardHeader className="space-y-1">
@@ -33,7 +38,7 @@ const LessonList = forwardRef<HTMLDivElement, LessonListProps>(
           <div className="space-y-4">
             {lessons?.map((lesson, index) => (
               <div
-                key={lesson.id}
+                key={`${lesson.id}-${index}`}
                 ref={index === lessons.length - 1 ? ref : undefined}
               >
                 <LessonItem lesson={lesson} />
