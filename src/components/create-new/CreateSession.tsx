@@ -14,6 +14,7 @@ import { Clock } from "lucide-react";
 import FormDatePicker from "../forms/FormDatePicker";
 import { Button } from "../ui/button";
 import { ELessonTypeString } from "@/types/enums";
+import { format } from "date-fns";
 
 export default function CreateSession() {
   const { isPending, mutate } = useCreateLesson();
@@ -29,17 +30,13 @@ export default function CreateSession() {
   });
 
   function onSubmit(values: createLessonSchema) {
-    const formattedDate =
-      values.date instanceof Date
-        ? values.date.toISOString().split("T")[0]
-        : values.date;
     mutate(
       {
         classRoomId: classroomId as string,
         //@ts-ignore
         lessonType: Number(values.lessonType),
         title: values.title,
-        date: formattedDate,
+        date: format(values.date, "yyyy-MM-dd"),
         from: values.from,
         to: values.to,
       },

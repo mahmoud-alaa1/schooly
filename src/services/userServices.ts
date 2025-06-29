@@ -16,9 +16,9 @@ export async function getInfo(id: string) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
-        error.response?.data || "حدث خطأ ما في الحصول على بيانات المستخدم",
+        error.response?.data?.message ||
+          "حدث خطأ ما في الحصول على بيانات المستخدم",
       );
     }
     throw error;

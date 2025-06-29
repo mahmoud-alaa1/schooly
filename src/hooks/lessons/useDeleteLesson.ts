@@ -8,18 +8,18 @@ export default function useDeleteLesson(id: string) {
     mutationFn: () => deleteLesson(id),
     onSuccess: () => {
       toast.success("تم حذف الدرس بنجاح!");
-
+      queryClient.invalidateQueries({
+        queryKey: ["upcoming-lessons"],
+      });
       queryClient.refetchQueries({
         queryKey: ["lessons"],
         exact: false,
       });
     },
     onError: (error) => {
-      console.error("Error creating lesson:", error.message);
-      toast.error("حدث خطأ أثناء حذف الدرس. يرجى المحاولة مرة أخرى.");
-    },
-    onSettled: () => {
-      console.log("Create lesson mutation settled");
+      toast.error(
+        error.message || "حدث خطأ أثناء حذف الدرس. يرجى المحاولة مرة أخرى.",
+      );
     },
   });
 

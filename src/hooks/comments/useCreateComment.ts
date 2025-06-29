@@ -1,8 +1,6 @@
 import { createComment } from "@/services/commentsServices";
 import useOptimisticCreate from "../useOptimisticCreate";
 import { useAuth } from "@/store/auth";
-import { useQueryClient } from "@tanstack/react-query";
-import { IProfile } from "@/types/profile";
 import useGetProfile from "../profile/useGetProfile";
 
 export default function useCreateComment(postId: string | number) {

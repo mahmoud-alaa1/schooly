@@ -25,8 +25,6 @@ export default function UserAvatar({ size = 28, className = "" }: AvatarProps) {
     );
   }
 
-  console.log(data.data.profilePictureUrl);
-
   const imageSrc = user.profilePictureUrl
     ? getImageUrl(user.profilePictureUrl)
     : user.gender === 0

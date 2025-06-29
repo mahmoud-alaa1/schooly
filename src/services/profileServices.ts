@@ -9,9 +9,9 @@ export async function getProfile() {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
-        error.response?.data || "حدث خطأ ما في الحصول على بيانات الملف الشخصي",
+        error.response?.data?.message ||
+          "حدث خطأ ما في الحصول على بيانات الملف الشخصي",
       );
     }
     throw error;
@@ -23,9 +23,8 @@ export async function putProfile(data: editProfileSchema) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
-        error.response?.data || "حدث خطأ ما في تحديث الملف الشخصي",
+        error.response?.data?.message || "حدث خطأ ما في تحديث الملف الشخصي",
       );
     }
     throw error;

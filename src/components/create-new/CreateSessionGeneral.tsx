@@ -14,6 +14,7 @@ import FormDatePicker from "../forms/FormDatePicker";
 import { Button } from "../ui/button";
 import { ELessonTypeString } from "@/types/enums";
 import useGetUserClassrooms from "@/hooks/classrooms/useGetUserClassrooms";
+import { format } from "date-fns";
 
 interface ICreateSessionGeneralProps {
   setIsCreateDialogOpen: (open: boolean) => void;
@@ -28,24 +29,20 @@ export default function CreateSessionGeneral({
   const form = useForm<createLessonSchemaWithClassroomId>({
     resolver: zodResolver(createLessonSchemaWithClassroomId),
     defaultValues: {
-      to: "00:00:01",
+      to: "00:30:00",
       from: "00:00:00",
       date: new Date(),
     },
   });
 
   function onSubmit(values: createLessonSchemaWithClassroomId) {
-    const formattedDate =
-      values.date instanceof Date
-        ? values.date.toISOString().split("T")[0]
-        : values.date;
     mutate(
       {
         classRoomId: values.classRoomId,
         //@ts-ignore
         lessonType: Number(values.lessonType),
         title: values.title,
-        date: formattedDate,
+        date: format(values.date, "yyyy-MM-dd"),
         from: values.from,
         to: values.to,
       },

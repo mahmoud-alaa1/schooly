@@ -58,7 +58,6 @@ export default function FormInfiniteSelect<
     queryKey,
     fetchFn: (pageNumber) => fetchFn(pageNumber),
   });
-  console.log("fuck form ", data);
 
   const options = data?.pages?.flatMap((page) => page.data) ?? [];
   const lastPage = data?.pages[data.pages.length - 1];

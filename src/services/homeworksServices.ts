@@ -25,9 +25,9 @@ export async function getHomeworks({
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
-        error.response?.data || "حدث خطأ ما في الحصول على الحصص القادمة",
+        error.response?.data?.message ||
+          "حدث خطأ ما في الحصول على الحصص القادمة",
       );
     }
     throw error;
@@ -44,8 +44,9 @@ export async function deleteHomework(homeWorkId: string) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في حذف الواجب");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما في حذف الواجب",
+      );
     }
     throw error;
   }
@@ -57,8 +58,9 @@ export async function createHomework(data: IHomeworkPostData) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في انشاء الواجب");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما في انشاء الواجب",
+      );
     }
     throw error;
   }
@@ -74,7 +76,9 @@ export async function submitHomework(data: ISubmitHomeworkPostData) {
   } catch (error) {
     if (isAxiosError(error)) {
       console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في انشاء الواجب");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما في انشاء الواجب",
+      );
     }
     throw error;
   }
@@ -89,7 +93,9 @@ export async function getSubmittedStudents(homeWorkId: string) {
   } catch (error) {
     if (isAxiosError(error)) {
       console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في ارسال الواجب");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما في ارسال الواجب",
+      );
     }
     throw error;
   }

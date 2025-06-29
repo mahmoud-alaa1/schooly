@@ -30,11 +30,9 @@ export async function getLessons({
         Status,
       },
     });
-    console.log("Lessons response:", response.data);
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data?.message ||
           "حدث خطأ ما في الحصول على الحصص القادمة",
@@ -50,7 +48,6 @@ export async function getSingleLesson(id: number | string) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data?.message || "حدث خطأ ما في الحصول الحصة",
       );
@@ -65,7 +62,6 @@ export async function deleteLesson(id: string) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data?.message || "حدث خطأ ما في حذف الحصة",
       );
@@ -95,7 +91,6 @@ export async function createLesson(data: ILessonPostData) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data?.message || "حدث خطأ ما في انشاء الحصة",
       );

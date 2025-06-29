@@ -8,7 +8,6 @@ export default function useSubmitHomework() {
   return useMutation({
     mutationFn: (data: ISubmitHomeworkPostData) => submitHomework(data),
     onSuccess: (data) => {
-      console.log("Homework created successfully:", data);
       queryClient.refetchQueries({
         queryKey: ["homeworks"],
         exact: false,
@@ -16,8 +15,9 @@ export default function useSubmitHomework() {
       toast.success("تم ارسال الواجب بنجاح");
     },
     onError: (error) => {
-      console.error("Error submitting homework:", error);
-      toast.error("حدث خطأ ما في ارسال الواجب، يرجى المحاولة مرة أخرى");
+      toast.error(
+        error.message || "حدث خطأ ما في ارسال الواجب، يرجى المحاولة مرة أخرى",
+      );
     },
   });
 }

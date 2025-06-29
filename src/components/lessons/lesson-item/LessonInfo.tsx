@@ -82,7 +82,6 @@ function LessonInfo({ lesson }: ILessonInfoProps) {
     lesson.from,
     lesson.to,
   );
-  console.log("Rendering LessonInfo", lesson.id, text, variant);
   return (
     <div className="flex-1">
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">

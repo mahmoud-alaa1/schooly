@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
-import { Button } from "../../ui/button";
 import { Clock } from "lucide-react";
 import useUpcomingLessons from "@/hooks/lessons/useUpcomingLessons";
 import { Box, BoxBody, BoxHeader } from "../../Box";
-import Link from "next/link";
 import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
 import UpcomingLessonsItem from "./UpcomingLessonsItem";
 import UpcomingLessonSkeleton from "./UpcomingLessonSkeleton";

@@ -7,20 +7,20 @@ export default function useUpdateLesson() {
   const queryClient = useQueryClient();
   const res = useMutation({
     mutationFn: async (data: ILessonPutData) => await updateLesson(data),
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast.success("تم تحديث الدرس بنجاح!");
-
+      queryClient.invalidateQueries({
+        queryKey: ["upcoming-lessons"],
+      });
       queryClient.refetchQueries({
         queryKey: ["lessons"],
         exact: false,
       });
     },
     onError: (error) => {
-      console.error("Error creating lesson:", error.message);
-      toast.error("حدث خطأ أثناء تحديث الدرس. يرجى المحاولة مرة أخرى.");
-    },
-    onSettled: () => {
-      console.log("Create lesson mutation settled");
+      toast.error(
+        error.message || "حدث خطأ أثناء تحديث الدرس. يرجى المحاولة مرة أخرى.",
+      );
     },
   });
 
