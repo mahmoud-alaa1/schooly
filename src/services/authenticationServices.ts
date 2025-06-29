@@ -23,9 +23,12 @@ export async function forgetPasswordService(data: IForgetPasswordRequest) {
     );
     return response.data;
   } catch (error) {
+    console.log(error);
+
     if (isAxiosError(error)) {
-      console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما حاول مرة أخرى");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما حاول مرة أخرى",
+      );
     }
     throw error;
   }
@@ -40,7 +43,9 @@ export async function verifyCodeService(data: IVerifyCodeRequest) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data || "حدث خطأ ما حاول مرة أخرى");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما حاول مرة أخرى",
+      );
     }
     throw error;
   }
@@ -55,7 +60,9 @@ export async function resetPasswordService(data: IResetPasswordRequest) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data || "حدث خطأ ما حاول مرة أخرى");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما حاول مرة أخرى",
+      );
     }
     throw error;
   }
@@ -75,7 +82,9 @@ export async function verifyFace(data: FormData) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      throw new Error(error.response?.data || "حدث خطأ ما حاول مرة أخرى");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما حاول مرة أخرى",
+      );
     }
     throw error;
   }

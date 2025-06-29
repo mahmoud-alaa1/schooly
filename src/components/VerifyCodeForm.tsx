@@ -11,6 +11,7 @@ import { useSearchParams } from "next/navigation";
 
 import useForgetPassword from "@/hooks/authentication/useForgetPassword";
 import FormOTPInput from "./forms/FormOTPInput";
+import { toast } from "sonner";
 
 function VerifyCodeForm() {
   const { mutate, isPending } = useVerifyCode();
@@ -23,18 +24,18 @@ function VerifyCodeForm() {
   });
 
   function onSubmit(values: VerifyCodeSchema) {
-    mutate({ ...values, email });
+    mutate(
+      { ...values, email },
+      {
+        onSuccess: () => {
+          toast.success("تم التحقق من الرمز بنجاح");
+        },
+      },
+    );
   }
 
   return (
     <div className="px-4 py-6">
-      <div className="mb-6 text-center">
-        <h2 className="mb-2 text-2xl font-bold">تحقق من رمز التأكيد</h2>
-        <p className="text-muted-foreground">
-          تم إرسال رمز التحقق إلى بريدك الإلكتروني
-        </p>
-      </div>
-
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

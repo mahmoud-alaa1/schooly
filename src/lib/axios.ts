@@ -2,8 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  timeout: 10000, 
-  
+  timeout: 10000,
 });
 
 api.interceptors.request.use((config) => {
@@ -13,6 +12,7 @@ api.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${token}`;
     }
   }
+  config.headers["Accept-Language"] = "ar-EG";
   return config;
 });
 export default api;

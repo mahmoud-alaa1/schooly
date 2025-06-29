@@ -23,7 +23,6 @@ function ResetPasswordForm() {
 
   function onSubmit(values: ResetPasswordSchema) {
     mutate({ email, newPassword: values.password });
-    // Here you would typically call an API to handle the password reset
   }
 
   return (
