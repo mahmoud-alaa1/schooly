@@ -12,9 +12,9 @@ import { Clock } from "lucide-react";
 import FormDatePicker from "../forms/FormDatePicker";
 import { Button } from "../ui/button";
 import { ELessonTypeString } from "@/types/enums";
-import useGetAllClassrooms from "@/hooks/classrooms/useGetAllClassrooms";
 import { ILesson } from "@/types/lessons";
 import useUpdateLesson from "@/hooks/lessons/useUpdateLesson";
+import useGetUserClassrooms from "@/hooks/classrooms/useGetUserClassrooms";
 
 interface IUpdateSessionProps {
   setIsCreateDialogOpen: (open: boolean) => void;
@@ -26,7 +26,7 @@ export default function UpdateSession({
   lesson,
 }: IUpdateSessionProps) {
   const { isPending, mutate } = useUpdateLesson();
-  const { data } = useGetAllClassrooms();
+  const { data } = useGetUserClassrooms();
 
   const form = useForm<createLessonSchemaWithClassroomId>({
     resolver: zodResolver(createLessonSchemaWithClassroomId),
@@ -80,7 +80,7 @@ export default function UpdateSession({
               name="classRoomId"
               label="الصف الدراسي"
               options={data?.data?.map((classroom) => ({
-                label: classroom.subject,
+                label: `${classroom.grade} - ${classroom.subject}`,
                 value: classroom.id,
               }))}
               placeholder="اختر الصف الدراسي"

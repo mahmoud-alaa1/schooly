@@ -108,8 +108,8 @@ function LessonInfo({ lesson }: ILessonInfoProps) {
                   <Clock className="h-4 w-4" />
                   الساعة{" "}
                   {formatDate(
-                    parse(lesson.from, "HH:mm:ss", new Date()),
-                    "HH:MM a",
+                    new Date(`${lesson.date}T${lesson.from}`),
+                    "HH:mm a",
                     {
                       locale: arEG,
                     },
@@ -122,6 +122,7 @@ function LessonInfo({ lesson }: ILessonInfoProps) {
               <span>
                 {hours > 0 ? `${hours} س` : ""}{" "}
                 {minutes > 0 ? `${minutes} د` : ""}
+                {hours === 0 && minutes === 0 ? "مدة غير محددة" : ""}
               </span>
             </div>
 

@@ -13,7 +13,7 @@ import { Clock } from "lucide-react";
 import FormDatePicker from "../forms/FormDatePicker";
 import { Button } from "../ui/button";
 import { ELessonTypeString } from "@/types/enums";
-import useGetAllClassrooms from "@/hooks/classrooms/useGetAllClassrooms";
+import useGetUserClassrooms from "@/hooks/classrooms/useGetUserClassrooms";
 
 interface ICreateSessionGeneralProps {
   setIsCreateDialogOpen: (open: boolean) => void;
@@ -23,9 +23,7 @@ export default function CreateSessionGeneral({
   setIsCreateDialogOpen,
 }: ICreateSessionGeneralProps) {
   const { isPending, mutate } = useCreateLesson();
-  const { data } = useGetAllClassrooms();
-
-  console.log("classrooms data:", data);
+  const { data } = useGetUserClassrooms();
 
   const form = useForm<createLessonSchemaWithClassroomId>({
     resolver: zodResolver(createLessonSchemaWithClassroomId),
@@ -75,7 +73,7 @@ export default function CreateSessionGeneral({
               name="classRoomId"
               label="الصف الدراسي"
               options={data?.data?.map((classroom) => ({
-                label: classroom.subject,
+                label: `${classroom.grade} - ${classroom.subject}`,
                 value: classroom.id,
               }))}
               placeholder="اختر الصف الدراسي"
