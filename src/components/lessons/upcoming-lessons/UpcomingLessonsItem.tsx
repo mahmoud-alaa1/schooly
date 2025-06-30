@@ -1,5 +1,6 @@
 import { getUpcomingLessonsBadgeText } from "@/lib/utils";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Badge } from "../../ui/badge";
 import { ILesson } from "@/types/lessons";
 
@@ -20,22 +21,72 @@ export default function UpcomingLessonsItem({
     <li className="border-[#F0F0F0] py-3 not-last:border-b-1">
       <div className="flex items-center justify-between gap-1.5">
         <div className="flex items-center gap-3">
-          <Image
-            src={"/physics.webp"}
-            width={60}
-            height={60}
-            alt="subject logo"
-          />
-          <div>
-            <h4 className="text-sm text-[#00000073]">
+          <motion.div
+            whileHover={{
+              scale: 1.1,
+              rotate: 5,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 20,
+            }}
+          >
+            <Image
+              src={"/physics.webp"}
+              width={60}
+              height={60}
+              alt="subject logo"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+          >
+            <motion.h4
+              className="text-sm text-[#00000073]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               {lesson.subject} / {lesson.grade}
-            </h4>
-            <p className="text-sm"> {lesson.title}</p>
-          </div>
+            </motion.h4>
+            <motion.p
+              className="text-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              {lesson.title}
+            </motion.p>
+          </motion.div>
         </div>
-        <Badge variant={variant} className="h-fit w-fit text-sm">
-          {text}
-        </Badge>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.3,
+            delay: 0.4,
+            type: "spring",
+            stiffness: 200,
+          }}
+          whileHover={{
+            scale: 1.05,
+            y: -2,
+          }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Badge variant={variant} className="h-fit w-fit text-sm">
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              {text}
+            </motion.span>
+          </Badge>
+        </motion.div>
       </div>
     </li>
   );

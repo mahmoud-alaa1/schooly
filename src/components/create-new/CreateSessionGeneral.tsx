@@ -13,7 +13,8 @@ import { Clock } from "lucide-react";
 import FormDatePicker from "../forms/FormDatePicker";
 import { Button } from "../ui/button";
 import { ELessonTypeString } from "@/types/enums";
-import useGetAllClassrooms from "@/hooks/classrooms/useGetAllClassrooms";
+import useGetUserClassrooms from "@/hooks/classrooms/useGetUserClassrooms";
+import { format } from "date-fns";
 
 interface ICreateSessionGeneralProps {
   setIsCreateDialogOpen: (open: boolean) => void;
@@ -23,31 +24,25 @@ export default function CreateSessionGeneral({
   setIsCreateDialogOpen,
 }: ICreateSessionGeneralProps) {
   const { isPending, mutate } = useCreateLesson();
-  const { data } = useGetAllClassrooms();
-
-  console.log("classrooms data:", data);
+  const { data } = useGetUserClassrooms();
 
   const form = useForm<createLessonSchemaWithClassroomId>({
     resolver: zodResolver(createLessonSchemaWithClassroomId),
     defaultValues: {
-      to: "00:00:01",
+      to: "00:30:00",
       from: "00:00:00",
       date: new Date(),
     },
   });
 
   function onSubmit(values: createLessonSchemaWithClassroomId) {
-    const formattedDate =
-      values.date instanceof Date
-        ? values.date.toISOString().split("T")[0]
-        : values.date;
     mutate(
       {
         classRoomId: values.classRoomId,
         //@ts-ignore
         lessonType: Number(values.lessonType),
         title: values.title,
-        date: formattedDate,
+        date: format(values.date, "yyyy-MM-dd"),
         from: values.from,
         to: values.to,
       },
@@ -75,7 +70,7 @@ export default function CreateSessionGeneral({
               name="classRoomId"
               label="الصف الدراسي"
               options={data?.data?.map((classroom) => ({
-                label: classroom.subject,
+                label: `${classroom.grade} - ${classroom.subject}`,
                 value: classroom.id,
               }))}
               placeholder="اختر الصف الدراسي"
@@ -122,6 +117,7 @@ export default function CreateSessionGeneral({
             placeholder="وقت البدء"
             Icon={<Clock className="size-4" />}
             className="appearance-none pr-2 text-right [&::-webkit-calendar-picker-indicator]:hidden"
+            dir="rtl"
           />
 
           <FormInput
@@ -134,6 +130,7 @@ export default function CreateSessionGeneral({
             placeholder="وقت الانتهاء"
             Icon={<Clock className="size-4" />}
             className="appearance-none pr-2 text-right ltr:text-left rtl:text-right [&::-webkit-calendar-picker-indicator]:hidden"
+            dir="rtl"
           />
         </div>
         <Button type="submit">{isPending ? <Spinner /> : "انشئ"}</Button>

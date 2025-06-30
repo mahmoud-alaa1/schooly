@@ -22,9 +22,8 @@ export async function getAllPosts({
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
-        error.response?.data || "حدث خطأ ما في الحصول على المنشورات",
+        error.response?.data?.message || "حدث خطأ ما في الحصول على المنشورات",
       );
     }
     throw error;
@@ -37,9 +36,8 @@ export async function getSinglePost(id: number | string) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
-        error.response?.data || "حدث خطأ ما في الحصول على المنشور",
+        error.response?.data?.message || "حدث خطأ ما في الحصول على المنشور",
       );
     }
     throw error;
@@ -52,8 +50,9 @@ export async function deletePost(id: number | string) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في حذف المنشور");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما في حذف المنشور",
+      );
     }
     throw error;
   }
@@ -65,8 +64,9 @@ export async function getPostAuthor(id: number | string) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما الحصول على المؤلف");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما الحصول على المؤلف",
+      );
     }
     throw error;
   }
@@ -81,8 +81,9 @@ export async function updatePost(data: {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في تحديث المنشور");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما في تحديث المنشور",
+      );
     }
     throw error;
   }
@@ -94,8 +95,9 @@ export async function createPost(data: IPostPostData) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
-      throw new Error(error.response?.data || "حدث خطأ ما في انشاء المنشور");
+      throw new Error(
+        error.response?.data?.message || "حدث خطأ ما في انشاء المنشور",
+      );
     }
     throw error;
   }

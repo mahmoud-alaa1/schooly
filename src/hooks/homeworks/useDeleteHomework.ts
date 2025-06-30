@@ -12,8 +12,8 @@ function useDeleteHomework(homeWorkId: string) {
       toast.success("تم حذف الواجب بنجاح");
       queryClient.refetchQueries({ queryKey: ["homeworks"], exact: false });
     },
-    onError: () => {
-      toast.error("حدث خطأ أثناء حذف الواجب");
+    onError: (error) => {
+      toast.error(error.message || "حدث خطأ أثناء حذف الواجب");
     },
   });
 }

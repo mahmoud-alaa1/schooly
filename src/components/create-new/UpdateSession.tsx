@@ -12,9 +12,10 @@ import { Clock } from "lucide-react";
 import FormDatePicker from "../forms/FormDatePicker";
 import { Button } from "../ui/button";
 import { ELessonTypeString } from "@/types/enums";
-import useGetAllClassrooms from "@/hooks/classrooms/useGetAllClassrooms";
 import { ILesson } from "@/types/lessons";
 import useUpdateLesson from "@/hooks/lessons/useUpdateLesson";
+import useGetUserClassrooms from "@/hooks/classrooms/useGetUserClassrooms";
+import { formatDate } from "date-fns";
 
 interface IUpdateSessionProps {
   setIsCreateDialogOpen: (open: boolean) => void;
@@ -26,7 +27,7 @@ export default function UpdateSession({
   lesson,
 }: IUpdateSessionProps) {
   const { isPending, mutate } = useUpdateLesson();
-  const { data } = useGetAllClassrooms();
+  const { data } = useGetUserClassrooms();
 
   const form = useForm<createLessonSchemaWithClassroomId>({
     resolver: zodResolver(createLessonSchemaWithClassroomId),
@@ -41,10 +42,6 @@ export default function UpdateSession({
   });
 
   function onSubmit(values: createLessonSchemaWithClassroomId) {
-    const formattedDate =
-      values.date instanceof Date
-        ? values.date.toISOString().split("T")[0]
-        : values.date;
     mutate(
       {
         id: lesson.id,
@@ -52,7 +49,7 @@ export default function UpdateSession({
         //@ts-ignore
         lessonType: Number(values.lessonType),
         title: values.title,
-        date: formattedDate,
+        date: formatDate(values.date, "yyyy-MM-dd"),
         from: values.from,
         to: values.to,
       },
@@ -80,7 +77,7 @@ export default function UpdateSession({
               name="classRoomId"
               label="الصف الدراسي"
               options={data?.data?.map((classroom) => ({
-                label: classroom.subject,
+                label: `${classroom.grade} - ${classroom.subject}`,
                 value: classroom.id,
               }))}
               placeholder="اختر الصف الدراسي"
@@ -127,6 +124,7 @@ export default function UpdateSession({
             placeholder="وقت البدء"
             Icon={<Clock className="size-4" />}
             className="appearance-none pr-2 text-right [&::-webkit-calendar-picker-indicator]:hidden"
+            dir="rtl"
           />
 
           <FormInput
@@ -139,6 +137,7 @@ export default function UpdateSession({
             placeholder="وقت الانتهاء"
             Icon={<Clock className="size-4" />}
             className="appearance-none pr-2 text-right ltr:text-left rtl:text-right [&::-webkit-calendar-picker-indicator]:hidden"
+            dir="rtl"
           />
         </div>
         <Button type="submit">{isPending ? <Spinner /> : "تحديث"}</Button>

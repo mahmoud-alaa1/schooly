@@ -2,6 +2,7 @@ import { forgetPasswordSchema } from "@/schemas/forgetPasswordSchema";
 import { forgetPasswordService } from "@/services/authenticationServices";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function useForgetPassword() {
   const router = useRouter();
@@ -10,10 +11,13 @@ function useForgetPassword() {
       return await forgetPasswordService(data);
     },
     onSuccess: (data, variables) => {
-      router.push(`/verify-code?email=${variables.email}`);
+      toast.success("تم ارسال كود التحقق إلى بريدك الإلكتروني");
+      router.replace(`/verify-code?email=${variables.email}`, {
+        scroll: false,
+      });
     },
     onError: (error) => {
-      console.error("Error during password reset:", error);
+      toast.error(error.message || "حدث خطأ ما, حاول مرة أخرى");
     },
   });
   return mutation;

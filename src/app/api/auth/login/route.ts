@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     if (isAxiosError<IErrorResponse>(error)) {
       return NextResponse.json(
         {
-          data: error.response?.data,
+          message: error.response?.data?.message || "حدث خطا ما",
         },
         {
           status: error.response?.status || 500,
@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
       );
     }
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { message: "Internal Server Error" },
       { status: 500 },
     );
   }

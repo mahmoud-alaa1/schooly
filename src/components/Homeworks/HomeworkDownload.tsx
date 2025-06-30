@@ -21,10 +21,10 @@ const HomeworkDownload: React.FC<IHomeworkDownloadProps> = ({
   };
 
   return (
-    <div>
+    <div className="relative">
       <Button
         variant="outline"
-        className="rounded-full border-2"
+        className="rounded-full border-2 duration-200 hover:-translate-y-1 hover:border-[#02C189] hover:transition-all"
         onClick={downloadFileHandler}
         disabled={loading}
       >
