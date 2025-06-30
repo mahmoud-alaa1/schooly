@@ -33,13 +33,11 @@ export default function Profile() {
   const form = useForm<editProfileSchema>({
     resolver: zodResolver(editProfileSchema),
   });
-
   useEffect(() => {
     if (data?.data) {
       form.reset({
         name: data.data.name,
         email: data.data.email,
-        profilePictureUrl: data.data.profilePictureUrl,
       });
     }
   }, [data, form]);
@@ -48,6 +46,7 @@ export default function Profile() {
     mutate(values);
     setIsEditMode(false);
   }
+
 
   return (
     <Form {...form}>
@@ -74,11 +73,7 @@ export default function Profile() {
                   <Skeleton className="h-32 w-32 rounded-full" />
                 ) : (
                   <Image
-                    src={
-                      form.getValues("profilePictureUrl")
-                        ? getImageUrl(form.getValues("profilePictureUrl"))
-                        : getImageUrl(data?.data?.profilePictureUrl)
-                    }
+                    src={getImageUrl(data?.data?.profilePictureUrl)}
                     alt="صورة الملف الشخصي"
                     fill
                     className="rounded-full border-4 border-neutral-100 bg-orange-300 object-cover shadow-lg"
@@ -157,7 +152,7 @@ export default function Profile() {
                   className="h-12"
                   disabled={!isEditMode}
                   Icon={<Mail size={18} />}
-                  dir="rtl"
+                  dir="ltr"
                 />
               ) : (
                 <InfoItem

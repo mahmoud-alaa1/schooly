@@ -1,4 +1,5 @@
 "use client";
+import { getSubjectImage } from "@/lib/utils";
 import { ILesson } from "@/types/lessons";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -18,13 +19,14 @@ const LiveLessonInfo = ({ lesson }: LiveLessonInfoProps) => (
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
-      <Image
-        src="/physics.webp"
-        width={60}
-        height={60}
-        alt="subject logo"
-        className="rounded-md"
-      />
+      <div className="relative size-16">
+        <Image
+          src={getSubjectImage(lesson.subject)}
+          alt="subject logo"
+          className="rounded-full"
+          fill
+        />
+      </div>
     </motion.div>
     <motion.div
       initial={{ opacity: 0, y: 10 }}

@@ -23,7 +23,7 @@ function useJoinLesson() {
     onSuccess: (data, varaibles) => {
       localStorage.setItem("agora-token", data.data.token);
       router.push(
-        `/classrooms/${varaibles.classroomId}/lessons/${varaibles.lessonId}/video-call`,
+        `/classrooms/${varaibles.classroomId}/lessons/${varaibles.lesson.id}/video-call`,
       );
     },
 

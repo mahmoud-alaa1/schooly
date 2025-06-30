@@ -1,7 +1,7 @@
 "use client";
 
 import { BoxBody } from "@/components/Box";
-import { getDistanceToNow } from "@/lib/utils";
+import { getDistanceToNow, getImageUrl } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 import PostEdit from "./PostEdit";
@@ -13,16 +13,13 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function PostBody({ post }: { post: IPost }) {
   const [isEditing, setIsEditing] = useState(false);
   const { mutate: deletePost } = useDeletePost();
-
   return (
     <BoxBody className="flex flex-col gap-4 border-b py-6">
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
           <div className="relative size-12 rounded-full bg-orange-500">
             <Image
-              src={
-                post.profilePictureUrl ? post.profilePictureUrl : "/person1.png"
-              }
+              src={getImageUrl(post.profilePictureUrl)}
               alt={`صورة ${post.authorName}`}
               fill
               sizes="100%"

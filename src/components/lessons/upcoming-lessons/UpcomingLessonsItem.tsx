@@ -1,4 +1,4 @@
-import { getUpcomingLessonsBadgeText } from "@/lib/utils";
+import { getSubjectImage, getUpcomingLessonsBadgeText } from "@/lib/utils";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Badge } from "../../ui/badge";
@@ -17,6 +17,8 @@ export default function UpcomingLessonsItem({
     lesson.to,
   );
 
+  const { subject } = lesson;
+
   return (
     <li className="border-[#F0F0F0] py-3 not-last:border-b-1">
       <div className="flex items-center justify-between gap-1.5">
@@ -32,12 +34,14 @@ export default function UpcomingLessonsItem({
               damping: 20,
             }}
           >
-            <Image
-              src={"/physics.webp"}
-              width={60}
-              height={60}
-              alt="subject logo"
-            />
+            <div className="size-16 relative">
+              <Image
+                src={getSubjectImage(subject)}
+                alt="subject logo"
+                className="rounded-full"
+                fill
+              />
+            </div>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: -10 }}

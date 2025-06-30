@@ -8,9 +8,10 @@ import VerificationContent from "./VerificationContent";
 import RetryButton from "./RetryButton";
 import VerificationActions from "./VerificationActions";
 import { AnimatePresence, motion } from "framer-motion";
+import { ILesson } from "@/types/lessons";
 
 export type JoinLessonData = {
-  lessonId: string;
+  lesson: ILesson;
   image: string;
   classroomId: string;
 };
@@ -18,14 +19,14 @@ export type JoinLessonData = {
 interface VerificationProps {
   open: boolean;
   onClose: () => void;
-  lessonId: string;
+  lesson: ILesson;
   classroomId: string;
 }
 
 const Verification = ({
   open,
   onClose,
-  lessonId,
+  lesson,
   classroomId,
 }: VerificationProps) => {
   const [capturedImage, setCapturedImage] = useState<string>("");
@@ -38,13 +39,13 @@ const Verification = ({
     if (!capturedImage) return;
 
     const data: JoinLessonData = {
-      lessonId,
+      lesson,
       image: capturedImage,
       classroomId,
     };
 
     mutate(data);
-  }, [capturedImage, lessonId, classroomId, mutate]);
+  }, [capturedImage, lesson, classroomId, mutate]);
 
   const handleRetry = useCallback(() => {
     setCapturedImage("");

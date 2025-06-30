@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import { useDropzoneStore } from "@/store/dropzone";
 import useUpload from "@/hooks/useUpload";
 import { useRef } from "react";
+import useGetProfile from "@/hooks/profile/useGetProfile";
 
 interface FormImageDropzoneProps<TFormValues extends FieldValues> {
   control: Control<TFormValues>;
@@ -58,6 +59,8 @@ export default function FormImageDropzone<TFormValues extends FieldValues>({
     },
   });
 
+  const { data: profile } = useGetProfile();
+
   return (
     <FormField
       control={control}
@@ -89,7 +92,10 @@ export default function FormImageDropzone<TFormValues extends FieldValues>({
                   }}
                 >
                   <Image
-                    src={formFiles[0]?.url ?? getImageUrl(value)}
+                    src={
+                      formFiles[0]?.url ??
+                      getImageUrl(profile?.data?.profilePictureUrl)
+                    }
                     alt="صورة الملف الشخصي"
                     fill
                     className="rounded-full border-4 border-neutral-100 bg-orange-300 object-cover shadow-lg"

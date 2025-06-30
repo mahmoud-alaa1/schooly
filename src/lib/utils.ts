@@ -160,3 +160,37 @@ export function formatDate(date: string) {
     status: "active",
   };
 }
+
+export function isRTL(text: string): boolean {
+  const rtlCharRegex = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/;
+  return rtlCharRegex.test(text.trim()[0]);
+}
+
+export function getSubjectImage(subject: string) {
+  const normalized = subject.trim();
+
+  switch (normalized) {
+    case "رياضيات":
+      return "/maths.jpg";
+    case "فيزياء":
+      return "/physics.jpg";
+    case "كيمياء":
+      return "/physics.jpg"; // استخدم نفس صورة الفيزياء أو ضيف صورة للكيمياء لو عندك
+    case "جغرافيا":
+      return "/geography.jpg";
+    case "اللغة الإنجليزية":
+    case "انجليزي":
+      return "/english.jpg";
+    case "اللغة العربية":
+    case "عربي":
+      return "/arabic.jpg";
+    case "دين":
+    case "التربية الدينية":
+    case "قرآن":
+      return "/quran.jpg";
+    case "علوم":
+      return "/physics.jpg"; // مؤقتًا لو ما عندكش صورة علوم، ممكن تخصص واحدة لاحقًا
+    default:
+      return "/default-subject.png"; // fallback
+  }
+}

@@ -42,7 +42,7 @@ function LiveLesson() {
               <Verification
                 open={isVerificationOpen}
                 onClose={() => setIsVerificationOpen(false)}
-                lessonId={lesson.id}
+                lesson={lesson}
                 classroomId={lesson.classRoomId}
               />
             </motion.div>
