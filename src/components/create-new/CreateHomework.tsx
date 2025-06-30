@@ -13,6 +13,7 @@ import FormDropzone from "../forms/FormDropzone";
 import { Button } from "../ui/button";
 import useCreateHomework from "@/hooks/homeworks/useCreateHomework";
 import { useDropzoneStore } from "@/store/dropzone";
+import { format } from "date-fns";
 
 export default function CreateHomework() {
   const { classroomId } = useParams();
@@ -24,7 +25,7 @@ export default function CreateHomework() {
   });
 
   function onSubmit(values: createHomeworkSchema) {
-    const formattedDate = values.deadline.toISOString();
+    const formattedDate = format(values.deadline, "yyyy-MM-dd'T'HH:mm:ss");
     mutate(
       {
         ...values,

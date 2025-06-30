@@ -12,7 +12,9 @@ function useForgetPassword() {
     },
     onSuccess: (data, variables) => {
       toast.success("تم ارسال كود التحقق إلى بريدك الإلكتروني");
-      router.replace(`/verify-code?email=${variables.email}`);
+      router.replace(`/verify-code?email=${variables.email}`, {
+        scroll: false,
+      });
     },
     onError: (error) => {
       toast.error(error.message || "حدث خطأ ما, حاول مرة أخرى");

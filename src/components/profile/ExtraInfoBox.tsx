@@ -78,6 +78,7 @@ export default function ExtraInfoBox() {
   const getValue = (key: keyof typeof studentExtraKeys) => {
     const value = data.data.studentExtra?.[key];
     if (key === "department" && value === 0) return "أمريكي";
+    else if (key === "department" && value === 1) return "بريطاني";
     return value;
   };
 

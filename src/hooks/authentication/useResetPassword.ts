@@ -9,7 +9,9 @@ function useResetPassword() {
     mutationFn: resetPasswordService,
     onSuccess: (data) => {
       toast.success("تم إعادة تعيين كلمة المرور بنجاح");
-      router.replace("/login?message=password-reset-successful");
+      router.replace("/login?message=password-reset-successful", {
+        scroll: false,
+      });
     },
     onError: (error) => {
       toast.error(error.message || "حدث خطأ ما, حاول مرة أخرى");

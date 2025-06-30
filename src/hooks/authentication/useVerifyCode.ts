@@ -8,7 +8,9 @@ function useVerifyCode() {
   const mutation = useMutation({
     mutationFn: verifyCodeService,
     onSuccess: (_, variables) => {
-      router.replace(`/reset-password?email=${variables.email}`);
+      router.replace(`/reset-password?email=${variables.email}`, {
+        scroll: false,
+      });
     },
     onError: (error) => {
       toast.error(error.message || "حدث خطأ ما, حاول مرة أخرى");

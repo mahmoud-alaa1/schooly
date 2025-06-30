@@ -21,7 +21,9 @@ export default function useLogin() {
       return res.json() as Promise<ILoginResponse>;
     },
     onSuccess: (data) => {
-      router.push("/");
+      router.replace("/", {
+        scroll: false,
+      });
       localStorage.setItem("token", data.token);
       login(data.data);
       toast.success("تم تسجيل الدخول بنجاح");
