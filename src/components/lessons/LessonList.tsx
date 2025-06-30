@@ -10,7 +10,7 @@ import { UPCOMING_LESSONS_PER_PAGE } from "@/lib/constants";
 import { ILesson } from "@/types/lessons";
 import React, { forwardRef } from "react";
 import LessonItem from "./lesson-item/LessonItem";
-import HomeworkDetailsSkeleton from "../Homeworks/teacher/HomeworkDetailsSkeleton";
+import HomeworkDetailsSkeleton from "../Homeworks/homeworks/HomeworkDetailsSkeleton";
 import RoleGuard from "../RoleGuard";
 
 interface LessonListProps {
@@ -33,7 +33,7 @@ const LessonList = forwardRef<HTMLDivElement, LessonListProps>(
           <div className="space-y-4">
             {lessons?.map((lesson, index) => (
               <div
-                key={lesson.id}
+                key={`${lesson.id}-${index}`}
                 ref={index === lessons.length - 1 ? ref : undefined}
               >
                 <LessonItem lesson={lesson} />

@@ -32,10 +32,6 @@ export const HomeworkInfo: React.FC<HomeworkInfoProps> = ({
           <Calendar className="h-4 w-4" />
           التسليم: {formattedDate}
         </span>
-        <span className="flex items-center gap-1">
-          <FileText className="h-4 w-4" />
-          {/* {homework.totalSubmissions}/{homework.totalStudents} مُرسل */}
-        </span>
       </div>
     </div>
   );

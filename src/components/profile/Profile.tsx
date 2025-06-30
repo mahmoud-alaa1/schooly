@@ -157,6 +157,7 @@ export default function Profile() {
                   className="h-12"
                   disabled={!isEditMode}
                   Icon={<Mail size={18} />}
+                  dir="rtl"
                 />
               ) : (
                 <InfoItem

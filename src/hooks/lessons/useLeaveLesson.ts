@@ -15,12 +15,14 @@ function useLeaveLesson() {
     },
     onSuccess: () => {
       localStorage.removeItem("agora-token");
-      router.push(`/`);
+      router.replace(`/`, { scroll: true });
       toast.success("تم مغادرة الحصة ");
     },
 
     onError: (error) => {
-      console.log("Error during verify code:", error.name);
+      toast.error(
+        error.message || "حدث خطأ أثناء مغادرة الحصة. يرجى المحاولة مرة أخرى.",
+      );
     },
   });
   return mutation;

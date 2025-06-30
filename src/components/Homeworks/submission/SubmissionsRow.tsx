@@ -1,13 +1,4 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { TableCell } from "@/components/ui/table";
 
 import { formatDate } from "@/lib/utils";
 import HomeworkDownload from "../HomeworkDownload";

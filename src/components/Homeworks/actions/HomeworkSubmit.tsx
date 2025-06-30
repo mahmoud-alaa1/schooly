@@ -83,7 +83,7 @@ function HomeworkSubmit({ homework }: HomeworkSubmitProps) {
   ) : (
     <div className="flex items-center gap-2 text-red-500">
       <FileText className="h-4 w-4" />
-      لم يتم تسليم الواجب بعد
+      انتهى موعد تسليم الواجب
     </div>
   );
 }

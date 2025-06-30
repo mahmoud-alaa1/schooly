@@ -1,16 +1,19 @@
 import { verifyCodeService } from "@/services/authenticationServices";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function useVerifyCode() {
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: verifyCodeService,
-    onSuccess: (data, variables) => {
-      router.push(`/auth/reset-password?email=${variables.email}`);
+    onSuccess: (_, variables) => {
+      router.replace(`/reset-password?email=${variables.email}`, {
+        scroll: false,
+      });
     },
     onError: (error) => {
-      console.error("Error during verify code:", error);
+      toast.error(error.message || "حدث خطأ ما, حاول مرة أخرى");
     },
   });
   return mutation;

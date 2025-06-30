@@ -9,12 +9,10 @@ import { Button } from "@/components/ui/button";
 import { SendHorizonal } from "lucide-react";
 import { commentSchema } from "@/schemas/commentsSchema";
 import Spinner from "@/components/Spinner";
-import { useAuth } from "@/store/auth";
 import useCreatePost from "@/hooks/posts/useCreatePost";
 import { useParams } from "next/navigation";
 import UserAvatar from "../UserAvatar";
 export default function CreatePost() {
-  const user = useAuth((state) => state.user);
   const { isPending, mutate } = useCreatePost();
   const form = useForm<commentSchema>({
     resolver: zodResolver(commentSchema),

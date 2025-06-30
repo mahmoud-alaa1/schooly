@@ -1,3 +1,4 @@
+"use client";
 import {
   Sheet,
   SheetContent,
@@ -8,11 +9,18 @@ import {
 import { Button } from "../ui/button";
 import SideNavLogo from "../Logos/SideNavLogo";
 import SideNav from "./SideNav";
+import { useState } from "react";
 
 export default function SideNavMenu() {
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className="fixed top-1/4 right-0 z-50 xl:hidden">
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
           <Button variant="ghost" className="p-0 hover:bg-transparent">
             <SideNavLogo withTitle={false} />
@@ -26,7 +34,7 @@ export default function SideNavMenu() {
           <SheetDescription className="sr-only">
             قائمة تحتوي على روابط التنقل الرئيسية للتطبيق
           </SheetDescription>
-          <SideNav />
+          <SideNav onClick={handleClose} />
         </SheetContent>
       </Sheet>
     </div>

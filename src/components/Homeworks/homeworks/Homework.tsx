@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import useGetAllHomeworks from "@/hooks/homeworks/useGetAllHomeworks";
 import useGetUserClassrooms from "@/hooks/classrooms/useGetUserClassrooms";
 import HomeworkList from "./HomeworkList";
-import HomeworkFilter from "./HomeworkFilter";
+import HomeworkFilter from "../homeworksFilters/HomeworkFilter";
 import { useRouter, useSearchParams } from "next/navigation";
 import HomeworkHeader from "./HomeworkHeader";
 import Error from "@/components/Error";

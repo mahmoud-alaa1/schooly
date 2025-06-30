@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import RoleGuard from "@/components/RoleGuard";
 import EditLesson from "../actions/EditLesson";
 import DeleteLesson from "../actions/DeleteLesson";
+import { getUpcomingLessonsBadgeText } from "@/lib/utils";
 
 const statusColor = (status: number) => {
   switch (status) {
@@ -26,6 +27,8 @@ const statusColor = (status: number) => {
       return "bg-gray-100 text-gray-800";
     case 2:
       return "bg-red-100 text-red-800";
+    case 3:
+      return "bg-green-100 text-green-800";
     default:
       return "";
   }
@@ -74,17 +77,28 @@ function LessonInfo({ lesson }: ILessonInfoProps) {
 
   const hours = Math.floor(durationMinutes / 60);
   const minutes = durationMinutes % 60;
+  const { text, variant } = getUpcomingLessonsBadgeText(
+    lesson.date,
+    lesson.from,
+    lesson.to,
+  );
   return (
     <div className="flex-1">
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
         <div className="flex-1">
           <div className="mb-2 flex items-center gap-3">
             <h3 className="text-xl font-semibold">{lesson.subject}</h3>
-            <span
-              className={`rounded px-2 py-1 text-xs ${statusColor(lesson.status)}`}
-            >
-              {statusText(lesson.status)}
-            </span>
+            {text === "جارية الآن" ? (
+              <span className={`rounded px-2 py-1 text-xs ${statusColor(3)}`}>
+                جارية الآن
+              </span>
+            ) : (
+              <span
+                className={`rounded px-2 py-1 text-xs ${statusColor(lesson.status)}`}
+              >
+                {statusText(lesson.status)}
+              </span>
+            )}
           </div>
 
           <div className="grid grid-cols-1 gap-2 text-sm text-gray-600 md:grid-cols-2 lg:grid-cols-5">
@@ -108,8 +122,8 @@ function LessonInfo({ lesson }: ILessonInfoProps) {
                   <Clock className="h-4 w-4" />
                   الساعة{" "}
                   {formatDate(
-                    parse(lesson.from, "HH:mm:ss", new Date()),
-                    "HH:MM a",
+                    new Date(`${lesson.date}T${lesson.from}`),
+                    "HH:mm a",
                     {
                       locale: arEG,
                     },
@@ -122,6 +136,7 @@ function LessonInfo({ lesson }: ILessonInfoProps) {
               <span>
                 {hours > 0 ? `${hours} س` : ""}{" "}
                 {minutes > 0 ? `${minutes} د` : ""}
+                {hours === 0 && minutes === 0 ? "مدة غير محددة" : ""}
               </span>
             </div>
 

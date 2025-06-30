@@ -13,17 +13,22 @@ export default function useLogin() {
         method: "POST",
         body: JSON.stringify(data),
       });
-      if (!res.ok) throw new Error((await res.json()).data.message);
+      if (!res.ok) {
+        throw new Error(
+          (await res.json()).message || "حدث خطأ ما, حاول مرة أخرى ",
+        );
+      }
       return res.json() as Promise<ILoginResponse>;
     },
     onSuccess: (data) => {
-      router.push("/");
+      router.replace("/", {
+        scroll: false,
+      });
       localStorage.setItem("token", data.token);
       login(data.data);
       toast.success("تم تسجيل الدخول بنجاح");
     },
     onError: (error) => {
-      console.error(error);
       toast.error(error.message);
     },
   });

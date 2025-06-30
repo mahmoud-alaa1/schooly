@@ -7,6 +7,7 @@ const NavLink = ({
   activeClassName,
   nonActiveClassName,
   className,
+  onClick,
   ...rest
 }: {
   children: React.ReactNode;
@@ -14,6 +15,7 @@ const NavLink = ({
   activeClassName?: string;
   nonActiveClassName?: string;
   className?: string;
+  onClick?: () => void;
   rest?: React.AnchorHTMLAttributes<HTMLAnchorElement>;
 }) => {
   const pathname = usePathname();
@@ -23,7 +25,7 @@ const NavLink = ({
     isActive ? activeClassName : nonActiveClassName
   } ${className} `;
   return (
-    <Link href={href} className={newClassName} {...rest}>
+    <Link href={href} className={newClassName} onClick={onClick} {...rest}>
       {children}
     </Link>
   );
