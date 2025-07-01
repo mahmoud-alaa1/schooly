@@ -38,7 +38,7 @@ export default function VideoTile({
         videoTrack.play(containerRef.current);
         return () => videoTrack.stop();
       } catch (error) {
-        console.error(`Error playing track for user ${uid}:`, error);
+        console.log(`Error playing track for user ${uid}:`, error);
       }
     }
   }, [videoTrack, uid, hasVideo]);
@@ -70,7 +70,7 @@ export default function VideoTile({
       )}
 
       <NameBadge
-        name={isLocal ? "You" : data?.data.name?? "loading.."}
+        name={isLocal ? "You" : (data?.data.name ?? "loading..")}
         audio={muted || !hasAudio}
       />
 
