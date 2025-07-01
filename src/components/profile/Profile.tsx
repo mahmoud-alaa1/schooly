@@ -45,6 +45,7 @@ export default function Profile() {
   function onSubmit(values: editProfileSchema) {
     mutate(values);
     setIsEditMode(false);
+
   }
 
 
@@ -73,6 +74,7 @@ export default function Profile() {
                   <Skeleton className="h-32 w-32 rounded-full" />
                 ) : (
                   <Image
+                    suppressHydrationWarning
                     src={getImageUrl(data?.data?.profilePictureUrl)}
                     alt="صورة الملف الشخصي"
                     fill
