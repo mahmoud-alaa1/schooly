@@ -145,7 +145,7 @@ export function formatDate(date: string) {
   const formattedDate = format(parsedDate, "dd MMMM yyyy", {
     locale: arEG,
   });
-  const formattedTime = format(parsedDate, "HH:mm", {
+  const formattedTime = format(parsedDate, "HH:mm a", {
     locale: arEG,
   });
 
