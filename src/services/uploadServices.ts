@@ -9,7 +9,6 @@ export async function getFile({ fileUrl }: { fileUrl: string }) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data?.message || "حدث خطأ ما في الحصول على الملف",
       );
@@ -38,7 +37,6 @@ export async function postFile(
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data?.message || "حدث خطأ ما في رفع الملف",
       );

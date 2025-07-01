@@ -75,7 +75,6 @@ export async function submitHomework(data: ISubmitHomeworkPostData) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data?.message || "حدث خطأ ما في انشاء الواجب",
       );
@@ -92,7 +91,6 @@ export async function getSubmittedStudents(homeWorkId: string) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data?.message || "حدث خطأ ما في ارسال الواجب",
       );

@@ -76,7 +76,6 @@ export async function updateLesson(data: ILessonPutData) {
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {
-      console.error(error);
       throw new Error(
         error.response?.data?.message || "حدث خطأ ما في تحديث الحصة",
       );

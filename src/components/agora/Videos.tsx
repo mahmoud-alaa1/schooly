@@ -54,7 +54,7 @@ export const LiveVideo = () => {
           track.stop();
         }
       } catch (error) {
-        console.error("Error playing audio track:", error);
+        console.log("Error playing audio track:", error);
       }
     });
     return () => {
@@ -62,7 +62,7 @@ export const LiveVideo = () => {
         try {
           track.stop();
         } catch (error) {
-          console.error("Error stopping audio track:", error);
+          console.log("Error stopping audio track:", error);
         }
       });
     };
@@ -92,7 +92,6 @@ export const LiveVideo = () => {
   );
 
   usePublish([localMicrophoneTrack, localCameraTrack]);
-
 
   return (
     <>

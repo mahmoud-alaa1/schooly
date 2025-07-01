@@ -2,6 +2,7 @@
 import { Button } from "./ui/button";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function LogoutButton() {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function LogoutButton() {
 
       router.push("/login");
     } catch (error) {
-      console.error(error);
+      toast.error("حدث خطأ ما أثناء تسجيل الخروج");
     }
   }
 
@@ -26,7 +27,7 @@ export default function LogoutButton() {
       size="icon"
       onClick={handleLogout}
     >
-      <LogOut className="size-6 font-bold " />
+      <LogOut className="size-6 font-bold" />
     </Button>
   );
 }
