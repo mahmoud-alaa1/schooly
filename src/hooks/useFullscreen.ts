@@ -14,7 +14,6 @@ export const useFullscreen = <
 
   const toggleFullscreen = () => {
     if (!ref.current) {
-      console.error("No element reference found for fullscreen");
       return;
     }
 
@@ -27,7 +26,7 @@ export const useFullscreen = <
         setIsFullscreen(false);
       }
     } catch (error) {
-      console.error("Error toggling fullscreen:", error);
+      console.log("Error toggling fullscreen:", error);
     }
   };
 

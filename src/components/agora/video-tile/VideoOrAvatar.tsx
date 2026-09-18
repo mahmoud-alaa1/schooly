@@ -25,7 +25,7 @@ const VideoOrAvatar: React.FC<VideoOrAvatarProps> = ({
         return () => videoTrack.stop();
       } catch (error) {
         // Optionally handle error
-        console.error("Error playing video track:", error);
+        console.log("Error playing video track:", error);
       }
     }
   }, [videoTrack, hasVideo]);
